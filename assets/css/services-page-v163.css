@@ -1,0 +1,84 @@
+/* v1.6.3 polish: replace large grey left-side section orb with smaller orbit-dot accents */
+#tranter-services-page .twd-section::before,
+#tranter-services-page .tis-section::before {
+  left: clamp(18px, 6vw, 88px) !important;
+  top: 82px !important;
+  width: 18px !important;
+  height: 18px !important;
+  border-radius: 50% !important;
+  background: #009b55 !important;
+  box-shadow:
+    0 0 0 14px rgba(0,155,85,.09),
+    76px 118px 0 -2px #891219,
+    76px 118px 0 12px rgba(137,18,25,.08),
+    148px 36px 0 -4px #13b663,
+    148px 36px 0 10px rgba(19,182,99,.07) !important;
+  opacity: .55 !important;
+  z-index: -1 !important;
+}
+
+#tranter-services-page .twd-section::after,
+#tranter-services-page .tis-section::after {
+  right: clamp(18px, 6vw, 88px) !important;
+  top: auto !important;
+  bottom: 74px !important;
+  width: 16px !important;
+  height: 16px !important;
+  border-radius: 50% !important;
+  background: #891219 !important;
+  box-shadow:
+    0 0 0 13px rgba(137,18,25,.075),
+    -82px -96px 0 -2px #009b55,
+    -82px -96px 0 12px rgba(0,155,85,.075) !important;
+  opacity: .42 !important;
+  z-index: -1 !important;
+}
+
+#tranter-services-page .twd-breadcrumb,
+#tranter-services-page .tis-breadcrumb {
+  position: relative;
+  z-index: 3;
+  padding: 20px 0 0;
+  background: #ffffff;
+  font-family: Mulish, Inter, Arial, sans-serif;
+}
+
+#tranter-services-page .twd-breadcrumb .twd-container,
+#tranter-services-page .tis-breadcrumb .tis-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: rgba(0,27,20,.58);
+  font-size: 13px;
+  font-weight: 800;
+}
+
+#tranter-services-page .twd-breadcrumb a,
+#tranter-services-page .tis-breadcrumb a {
+  color: #009b55 !important;
+}
+
+#tranter-services-page .twd-breadcrumb strong,
+#tranter-services-page .tis-breadcrumb strong {
+  color: #001b14;
+}
+
+@media (max-width: 680px) {
+  #tranter-services-page .twd-section::before,
+  #tranter-services-page .tis-section::before {
+    left: 22px !important;
+    top: 46px !important;
+    opacity: .38 !important;
+    transform: scale(.78);
+    transform-origin: left top;
+  }
+
+  #tranter-services-page .twd-section::after,
+  #tranter-services-page .tis-section::after {
+    right: 22px !important;
+    bottom: 44px !important;
+    opacity: .30 !important;
+    transform: scale(.78);
+    transform-origin: right bottom;
+  }
+}
