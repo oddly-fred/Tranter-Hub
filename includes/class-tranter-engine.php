@@ -21,6 +21,7 @@ class Tranter_Engine {
         require_once TRANTER_ENGINE_PATH . 'includes/services-page.php';
         require_once TRANTER_ENGINE_PATH . 'includes/it-support-page.php';
         require_once TRANTER_ENGINE_PATH . 'includes/smart-solutions-page.php';
+        require_once TRANTER_ENGINE_PATH . 'includes/hr-support-page.php';
 
         Tranter_Post_Types::init();
         Tranter_Admin_App::init();
@@ -37,6 +38,7 @@ class Tranter_Engine {
         Tranter_Services_Page::init();
         Tranter_IT_Support_Page::init();
         Tranter_Smart_Solutions_Page::init();
+        Tranter_HR_Support_Page::init();
         Tranter_Seeder::ensure_sections();
         if (method_exists('Tranter_Seeder', 'migrate_106')) Tranter_Seeder::migrate_106();
         if (method_exists('Tranter_Seeder', 'migrate_109')) Tranter_Seeder::migrate_109();
@@ -54,6 +56,7 @@ class Tranter_Engine {
         require_once TRANTER_ENGINE_PATH . 'includes/services-page.php';
         require_once TRANTER_ENGINE_PATH . 'includes/it-support-page.php';
         require_once TRANTER_ENGINE_PATH . 'includes/smart-solutions-page.php';
+        require_once TRANTER_ENGINE_PATH . 'includes/hr-support-page.php';
         Tranter_Post_Types::register();
         Tranter_Seeder::seed();
         if (class_exists('Tranter_Knowledge_Hub')) Tranter_Knowledge_Hub::activation_setup();
