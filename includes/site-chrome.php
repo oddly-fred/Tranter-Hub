@@ -37,16 +37,49 @@ class Tranter_Site_Chrome {
         // Keep Campaigns out of navigation by default. Campaigns remain direct landing pages.
         $html = str_replace(['>Campaigns<', '>Campaign<'], '><', $html);
 
+        // Central navigation map. Every new public page should be added here so
+        // header/footer links remain connected, including WordPress subdirectory installs.
+        $html = self::normalize_site_links($html);
+
         if ($market !== 'ng') {
             // Global visitors should not see Nigeria/event-specific navigation by default.
             $html = self::remove_anchor_by_href($html, '/event/');
+            $html = self::remove_anchor_by_href($html, '/wp/event/');
             $html = self::remove_anchor_by_href($html, '/itgOV-2026/');
             $html = self::remove_anchor_by_href($html, '/itgov-2026/');
+            $html = self::remove_anchor_by_href($html, '/wp/itgov-2026/');
             $html = self::remove_anchor_by_text($html, 'Events & Webinars');
 
             // Keep the footer globally relevant while preserving the supplied design.
             $html = str_replace('3-6 Alhaji Adejumo Avenue, Ilupeju, Lagos, Nigeria.', 'Remote global delivery with onsite engagement where required.', $html);
         }
+
+        return $html;
+    }
+
+    private static function normalize_site_links($html) {
+        $links = [
+            '/who-we-are/' => '/wp/who-we-are/',
+            '/company/' => '/wp/who-we-are/',
+            '/about/' => '/wp/who-we-are/',
+            '/services/' => '/wp/what-we-do/',
+            '/solutions/' => '/wp/what-we-do/',
+            '/what-we-do/' => '/wp/what-we-do/',
+            '/knowledge-hub/' => '/wp/knowledge-hub/',
+            '/insights/' => '/wp/knowledge-hub/',
+            '/contact/' => '/wp/contact/',
+            '/event/' => '/wp/event/',
+            '/privacy-policy/' => '/wp/privacy-policy/',
+        ];
+
+        foreach ($links as $from => $to) {
+            $html = str_replace('href="' . $from . '"', 'href="' . $to . '"', $html);
+            $html = str_replace("href='" . $from . "'", "href='" . $to . "'", $html);
+        }
+
+        // Public naming correction: the Services page is now labelled What We Do.
+        $html = str_replace('View all services →', 'View What We Do →', $html);
+        $html = str_replace('View All Services', 'View What We Do', $html);
 
         return $html;
     }
