@@ -41,6 +41,10 @@ class Tranter_Site_Chrome {
         // header/footer links remain connected, including WordPress subdirectory installs.
         $html = self::normalize_site_links($html);
 
+        if ($context === 'header') {
+            $html = self::extend_demo_popup_listener($html);
+        }
+
         if ($context === 'footer') {
             $html = self::connect_footer_service_links($html, $market);
         }
@@ -111,6 +115,16 @@ class Tranter_Site_Chrome {
         $html = str_replace('View all insights →', 'View Insights →', $html);
 
         return $html;
+    }
+
+    private static function extend_demo_popup_listener($html) {
+        $old_selector = '[data-tdp-open], .tdp-open-btn, .tmh-demo, .tmh-mobile-demo';
+        $new_selector = '[data-tdp-open], [data-te-open-demo], [data-tis-open-demo], .tdp-open-btn, .tmh-demo, .tmh-mobile-demo';
+        $html = str_replace($old_selector, $new_selector, $html);
+
+        $old_condition = "if(t.hasAttribute('data-tdp-open') || label.indexOf('book') !== -1 || label.indexOf('demo') !== -1){";
+        $new_condition = "if(t.hasAttribute('data-tdp-open') || t.hasAttribute('data-te-open-demo') || t.hasAttribute('data-tis-open-demo') || label.indexOf('book') !== -1 || label.indexOf('demo') !== -1){";
+        return str_replace($old_condition, $new_condition, $html);
     }
 
     private static function connect_footer_service_links($html, $market = 'ng') {
