@@ -19,6 +19,7 @@
         '<article class="te-guide-card"><h3>IT Support Services</h3><pre class="te-code-block">[te_site_header]\n\n[te_it_support_page]\n\n[te_site_footer]</pre><p class="te-muted">Use this on the /wp/it-support-services/ WordPress page.</p></article>' +
         '<article class="te-guide-card"><h3>Smart Solutions</h3><pre class="te-code-block">[te_site_header]\n\n[te_smart_solutions_page]\n\n[te_site_footer]</pre><p class="te-muted">Use this on the /wp/smart-solutions/ WordPress page. Nigeria-only: hidden for non-Nigerian visitors.</p></article>' +
         '<article class="te-guide-card"><h3>HR Support Services</h3><pre class="te-code-block">[te_site_header]\n\n[te_hr_support_page]\n\n[te_site_footer]</pre><p class="te-muted">Use this on the /wp/hr-support-services/ WordPress page.</p></article>' +
+        '<article class="te-guide-card"><h3>Digital Marketing & Brand Development</h3><pre class="te-code-block">[te_site_header]\n\n[te_digital_marketing_brand_page]\n\n[te_site_footer]</pre><p class="te-muted">Use this on the /wp/digital-marketing-brand-development/ WordPress page.</p></article>' +
       '</div>' +
       '<div class="te-shortcode-table">' +
         '<div class="te-shortcode-row"><code>[te_it_support_page]</code><span>Full IT Support Services page</span><b class="te-status-available">Available</b></div>' +
@@ -27,6 +28,9 @@
         '<div class="te-shortcode-row"><code>[te_smart_solution_page]</code><span>Alias for Smart Solutions page, Nigeria-only</span><b class="te-status-available">Available</b></div>' +
         '<div class="te-shortcode-row"><code>[te_hr_support_page]</code><span>Full HR Support Services page</span><b class="te-status-available">Available</b></div>' +
         '<div class="te-shortcode-row"><code>[te_hr_support_services_page]</code><span>Alias for HR Support Services page</span><b class="te-status-available">Available</b></div>' +
+        '<div class="te-shortcode-row"><code>[te_digital_marketing_brand_page]</code><span>Full Digital Marketing & Brand Development page</span><b class="te-status-available">Available</b></div>' +
+        '<div class="te-shortcode-row"><code>[te_digital_marketing_brand_development_page]</code><span>Alias for Digital Marketing & Brand Development page</span><b class="te-status-available">Available</b></div>' +
+        '<div class="te-shortcode-row"><code>[te_digital_marketing_page]</code><span>Short alias for Digital Marketing page</span><b class="te-status-available">Available</b></div>' +
       '</div>';
 
     main.appendChild(panel);
