@@ -9,6 +9,7 @@ class Tranter_Services_Page {
             'te_solutions_page' => 'page',
             'te_services_hero' => 'hero',
             'te_what_we_do_hero' => 'hero',
+            'te_services_breadcrumb' => 'breadcrumb',
             'te_services_overview' => 'overview',
             'te_solution_categories' => 'services_grid',
             'te_services_grid' => 'services_grid',
@@ -24,6 +25,7 @@ class Tranter_Services_Page {
     private static function enqueue() {
         wp_enqueue_style('tranter-engine-public-font', 'https://fonts.googleapis.com/css2?family=Mulish:wght@300;400;500;600;700;800;900&display=swap', [], null);
         wp_enqueue_style('tranter-engine-services-page', TRANTER_ENGINE_URL . 'assets/css/services-page.css', [], TRANTER_ENGINE_VERSION);
+        wp_enqueue_style('tranter-engine-services-page-polish', TRANTER_ENGINE_URL . 'assets/css/services-page-v163.css', ['tranter-engine-services-page'], TRANTER_ENGINE_VERSION);
     }
 
     public static function page($atts = []) {
@@ -31,6 +33,7 @@ class Tranter_Services_Page {
         ob_start();
         echo '<div id="tranter-services-page" class="twd-page">';
         echo self::hero($atts);
+        echo self::breadcrumb($atts);
         echo self::services_grid($atts);
         echo self::intelligence($atts);
         echo self::metrics($atts);
@@ -72,32 +75,29 @@ class Tranter_Services_Page {
         <?php return ob_get_clean();
     }
 
+    public static function breadcrumb($atts = []) {
+        self::enqueue();
+        return '<nav class="twd-breadcrumb" aria-label="Breadcrumb"><div class="twd-container"><a href="/wp/">Home</a><span>/</span><strong>What We Do</strong></div></nav>';
+    }
+
     public static function overview($atts = []) { return self::services_grid($atts); }
 
     public static function services_grid($atts = []) {
         self::enqueue();
-        $services = [
-            ['IT Support Services','Reliable infrastructure support, uptime management and service continuity across operating environments.','support'],
-            ['Smart Solutions','Workflow automation and intelligent systems that reduce manual effort and improve decisions.','smart'],
-            ['HR Support Services','Technology-enabled workforce operations for distributed teams and enterprise environments.','hr'],
-            ['Digital Marketing & Brand','Enterprise-grade digital presence aligned to growth, credibility and customer acquisition.','brand'],
-            ['Business Process Outsourcing','Managed operational systems that turn support functions into scalable execution models.','bpo'],
-            ['Website Dev & Optimisation','High-performance web platforms built as commercial and operational infrastructure.','web'],
-            ['Cybersecurity','Security-first operations that protect infrastructure, data and business continuity.','security'],
-        ];
+        $services = self::service_links();
         ob_start(); ?>
         <section class="twd-section" id="our-services">
             <div class="twd-container">
                 <?php echo self::header('Our Services', 'Technology Solutions Built for <span>Modern Business</span>', 'We focus on the services that directly improve performance, resilience, customer experience and operational control.'); ?>
                 <div class="twd-services-grid">
                     <?php foreach ($services as $i => $service): ?>
-                        <article class="twd-service-card <?php echo $service[2] === 'security' ? 'cyber' : ''; ?>">
+                        <a class="twd-service-card <?php echo $service['type'] === 'security' ? 'cyber' : ''; ?>" href="<?php echo esc_url($service['url']); ?>">
                             <div class="twd-service-num"><?php echo esc_html(str_pad($i + 1, 2, '0', STR_PAD_LEFT)); ?></div>
-                            <div class="twd-service-icon"><?php echo self::icon($service[2]); ?></div>
-                            <h3><?php echo esc_html($service[0]); ?></h3>
-                            <p><?php echo esc_html($service[1]); ?></p>
-                            <a class="twd-learn" href="#book-a-demo">Learn more</a>
-                        </article>
+                            <div class="twd-service-icon"><?php echo self::icon($service['type']); ?></div>
+                            <h3><?php echo esc_html($service['title']); ?></h3>
+                            <p><?php echo esc_html($service['copy']); ?></p>
+                            <span class="twd-learn">Learn more</span>
+                        </a>
                     <?php endforeach; ?>
                 </div>
             </div>
@@ -160,6 +160,18 @@ class Tranter_Services_Page {
     }
 
     private static function header($pill, $title, $copy) { return '<header class="twd-header"><div class="twd-pill">' . esc_html($pill) . '</div><h2>' . wp_kses_post($title) . '</h2><div class="twd-divider"><span></span><i></i><span></span></div><p>' . esc_html($copy) . '</p></header>'; }
+
+    private static function service_links() {
+        return [
+            ['title' => 'IT Support Services', 'copy' => 'Reliable infrastructure support, uptime management and service continuity across operating environments.', 'type' => 'support', 'url' => '/wp/it-support-services/'],
+            ['title' => 'Smart Solutions', 'copy' => 'Workflow automation and intelligent systems that reduce manual effort and improve decisions.', 'type' => 'smart', 'url' => '/wp/smart-solutions/'],
+            ['title' => 'HR Support Services', 'copy' => 'Technology-enabled workforce operations for distributed teams and enterprise environments.', 'type' => 'hr', 'url' => '/wp/hr-support-services/'],
+            ['title' => 'Digital Marketing & Brand', 'copy' => 'Enterprise-grade digital presence aligned to growth, credibility and customer acquisition.', 'type' => 'brand', 'url' => '/wp/digital-marketing-brand-development/'],
+            ['title' => 'Business Process Outsourcing', 'copy' => 'Managed operational systems that turn support functions into scalable execution models.', 'type' => 'bpo', 'url' => '/wp/business-process-outsourcing/'],
+            ['title' => 'Website Dev & Optimisation', 'copy' => 'High-performance web platforms built as commercial and operational infrastructure.', 'type' => 'web', 'url' => '/wp/website-development-optimization/'],
+            ['title' => 'Cybersecurity', 'copy' => 'Security-first operations that protect infrastructure, data and business continuity.', 'type' => 'security', 'url' => '/wp/cybersecurity/'],
+        ];
+    }
 
     private static function hero_cards() { return [['Managed IT','Reliable support, uptime and service continuity.','','support'],['Cybersecurity','Security-first operations for business resilience.','','security'],['Automation','Smarter workflows that reduce manual effort.','','smart'],['Digital Systems','Scalable platforms for modern enterprises.','','web']]; }
 
