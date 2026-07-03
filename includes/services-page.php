@@ -22,6 +22,10 @@ class Tranter_Services_Page {
         foreach ($shortcodes as $tag => $method) add_shortcode($tag, [__CLASS__, $method]);
     }
 
+    private static function is_ng() {
+        return !class_exists('Tranter_Market') || Tranter_Market::current() === 'ng';
+    }
+
     private static function enqueue() {
         wp_enqueue_style('tranter-engine-public-font', 'https://fonts.googleapis.com/css2?family=Mulish:wght@300;400;500;600;700;800;900&display=swap', [], null);
         wp_enqueue_style('tranter-engine-services-page', TRANTER_ENGINE_URL . 'assets/css/services-page.css', [], TRANTER_ENGINE_VERSION);
@@ -108,69 +112,30 @@ class Tranter_Services_Page {
     public static function intelligence($atts = []) {
         self::enqueue();
         ob_start(); ?>
-        <section class="twd-section twd-soft" id="service-intelligence">
-            <div class="twd-container">
-                <?php echo self::header('Service Intelligence', 'Smarter Delivery with <span>AI-Assisted Visibility</span>', 'We combine skilled delivery teams with technology intelligence so leaders can see performance, risks and opportunities faster.'); ?>
-                <div class="twd-two">
-                    <article class="twd-card twd-copy-card">
-                        <h3>From service delivery to <span>operational advantage</span></h3>
-                        <p>Tranter helps organisations move from reactive support to proactive operations through managed services, automated workflows, service analytics and secure infrastructure oversight.</p>
-                        <p>The result is a technology environment that is easier to manage, easier to scale and easier to trust.</p>
-                        <ul class="twd-list"><li>AI-assisted monitoring and service intelligence</li><li>Secure infrastructure and endpoint visibility</li><li>Workflow automation for faster execution</li><li>Managed delivery teams with SLA discipline</li></ul>
-                    </article>
-                    <div class="twd-dashboard">
-                        <div class="twd-dashboard-top"><span></span><span></span><span></span><strong>AI Service Operations Dashboard</strong><em>Monitoring Active</em></div>
-                        <div class="twd-kpis"><div><strong>24/7</strong><span>Managed IT support</span></div><div><strong>99.8%</strong><span>SLA visibility</span></div><div><strong>AI</strong><span>Service intelligence</span></div><div><strong>Secure</strong><span>Operational control</span></div></div>
-                        <div class="twd-dashboard-main"><div class="twd-bars"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div><div class="twd-orbit"><span></span><span></span><span></span><strong>Operational Intelligence</strong></div></div>
-                    </div>
-                </div>
-            </div>
-        </section>
+        <section class="twd-section twd-soft" id="service-intelligence"><div class="twd-container"><?php echo self::header('Service Intelligence', 'Smarter Delivery with <span>AI-Assisted Visibility</span>', 'We combine skilled delivery teams with technology intelligence so leaders can see performance, risks and opportunities faster.'); ?><div class="twd-two"><article class="twd-card twd-copy-card"><h3>From service delivery to <span>operational advantage</span></h3><p>Tranter helps organisations move from reactive support to proactive operations through managed services, automated workflows, service analytics and secure infrastructure oversight.</p><p>The result is a technology environment that is easier to manage, easier to scale and easier to trust.</p><ul class="twd-list"><li>AI-assisted monitoring and service intelligence</li><li>Secure infrastructure and endpoint visibility</li><li>Workflow automation for faster execution</li><li>Managed delivery teams with SLA discipline</li></ul></article><div class="twd-dashboard"><div class="twd-dashboard-top"><span></span><span></span><span></span><strong>AI Service Operations Dashboard</strong><em>Monitoring Active</em></div><div class="twd-kpis"><div><strong>24/7</strong><span>Managed IT support</span></div><div><strong>99.8%</strong><span>SLA visibility</span></div><div><strong>AI</strong><span>Service intelligence</span></div><div><strong>Secure</strong><span>Operational control</span></div></div><div class="twd-dashboard-main"><div class="twd-bars"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div><div class="twd-orbit"><span></span><span></span><span></span><strong>Operational Intelligence</strong></div></div></div></div></div></section>
         <?php return ob_get_clean();
     }
 
-    public static function metrics($atts = []) {
-        self::enqueue();
-        $metrics = [['99%','SLA completion across support sites'],['350+','Expert ICT & smart solutions engineers'],['40+','Global OEM partners across the globe'],['60+','Channel partners around the world']];
-        ob_start(); ?>
-        <section class="twd-metrics twd-full"><div class="twd-container"><div class="twd-metrics-grid"><?php foreach ($metrics as $m): ?><div class="twd-metric"><strong><?php echo esc_html($m[0]); ?></strong><span><?php echo esc_html($m[1]); ?></span></div><?php endforeach; ?></div></div></section>
-        <?php return ob_get_clean();
-    }
+    public static function metrics($atts = []) { self::enqueue(); $metrics = [['99%','SLA completion across support sites'],['350+','Expert ICT & smart solutions engineers'],['40+','Global OEM partners across the globe'],['60+','Channel partners around the world']]; ob_start(); ?><section class="twd-metrics twd-full"><div class="twd-container"><div class="twd-metrics-grid"><?php foreach ($metrics as $m): ?><div class="twd-metric"><strong><?php echo esc_html($m[0]); ?></strong><span><?php echo esc_html($m[1]); ?></span></div><?php endforeach; ?></div></div></section><?php return ob_get_clean(); }
 
-    public static function faq($atts = []) {
-        self::enqueue();
-        $faqs = [
-            ['What does Tranter specialize in?','Tranter specializes in IT support services, smart workflow solutions, cybersecurity, website optimisation, HR support, digital marketing and business process outsourcing.'],
-            ['Do you provide managed IT services?','Yes. We provide managed IT services designed to support reliable infrastructure, secure operations, service continuity and scalable enterprise technology delivery.'],
-            ['Does Tranter support enterprise-level organisations?','Yes. Our delivery model supports enterprise-scale requirements, regulated environments, distributed teams and high-growth organisations.'],
-            ['Can Tranter help with cybersecurity?','Yes. We help organisations strengthen infrastructure, protect data, reduce operational risk and embed security into day-to-day technology operations.'],
-            ['How does Tranter deliver projects?','We begin with discovery, design the right operating model, deploy through managed execution and continuously optimise for performance and resilience.'],
-            ['What makes Tranter different?','Tranter works as a strategic partner, combining secure technology delivery, operational insight, AI-assisted visibility and scalable execution to improve business performance.'],
-        ];
-        ob_start(); ?>
-        <section class="twd-section twd-faq" id="faq"><div class="twd-container"><?php echo self::header('Frequently Asked Questions', 'Helping You Make <span>Informed Decisions</span>', 'Clear answers for organisations evaluating secure, scalable and intelligent technology services.'); ?><div class="twd-faq-grid"><?php foreach ($faqs as $faq): ?><details><summary><?php echo esc_html($faq[0]); ?></summary><div class="answer"><?php echo esc_html($faq[1]); ?></div></details><?php endforeach; ?></div></div></section>
-        <?php return ob_get_clean();
-    }
+    public static function faq($atts = []) { self::enqueue(); $faqs = [['What does Tranter specialize in?','Tranter specializes in IT support services, smart workflow solutions, cybersecurity, website optimisation, HR support, digital marketing and business process outsourcing.'],['Do you provide managed IT services?','Yes. We provide managed IT services designed to support reliable infrastructure, secure operations, service continuity and scalable enterprise technology delivery.'],['Does Tranter support enterprise-level organisations?','Yes. Our delivery model supports enterprise-scale requirements, regulated environments, distributed teams and high-growth organisations.'],['Can Tranter help with cybersecurity?','Yes. We help organisations strengthen infrastructure, protect data, reduce operational risk and embed security into day-to-day technology operations.'],['How does Tranter deliver projects?','We begin with discovery, design the right operating model, deploy through managed execution and continuously optimise for performance and resilience.'],['What makes Tranter different?','Tranter works as a strategic partner, combining secure technology delivery, operational insight, AI-assisted visibility and scalable execution to improve business performance.']]; ob_start(); ?><section class="twd-section twd-faq" id="faq"><div class="twd-container"><?php echo self::header('Frequently Asked Questions', 'Helping You Make <span>Informed Decisions</span>', 'Clear answers for organisations evaluating secure, scalable and intelligent technology services.'); ?><div class="twd-faq-grid"><?php foreach ($faqs as $faq): ?><details><summary><?php echo esc_html($faq[0]); ?></summary><div class="answer"><?php echo esc_html($faq[1]); ?></div></details><?php endforeach; ?></div></div></section><?php return ob_get_clean(); }
 
-    public static function cta($atts = []) {
-        self::enqueue();
-        ob_start(); ?>
-        <section class="twd-cta twd-full" id="book-a-demo"><div class="twd-container"><h2>Ready to Transform <span>Your Operations?</span></h2><p>Partner with Tranter to deploy secure, scalable and intelligent technology solutions tailored to your organisation.</p><div class="twd-actions twd-cta-actions"><a class="twd-btn twd-btn-primary" href="/wp/contact/" data-te-open-demo>Book a Demo</a><a class="twd-btn twd-btn-outline" href="https://api.whatsapp.com/send/?phone=2348183405221&text=Hello+Tranter+IT%2C+I+would+like+to+speak+to+your+team.&type=phone_number&app_absent=0" target="_blank" rel="noopener">Speak to Our Team</a></div><div class="twd-trust"><span>Secure delivery</span><span>Enterprise-ready systems</span><span>Long-term support</span></div></div></section>
-        <?php return ob_get_clean();
-    }
+    public static function cta($atts = []) { self::enqueue(); ob_start(); ?><section class="twd-cta twd-full" id="book-a-demo"><div class="twd-container"><h2>Ready to Transform <span>Your Operations?</span></h2><p>Partner with Tranter to deploy secure, scalable and intelligent technology solutions tailored to your organisation.</p><div class="twd-actions twd-cta-actions"><a class="twd-btn twd-btn-primary" href="/wp/contact/" data-te-open-demo>Book a Demo</a><a class="twd-btn twd-btn-outline" href="https://api.whatsapp.com/send/?phone=2348183405221&text=Hello+Tranter+IT%2C+I+would+like+to+speak+to+your+team.&type=phone_number&app_absent=0" target="_blank" rel="noopener">Speak to Our Team</a></div><div class="twd-trust"><span>Secure delivery</span><span>Enterprise-ready systems</span><span>Long-term support</span></div></div></section><?php return ob_get_clean(); }
 
     private static function header($pill, $title, $copy) { return '<header class="twd-header"><div class="twd-pill">' . esc_html($pill) . '</div><h2>' . wp_kses_post($title) . '</h2><div class="twd-divider"><span></span><i></i><span></span></div><p>' . esc_html($copy) . '</p></header>'; }
 
     private static function service_links() {
-        return [
+        $services = [
             ['title' => 'IT Support Services', 'copy' => 'Reliable infrastructure support, uptime management and service continuity across operating environments.', 'type' => 'support', 'url' => '/wp/it-support-services/'],
-            ['title' => 'Smart Solutions', 'copy' => 'Workflow automation and intelligent systems that reduce manual effort and improve decisions.', 'type' => 'smart', 'url' => '/wp/smart-solutions/'],
+            ['title' => 'Smart Solutions', 'copy' => 'Workflow automation and intelligent systems that reduce manual effort and improve decisions.', 'type' => 'smart', 'url' => '/wp/smart-solutions/', 'ng_only' => true],
             ['title' => 'HR Support Services', 'copy' => 'Technology-enabled workforce operations for distributed teams and enterprise environments.', 'type' => 'hr', 'url' => '/wp/hr-support-services/'],
             ['title' => 'Digital Marketing & Brand', 'copy' => 'Enterprise-grade digital presence aligned to growth, credibility and customer acquisition.', 'type' => 'brand', 'url' => '/wp/digital-marketing-brand-development/'],
             ['title' => 'Business Process Outsourcing', 'copy' => 'Managed operational systems that turn support functions into scalable execution models.', 'type' => 'bpo', 'url' => '/wp/business-process-outsourcing/'],
             ['title' => 'Website Dev & Optimisation', 'copy' => 'High-performance web platforms built as commercial and operational infrastructure.', 'type' => 'web', 'url' => '/wp/website-development-optimization/'],
             ['title' => 'Cybersecurity', 'copy' => 'Security-first operations that protect infrastructure, data and business continuity.', 'type' => 'security', 'url' => '/wp/cybersecurity/'],
         ];
+        if (self::is_ng()) return $services;
+        return array_values(array_filter($services, function($service) { return empty($service['ng_only']); }));
     }
 
     private static function hero_cards() { return [['Managed IT','Reliable support, uptime and service continuity.','','support'],['Cybersecurity','Security-first operations for business resilience.','','security'],['Automation','Smarter workflows that reduce manual effort.','','smart'],['Digital Systems','Scalable platforms for modern enterprises.','','web']]; }
