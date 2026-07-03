@@ -8,6 +8,8 @@ class Tranter_Smart_Solutions_Page {
     }
 
     private static function is_ng() {
+        // Editors/admins must be able to preview Nigeria-only pages while building the site.
+        if (is_user_logged_in() && current_user_can('edit_pages')) return true;
         return !class_exists('Tranter_Market') || Tranter_Market::current() === 'ng';
     }
 
