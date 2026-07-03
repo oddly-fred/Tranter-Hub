@@ -1,0 +1,80 @@
+name: Build Versioned Release ZIP
+
+on:
+  push:
+    branches:
+      - main
+    tags:
+      - 'v*'
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Release version without v, for example 1.6.1'
+        required: false
+        type: string
+
+permissions:
+  contents: write
+
+jobs:
+  build-release-zip:
+    name: Package Tranter Engine
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Resolve version
+        id: version
+        shell: bash
+        run: |
+          INPUT_VERSION="${{ github.event.inputs.version }}"
+          if [ -n "$INPUT_VERSION" ]; then
+            VERSION="$INPUT_VERSION"
+          elif [[ "${GITHUB_REF}" == refs/tags/v* ]]; then
+            VERSION="${GITHUB_REF_NAME#v}"
+          elif [ -f tranter-engine.php ]; then
+            VERSION=$(grep -E "^[[:space:]]*\* Version:" tranter-engine.php | head -n 1 | sed -E 's/.*Version:[[:space:]]*//')
+          else
+            VERSION="dev-${GITHUB_SHA::7}"
+          fi
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+          echo "zip_name=tranter-engine-v$VERSION.zip" >> "$GITHUB_OUTPUT"
+
+      - name: Prepare plugin directory
+        shell: bash
+        run: |
+          rm -rf build release
+          mkdir -p build/tranter-engine release
+          rsync -a ./ build/tranter-engine/ \
+            --exclude '.git' \
+            --exclude '.github' \
+            --exclude 'build' \
+            --exclude 'release' \
+            --exclude '*.zip' \
+            --exclude '.DS_Store'
+
+      - name: Create ZIP package
+        shell: bash
+        run: |
+          cd build
+          zip -r "../release/${{ steps.version.outputs.zip_name }}" tranter-engine -x "*/.DS_Store"
+          cd ..
+          ls -lh release
+
+      - name: Upload ZIP artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ steps.version.outputs.zip_name }}
+          path: release/${{ steps.version.outputs.zip_name }}
+          retention-days: 30
+
+      - name: Publish GitHub release on version tag
+        if: startsWith(github.ref, 'refs/tags/v')
+        uses: softprops/action-gh-release@v2
+        with:
+          files: release/${{ steps.version.outputs.zip_name }}
+          name: Tranter Engine v${{ steps.version.outputs.version }}
+          tag_name: ${{ github.ref_name }}
+          generate_release_notes: true
