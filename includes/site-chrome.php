@@ -65,8 +65,9 @@ class Tranter_Site_Chrome {
             '/services/' => '/wp/what-we-do/',
             '/solutions/' => '/wp/what-we-do/',
             '/what-we-do/' => '/wp/what-we-do/',
-            '/knowledge-hub/' => '/wp/knowledge-hub/',
-            '/insights/' => '/wp/knowledge-hub/',
+            '/knowledge-hub/' => '/wp/insights/',
+            '/insights/' => '/wp/insights/',
+            '/resources/' => '/wp/insights/',
             '/contact/' => '/wp/contact/',
             '/event/' => '/wp/event/',
             '/privacy-policy/' => '/wp/privacy-policy/',
@@ -80,6 +81,11 @@ class Tranter_Site_Chrome {
         // Public naming correction: the Services page is now labelled What We Do.
         $html = str_replace('View all services →', 'View What We Do →', $html);
         $html = str_replace('View All Services', 'View What We Do', $html);
+
+        // Public naming correction: Knowledge Hub links should lead to the active Insights page.
+        $html = str_replace('Knowledge Hub', 'Insights', $html);
+        $html = str_replace('View All Insights', 'View Insights', $html);
+        $html = str_replace('View all insights →', 'View Insights →', $html);
 
         return $html;
     }
