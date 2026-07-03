@@ -4,21 +4,21 @@ if (!defined('ABSPATH')) exit;
 class Tranter_Services_Page {
     public static function init() {
         $shortcodes = [
+            'te_what_we_do_page' => 'page',
             'te_services_page' => 'page',
             'te_solutions_page' => 'page',
             'te_services_hero' => 'hero',
+            'te_what_we_do_hero' => 'hero',
             'te_services_overview' => 'overview',
-            'te_solution_categories' => 'categories',
-            'te_managed_it_services' => 'managed_it',
-            'te_cybersecurity_services' => 'cybersecurity',
-            'te_cloud_infrastructure' => 'cloud',
-            'te_smart_solutions' => 'smart_solutions',
+            'te_solution_categories' => 'services_grid',
+            'te_services_grid' => 'services_grid',
+            'te_service_intelligence' => 'intelligence',
+            'te_services_metrics' => 'metrics',
+            'te_services_faq' => 'faq',
             'te_services_cta' => 'cta',
         ];
 
-        foreach ($shortcodes as $tag => $method) {
-            add_shortcode($tag, [__CLASS__, $method]);
-        }
+        foreach ($shortcodes as $tag => $method) add_shortcode($tag, [__CLASS__, $method]);
     }
 
     private static function enqueue() {
@@ -26,113 +26,77 @@ class Tranter_Services_Page {
         wp_enqueue_style('tranter-engine-services-page', TRANTER_ENGINE_URL . 'assets/css/services-page.css', [], TRANTER_ENGINE_VERSION);
     }
 
-    private static function market($atts = []) {
-        return isset($atts['market']) ? sanitize_key($atts['market']) : (class_exists('Tranter_Market') ? Tranter_Market::current() : 'ng');
-    }
-
-    private static function service_post($slug, $market) {
-        $post = get_page_by_path(sanitize_title($slug), OBJECT, 'tranter_service');
-        if ($post && function_exists('tranter_engine_market_enabled') && !tranter_engine_market_enabled($post->ID, $market)) return null;
-        return $post;
-    }
-
-    private static function section($key, $market, $fallback_title, $fallback_heading, $fallback_copy) {
-        $posts = get_posts([
-            'post_type' => 'tranter_section',
-            'numberposts' => 1,
-            'post_status' => 'publish',
-            'meta_query' => [[
-                'key' => '_tranter_section_key',
-                'value' => sanitize_title($key),
-            ]],
-        ]);
-
-        if (!$posts) {
-            $page = get_page_by_path(sanitize_title($key), OBJECT, 'tranter_section');
-            $posts = $page ? [$page] : [];
-        }
-
-        $post = $posts ? $posts[0] : null;
-        if ($post && function_exists('tranter_engine_market_enabled') && tranter_engine_market_enabled($post->ID, $market)) {
-            return [
-                'title' => $post->post_title ?: $fallback_title,
-                'heading' => $post->post_excerpt ?: $fallback_heading,
-                'copy' => wp_strip_all_tags($post->post_content) ?: $fallback_copy,
-            ];
-        }
-
-        return ['title' => $fallback_title, 'heading' => $fallback_heading, 'copy' => $fallback_copy];
-    }
-
     public static function page($atts = []) {
         self::enqueue();
-        $market = self::market($atts);
         ob_start();
-        echo '<div id="tranter-services-page" class="tes-page">';
-        echo self::hero(['market' => $market]);
-        echo self::overview(['market' => $market]);
-        echo self::categories(['market' => $market]);
-        echo self::managed_it(['market' => $market]);
-        echo self::cybersecurity(['market' => $market]);
-        echo self::cloud(['market' => $market]);
-        echo self::smart_solutions(['market' => $market]);
-        echo self::cta(['market' => $market]);
+        echo '<div id="tranter-services-page" class="twd-page">';
+        echo self::hero($atts);
+        echo self::services_grid($atts);
+        echo self::intelligence($atts);
+        echo self::metrics($atts);
+        echo self::faq($atts);
+        echo self::cta($atts);
         echo '</div>';
         return ob_get_clean();
     }
 
     public static function hero($atts = []) {
         self::enqueue();
-        $market = self::market($atts);
-        $s = self::section('services-hero', $market, 'Tranter IT Services', 'Enterprise technology services built for performance, security and growth.', 'From managed IT and cybersecurity to cloud infrastructure and smart solutions, Tranter helps organisations simplify operations, strengthen resilience and convert technology into measurable business value.');
         ob_start(); ?>
-        <section class="tes-hero tes-full">
-            <div class="tes-hero-bg"></div>
-            <div class="tes-container tes-hero-grid">
-                <div class="tes-hero-copy">
-                    <span class="tes-eyebrow"><?php echo esc_html($s['title']); ?></span>
-                    <h1><?php echo esc_html($s['heading']); ?></h1>
-                    <p><?php echo esc_html($s['copy']); ?></p>
-                    <div class="tes-actions">
-                        <a class="tes-btn tes-btn-primary" href="/contact/" data-te-open-demo>Book a Consultation</a>
-                        <a class="tes-btn tes-btn-ghost" href="#tes-solutions">Explore Solutions</a>
+        <section class="twd-hero twd-full" id="what-we-do-hero">
+            <div class="twd-hero-bg"></div>
+            <div class="twd-container twd-hero-container">
+                <div class="twd-hero-copy">
+                    <span class="twd-pill">What We Do</span>
+                    <h1>Business Technology.<span>Built to Scale.</span></h1>
+                    <p>We help organisations run smarter, safer and faster through managed IT support, cybersecurity, automation, digital systems and AI-assisted service visibility.</p>
+                    <div class="twd-actions">
+                        <a class="twd-btn twd-btn-primary" href="#our-services">Explore Services</a>
+                        <a class="twd-btn twd-btn-outline" href="https://api.whatsapp.com/send/?phone=2348183405221&text=Hello+Tranter+IT%2C+I+would+like+to+speak+to+your+team.&type=phone_number&app_absent=0" target="_blank" rel="noopener">Speak to Our Team</a>
                     </div>
                 </div>
-                <div class="tes-command-card" aria-label="Services command centre visual">
-                    <div class="tes-command-top"><span></span><span></span><span></span><strong>Solution Command Centre</strong></div>
-                    <div class="tes-command-body">
-                        <div><strong>24/7</strong><span>Managed Support</span></div>
-                        <div><strong>Secure</strong><span>Cybersecurity</span></div>
-                        <div><strong>Cloud</strong><span>Infrastructure</span></div>
-                        <div><strong>Smart</strong><span>Solutions</span></div>
+                <div class="twd-hero-panel">
+                    <span class="twd-floating-chip">AI-assisted delivery</span>
+                    <div class="twd-glass-card">
+                        <div class="twd-card-label"><span>Service Intelligence</span><span class="twd-live"><i></i>Live Operations</span></div>
+                        <div class="twd-mini-grid">
+                            <?php foreach (self::hero_cards() as $card): ?>
+                                <article class="twd-mini-card"><div class="twd-mini-icon"><?php echo self::icon($card[3]); ?></div><strong><?php echo esc_html($card[0]); ?></strong><span><?php echo esc_html($card[1]); ?></span></article>
+                            <?php endforeach; ?>
+                        </div>
+                        <div class="twd-strategy-strip"><strong>We design operational systems.</strong><span>Not disconnected services — integrated capabilities that move your business forward.</span></div>
                     </div>
-                    <div class="tes-signal"><i></i><i></i><i></i><i></i><i></i></div>
                 </div>
             </div>
         </section>
         <?php return ob_get_clean();
     }
 
-    public static function overview($atts = []) {
+    public static function overview($atts = []) { return self::services_grid($atts); }
+
+    public static function services_grid($atts = []) {
         self::enqueue();
-        $market = self::market($atts);
-        $s = self::section('services-overview', $market, 'What We Deliver', 'A practical service ecosystem for modern organisations.', 'Tranter combines advisory thinking, technical deployment and managed operations to help organisations run stronger, safer and more efficient technology environments.');
-        $points = [
-            ['Diagnose', 'Understand the business, users, risks and operational gaps before recommending technology.'],
-            ['Design', 'Shape the right solution architecture across infrastructure, security, cloud and workflow needs.'],
-            ['Deploy', 'Implement with structured delivery, documentation and clear handover.'],
-            ['Operate', 'Provide ongoing support, monitoring, optimisation and reporting.'],
+        $services = [
+            ['IT Support Services','Reliable infrastructure support, uptime management and service continuity across operating environments.','support'],
+            ['Smart Solutions','Workflow automation and intelligent systems that reduce manual effort and improve decisions.','smart'],
+            ['HR Support Services','Technology-enabled workforce operations for distributed teams and enterprise environments.','hr'],
+            ['Digital Marketing & Brand','Enterprise-grade digital presence aligned to growth, credibility and customer acquisition.','brand'],
+            ['Business Process Outsourcing','Managed operational systems that turn support functions into scalable execution models.','bpo'],
+            ['Website Dev & Optimisation','High-performance web platforms built as commercial and operational infrastructure.','web'],
+            ['Cybersecurity','Security-first operations that protect infrastructure, data and business continuity.','security'],
         ];
         ob_start(); ?>
-        <section class="tes-section">
-            <div class="tes-container">
-                <?php echo self::section_header($s['title'], $s['heading'], $s['copy']); ?>
-                <div class="tes-overview-grid">
-                    <?php foreach ($points as $index => $point): ?>
-                        <article class="tes-card tes-step-card">
-                            <span><?php echo esc_html(str_pad($index + 1, 2, '0', STR_PAD_LEFT)); ?></span>
-                            <h3><?php echo esc_html($point[0]); ?></h3>
-                            <p><?php echo esc_html($point[1]); ?></p>
+        <section class="twd-section" id="our-services">
+            <div class="twd-container">
+                <?php echo self::header('Our Services', 'Technology Solutions Built for <span>Modern Business</span>', 'We focus on the services that directly improve performance, resilience, customer experience and operational control.'); ?>
+                <div class="twd-services-grid">
+                    <?php foreach ($services as $i => $service): ?>
+                        <article class="twd-service-card <?php echo $service[2] === 'security' ? 'cyber' : ''; ?>">
+                            <div class="twd-service-num"><?php echo esc_html(str_pad($i + 1, 2, '0', STR_PAD_LEFT)); ?></div>
+                            <div class="twd-service-icon"><?php echo self::icon($service[2]); ?></div>
+                            <h3><?php echo esc_html($service[0]); ?></h3>
+                            <p><?php echo esc_html($service[1]); ?></p>
+                            <a class="twd-learn" href="#book-a-demo">Learn more</a>
                         </article>
                     <?php endforeach; ?>
                 </div>
@@ -141,114 +105,75 @@ class Tranter_Services_Page {
         <?php return ob_get_clean();
     }
 
-    public static function categories($atts = []) {
+    public static function intelligence($atts = []) {
         self::enqueue();
-        $market = self::market($atts);
-        $s = self::section('solution-categories', $market, 'Solution Categories', 'Choose the service path that matches your growth priority.', 'Each service area is designed to support sales conversations, lead generation and practical decision-making for enterprise, public sector and growth-focused organisations.');
-        $cards = [
-            ['Managed IT Services', 'Reliable support, infrastructure management, endpoint operations and SLA-driven service delivery.', '#managed-it-services'],
-            ['Cybersecurity Services', 'Threat visibility, access control, endpoint protection, governance and security readiness.', '#cybersecurity-services'],
-            ['Cloud & Infrastructure', 'Cloud adoption, hosting, infrastructure optimisation, backup, continuity and scalable operations.', '#cloud-infrastructure'],
-            ['Smart Solutions', 'IoT, smart buildings, automation, smart monitoring and connected operational intelligence.', '#smart-solutions'],
-        ];
         ob_start(); ?>
-        <section class="tes-section tes-soft" id="tes-solutions">
-            <div class="tes-container">
-                <?php echo self::section_header($s['title'], $s['heading'], $s['copy']); ?>
-                <div class="tes-category-grid">
-                    <?php foreach ($cards as $index => $card): ?>
-                        <article class="tes-card tes-category-card">
-                            <div class="tes-icon"><?php echo self::icon($index + 1); ?></div>
-                            <h3><?php echo esc_html($card[0]); ?></h3>
-                            <p><?php echo esc_html($card[1]); ?></p>
-                            <a href="<?php echo esc_url($card[2]); ?>">View service area</a>
-                        </article>
-                    <?php endforeach; ?>
+        <section class="twd-section twd-soft" id="service-intelligence">
+            <div class="twd-container">
+                <?php echo self::header('Service Intelligence', 'Smarter Delivery with <span>AI-Assisted Visibility</span>', 'We combine skilled delivery teams with technology intelligence so leaders can see performance, risks and opportunities faster.'); ?>
+                <div class="twd-two">
+                    <article class="twd-card twd-copy-card">
+                        <h3>From service delivery to <span>operational advantage</span></h3>
+                        <p>Tranter helps organisations move from reactive support to proactive operations through managed services, automated workflows, service analytics and secure infrastructure oversight.</p>
+                        <p>The result is a technology environment that is easier to manage, easier to scale and easier to trust.</p>
+                        <ul class="twd-list"><li>AI-assisted monitoring and service intelligence</li><li>Secure infrastructure and endpoint visibility</li><li>Workflow automation for faster execution</li><li>Managed delivery teams with SLA discipline</li></ul>
+                    </article>
+                    <div class="twd-dashboard">
+                        <div class="twd-dashboard-top"><span></span><span></span><span></span><strong>AI Service Operations Dashboard</strong><em>Monitoring Active</em></div>
+                        <div class="twd-kpis"><div><strong>24/7</strong><span>Managed IT support</span></div><div><strong>99.8%</strong><span>SLA visibility</span></div><div><strong>AI</strong><span>Service intelligence</span></div><div><strong>Secure</strong><span>Operational control</span></div></div>
+                        <div class="twd-dashboard-main"><div class="twd-bars"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div><div class="twd-orbit"><span></span><span></span><span></span><strong>Operational Intelligence</strong></div></div>
+                    </div>
                 </div>
             </div>
         </section>
         <?php return ob_get_clean();
     }
 
-    public static function managed_it($atts = []) {
+    public static function metrics($atts = []) {
         self::enqueue();
-        return self::service_band('managed-it-services', self::market($atts), 'Managed IT Services', 'Keep your technology environment stable, visible and supported.', 'For organisations that need dependable daily technology operations, user support, infrastructure management and clear service accountability.', ['Helpdesk and end-user support', 'Endpoint and asset management', 'Infrastructure monitoring', 'SLA reporting and service visibility', 'Onsite and remote support coverage'], 'managed-it-services');
-    }
-
-    public static function cybersecurity($atts = []) {
-        self::enqueue();
-        return self::service_band('cybersecurity-services', self::market($atts), 'Cybersecurity Services', 'Strengthen protection across people, devices, systems and access.', 'We help organisations reduce exposure, improve security readiness and build a more governed approach to digital risk.', ['Endpoint protection and monitoring', 'Identity and access control', 'Vulnerability and risk reviews', 'Security awareness support', 'Policy and governance enablement'], 'cybersecurity-services', true);
-    }
-
-    public static function cloud($atts = []) {
-        self::enqueue();
-        return self::service_band('cloud-infrastructure', self::market($atts), 'Cloud & Infrastructure', 'Build scalable infrastructure that supports growth and continuity.', 'From cloud readiness to infrastructure optimisation, Tranter helps teams modernise without losing control of performance, security or cost.', ['Cloud migration and advisory', 'Server and network infrastructure', 'Backup and business continuity', 'Performance optimisation', 'Hybrid infrastructure support'], 'cloud-infrastructure');
-    }
-
-    public static function smart_solutions($atts = []) {
-        self::enqueue();
-        return self::service_band('smart-solutions', self::market($atts), 'Smart Solutions', 'Connect physical spaces, assets and operations with smarter visibility.', 'Tranter Smart Solutions supports intelligent buildings, smart monitoring, automation and connected systems for modern facilities and operations.', ['Smart building enablement', 'IoT monitoring and sensors', 'Energy and space intelligence', 'Automation workflows', 'Connected device support'], 'smart-solutions', true, true);
-    }
-
-    private static function service_band($section_key, $market, $fallback_title, $fallback_heading, $fallback_copy, $features, $service_slug, $reverse = false, $store_cta = false) {
-        $s = self::section($section_key, $market, $fallback_title, $fallback_heading, $fallback_copy);
-        $post = self::service_post($service_slug, $market);
-        $heading = $post ? $post->post_title : $s['heading'];
-        $copy = $post && $post->post_excerpt ? $post->post_excerpt : $s['copy'];
-        $link = $post ? get_permalink($post) : '/contact/';
+        $metrics = [['99%','SLA completion across support sites'],['350+','Expert ICT & smart solutions engineers'],['40+','Global OEM partners across the globe'],['60+','Channel partners around the world']];
         ob_start(); ?>
-        <section class="tes-section <?php echo $reverse ? 'tes-reverse' : ''; ?>" id="<?php echo esc_attr($section_key); ?>">
-            <div class="tes-container tes-band-grid">
-                <div class="tes-band-copy">
-                    <span class="tes-eyebrow"><?php echo esc_html($s['title']); ?></span>
-                    <h2><?php echo esc_html($heading); ?></h2>
-                    <p><?php echo esc_html($copy); ?></p>
-                    <ul class="tes-feature-list">
-                        <?php foreach ($features as $feature): ?><li><?php echo esc_html($feature); ?></li><?php endforeach; ?>
-                    </ul>
-                    <div class="tes-actions tes-band-actions">
-                        <a class="tes-btn tes-btn-primary" href="<?php echo esc_url($link); ?>">Learn More</a>
-                        <?php if ($store_cta && $market === 'ng'): ?><a class="tes-btn tes-btn-light" href="https://shop.tranter-it.com/" target="_blank" rel="noopener">Visit Smart Solutions Store</a><?php endif; ?>
-                    </div>
-                </div>
-                <div class="tes-band-visual">
-                    <div class="tes-orbit"><span></span><span></span><span></span><strong><?php echo esc_html($fallback_title); ?></strong></div>
-                </div>
-            </div>
-        </section>
+        <section class="twd-metrics twd-full"><div class="twd-container"><div class="twd-metrics-grid"><?php foreach ($metrics as $m): ?><div class="twd-metric"><strong><?php echo esc_html($m[0]); ?></strong><span><?php echo esc_html($m[1]); ?></span></div><?php endforeach; ?></div></div></section>
+        <?php return ob_get_clean();
+    }
+
+    public static function faq($atts = []) {
+        self::enqueue();
+        $faqs = [
+            ['What does Tranter specialize in?','Tranter specializes in IT support services, smart workflow solutions, cybersecurity, website optimisation, HR support, digital marketing and business process outsourcing.'],
+            ['Do you provide managed IT services?','Yes. We provide managed IT services designed to support reliable infrastructure, secure operations, service continuity and scalable enterprise technology delivery.'],
+            ['Does Tranter support enterprise-level organisations?','Yes. Our delivery model supports enterprise-scale requirements, regulated environments, distributed teams and high-growth organisations.'],
+            ['Can Tranter help with cybersecurity?','Yes. We help organisations strengthen infrastructure, protect data, reduce operational risk and embed security into day-to-day technology operations.'],
+            ['How does Tranter deliver projects?','We begin with discovery, design the right operating model, deploy through managed execution and continuously optimise for performance and resilience.'],
+            ['What makes Tranter different?','Tranter works as a strategic partner, combining secure technology delivery, operational insight, AI-assisted visibility and scalable execution to improve business performance.'],
+        ];
+        ob_start(); ?>
+        <section class="twd-section twd-faq" id="faq"><div class="twd-container"><?php echo self::header('Frequently Asked Questions', 'Helping You Make <span>Informed Decisions</span>', 'Clear answers for organisations evaluating secure, scalable and intelligent technology services.'); ?><div class="twd-faq-grid"><?php foreach ($faqs as $faq): ?><details><summary><?php echo esc_html($faq[0]); ?></summary><div class="answer"><?php echo esc_html($faq[1]); ?></div></details><?php endforeach; ?></div></div></section>
         <?php return ob_get_clean();
     }
 
     public static function cta($atts = []) {
         self::enqueue();
-        $market = self::market($atts);
-        $s = self::section('services-cta', $market, 'Ready to Talk?', 'Let us recommend the right service path for your organisation.', 'Book a consultation with Tranter IT and turn your technology priorities into a clear, practical execution plan.');
         ob_start(); ?>
-        <section class="tes-cta tes-full">
-            <div class="tes-container">
-                <span class="tes-eyebrow"><?php echo esc_html($s['title']); ?></span>
-                <h2><?php echo esc_html($s['heading']); ?></h2>
-                <p><?php echo esc_html($s['copy']); ?></p>
-                <div class="tes-actions">
-                    <a class="tes-btn tes-btn-primary" href="/contact/" data-te-open-demo>Book a Consultation</a>
-                    <a class="tes-btn tes-btn-ghost" href="https://wa.me/2348183405221?text=Hello%20Tranter%20IT,%20I%20would%20like%20to%20speak%20to%20your%20team%20about%20your%20services.">Speak to Our Team</a>
-                </div>
-            </div>
-        </section>
+        <section class="twd-cta twd-full" id="book-a-demo"><div class="twd-container"><h2>Ready to Transform <span>Your Operations?</span></h2><p>Partner with Tranter to deploy secure, scalable and intelligent technology solutions tailored to your organisation.</p><div class="twd-actions twd-cta-actions"><a class="twd-btn twd-btn-primary" href="/wp/contact/" data-te-open-demo>Book a Demo</a><a class="twd-btn twd-btn-outline" href="https://api.whatsapp.com/send/?phone=2348183405221&text=Hello+Tranter+IT%2C+I+would+like+to+speak+to+your+team.&type=phone_number&app_absent=0" target="_blank" rel="noopener">Speak to Our Team</a></div><div class="twd-trust"><span>Secure delivery</span><span>Enterprise-ready systems</span><span>Long-term support</span></div></div></section>
         <?php return ob_get_clean();
     }
 
-    private static function section_header($title, $heading, $copy) {
-        return '<header class="tes-section-header"><span class="tes-eyebrow">' . esc_html($title) . '</span><h2>' . esc_html($heading) . '</h2><p>' . esc_html($copy) . '</p></header>';
-    }
+    private static function header($pill, $title, $copy) { return '<header class="twd-header"><div class="twd-pill">' . esc_html($pill) . '</div><h2>' . wp_kses_post($title) . '</h2><div class="twd-divider"><span></span><i></i><span></span></div><p>' . esc_html($copy) . '</p></header>'; }
 
-    private static function icon($i) {
-        $paths = [
-            '<path d="M4 7h16M4 12h16M4 17h10"/><circle cx="18" cy="17" r="2"/>',
-            '<path d="M12 3l8 4v5c0 5-3.5 8-8 9-4.5-1-8-4-8-9V7l8-4z"/><path d="M9 12l2 2 4-5"/>',
-            '<path d="M7 18a4 4 0 1 1 1-7 5 5 0 0 1 9 2 3 3 0 1 1 0 6H7z"/>',
-            '<path d="M12 3v6M12 15v6M3 12h6M15 12h6"/><circle cx="12" cy="12" r="3"/>',
+    private static function hero_cards() { return [['Managed IT','Reliable support, uptime and service continuity.','','support'],['Cybersecurity','Security-first operations for business resilience.','','security'],['Automation','Smarter workflows that reduce manual effort.','','smart'],['Digital Systems','Scalable platforms for modern enterprises.','','web']]; }
+
+    private static function icon($type) {
+        $icons = [
+            'support' => '<path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.8-3.8a6 6 0 0 1-8 8l-6.9 6.9a2.1 2.1 0 0 1-3-3l6.9-6.9a6 6 0 0 1 8-8z"/>',
+            'security' => '<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/>',
+            'smart' => '<path d="M12 2v4M12 18v4M4.9 4.9l2.8 2.8M16.3 16.3l2.8 2.8M2 12h4M18 12h4"/>',
+            'hr' => '<path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/>',
+            'brand' => '<path d="M3 11l18-5-5 18-4-8-9-5z"/>',
+            'bpo' => '<path d="M21 16V8a2 2 0 0 0-1-1.7l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.7l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>',
+            'web' => '<rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/>',
         ];
-        return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">' . $paths[($i - 1) % count($paths)] . '</svg>';
+        $path = $icons[$type] ?? $icons['support'];
+        return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">' . $path . '</svg>';
     }
 }
