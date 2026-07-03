@@ -1,0 +1,1045 @@
+<!-- Tranter IT Premium Footer + Floating AI Chat Widget - WordPress HTML Widget Code -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Mulish:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+<section id="tranter-footer-chat-widget" class="tfc-wrap">
+  <style>
+    #tranter-footer-chat-widget,
+    #tranter-footer-chat-widget *{box-sizing:border-box}
+    #tranter-footer-chat-widget{
+      --green:#009b55;
+      --green-dark:#078d4e;
+      --dark:#102617;
+      --deep:#052412;
+      --muted:#5d6761;
+      --footer:#e7e7e7;
+      --wine:#891219;
+      --white:#ffffff;
+      --line:rgba(16,38,23,.10);
+      --shadow:0 26px 70px rgba(0,0,0,.16);
+      width:100%;
+      font-family:"Mulish",sans-serif;
+      color:var(--dark);
+    }
+    #tranter-footer-chat-widget a{text-decoration:none!important}
+
+    .tfc-footer{
+      width:100vw;
+      margin-left:calc(50% - 50vw);
+      margin-right:calc(50% - 50vw);
+      background:
+        radial-gradient(circle at 10% 8%, rgba(0,155,85,.10), transparent 24%),
+        radial-gradient(circle at 88% 18%, rgba(137,18,25,.06), transparent 26%),
+        var(--footer);
+      overflow:hidden;
+      position:relative;
+    }
+    .tfc-footer:before{
+      content:"";
+      position:absolute;
+      inset:0;
+      background-image:linear-gradient(rgba(255,255,255,.35) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.35) 1px,transparent 1px);
+      background-size:42px 42px;
+      opacity:.18;
+      pointer-events:none;
+    }
+    .tfc-container{
+      width:min(1180px,calc(100% - 36px));
+      margin:0 auto;
+      position:relative;
+      z-index:2;
+    }
+
+    .tfc-footer-card{
+      margin:64px 0 42px;
+      padding:42px;
+      border-radius:34px;
+      background:rgba(255,255,255,.50);
+      border:1px solid rgba(255,255,255,.58);
+      box-shadow:0 28px 80px rgba(0,0,0,.08);
+      backdrop-filter:blur(14px);
+    }
+
+    .tfc-footer-main{
+      display:grid;
+      grid-template-columns:1fr 1fr 1fr 1.28fr;
+      gap:42px;
+      align-items:start;
+    }
+
+    .tfc-footer h3{
+      margin:0 0 22px;
+      color:#173c3f;
+      font-size:23px;
+      line-height:1.15;
+      font-weight:900;
+      letter-spacing:-.4px;
+      position:relative;
+    }
+    .tfc-footer h3:after{
+      content:"";
+      display:block;
+      width:36px;
+      height:3px;
+      border-radius:999px;
+      margin-top:11px;
+      background:linear-gradient(90deg,var(--green),rgba(0,155,85,.08));
+    }
+
+    .tfc-links{display:grid;gap:15px}
+    .tfc-links a,
+    .tfc-contact-row{
+      color:var(--muted)!important;
+      display:flex;
+      align-items:center;
+      gap:11px;
+      font-size:15px;
+      line-height:1.45;
+      font-weight:700;
+      transition:.28s ease;
+    }
+    .tfc-links a:before{
+      content:"→";
+      width:18px;
+      height:18px;
+      display:inline-grid;
+      place-items:center;
+      border-radius:50%;
+      color:var(--green);
+      background:rgba(0,155,85,.08);
+      font-size:13px;
+      font-weight:900;
+      transition:.28s ease;
+      flex:0 0 18px;
+    }
+    .tfc-links a:hover{color:var(--green)!important;transform:translateX(5px)}
+    .tfc-links a:hover:before{color:#fff;background:var(--green)}
+    .tfc-policy-links a:before{background:rgba(137,18,25,.08);color:var(--wine)}
+    .tfc-policy-links a:hover{color:var(--wine)!important}
+    .tfc-policy-links a:hover:before{background:var(--wine);color:#fff}
+
+    .tfc-contact-list{display:grid;gap:18px}
+    .tfc-icon-line{
+      width:24px;
+      height:24px;
+      display:grid;
+      place-items:center;
+      flex:0 0 24px;
+      color:var(--green);
+      background:rgba(0,155,85,.08);
+      border-radius:9px;
+    }
+    .tfc-icon-line svg{
+      width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;
+    }
+
+    .tfc-socials{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-top:24px}
+    .tfc-socials a{
+      width:38px;height:38px;display:grid;place-items:center;border-radius:50%;color:#fff!important;background:#747a76;transition:.3s ease;box-shadow:0 12px 26px rgba(0,0,0,.08);
+    }
+    .tfc-socials a:hover{background:var(--green);transform:translateY(-4px);box-shadow:0 18px 36px rgba(0,155,85,.22)}
+    .tfc-socials svg{width:17px;height:17px;fill:currentColor}
+
+    .tfc-brand-row{
+      margin-top:38px;
+      padding-top:36px;
+      border-top:1px solid var(--line);
+      display:grid;
+      grid-template-columns:150px 1fr;
+      gap:36px;
+      align-items:center;
+    }
+    .tfc-logo{width:128px;max-width:100%}
+    .tfc-brand-row p{
+      margin:0;color:var(--muted);font-size:15px;line-height:1.85;font-weight:700;
+    }
+
+    .tfc-bottom{
+      width:100vw;
+      margin-left:calc(50% - 50vw);
+      margin-right:calc(50% - 50vw);
+      background:#052412;
+      color:#fff;
+    }
+    .tfc-bottom-inner{
+      width:min(1180px,calc(100% - 36px));
+      margin:0 auto;
+      min-height:58px;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      text-align:center;
+      font-size:12px;
+      line-height:1.4;
+      font-weight:900;
+      text-transform:uppercase;
+      letter-spacing:.02em;
+    }
+
+    /* Floating chat */
+    .tfc-chat-launcher{
+      position:fixed;
+      right:22px;
+      bottom:22px;
+      z-index:999999;
+      width:58px;
+      height:58px;
+      border:none;
+      border-radius:50%;
+      display:grid;
+      place-items:center;
+      color:#fff !important;
+      background:linear-gradient(135deg,var(--green),var(--green-dark));
+      cursor:pointer;
+      box-shadow:0 18px 45px rgba(0,155,85,.34);
+      transition:.3s ease;
+      overflow:hidden;
+    }
+    .tfc-chat-launcher:hover{
+      transform:translateY(-4px) scale(1.04);
+      background:linear-gradient(135deg,var(--green),var(--wine));
+      box-shadow:0 24px 60px rgba(0,0,0,.24);
+    }
+    .tfc-chat-launcher svg{
+      width:26px;
+      height:26px;
+      stroke:#fff !important;
+      color:#fff !important;
+      fill:none;
+      stroke-width:2.25;
+      stroke-linecap:round;
+      stroke-linejoin:round;
+      position:relative;
+      z-index:2;
+    }
+    .tfc-pulse{
+      position:absolute;inset:-7px;border-radius:50%;border:1px solid rgba(0,155,85,.34);animation:tfcPulse 2s ease-out infinite;
+    }
+
+    .tfc-chat-window{
+      position:fixed;
+      right:22px;
+      bottom:94px;
+      z-index:999999;
+      width:min(420px,calc(100vw - 28px));
+      height:min(680px,calc(100vh - 120px));
+      min-height:520px;
+      display:none;
+      flex-direction:column;
+      border-radius:28px;
+      overflow:hidden;
+      background:#fff;
+      border:1px solid rgba(16,38,23,.12);
+      box-shadow:0 34px 100px rgba(0,0,0,.28);
+    }
+    .tfc-chat-window.tfc-open{display:flex;animation:tfcChatIn .28s ease both}
+
+    .tfc-chat-head{
+      position:relative;
+      padding:20px;
+      color:#fff;
+      background:
+        radial-gradient(circle at 14% 20%,rgba(255,255,255,.16),transparent 30%),
+        radial-gradient(circle at 90% 0%,rgba(137,18,25,.28),transparent 34%),
+        linear-gradient(135deg,#0a2b18,#08351e 62%,#052412);
+      overflow:hidden;
+    }
+    .tfc-chat-head:after{
+      content:"";
+      position:absolute;inset:0;
+      background-image:linear-gradient(rgba(255,255,255,.045) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.045) 1px,transparent 1px);
+      background-size:28px 28px;
+      opacity:.22;
+    }
+    .tfc-chat-head-inner{
+      position:relative;
+      z-index:2;
+      display:grid;
+      grid-template-columns:46px minmax(0,1fr) 34px;
+      gap:13px;
+      align-items:center;
+    }
+    .tfc-avatar{
+      width:46px;height:46px;border-radius:16px;display:grid;place-items:center;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.16);
+    }
+    .tfc-avatar svg{width:26px;height:26px;stroke:#fff;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+    .tfc-chat-head h4{margin:0;color:#fff;font-size:17px;line-height:1.15;font-weight:900}
+    .tfc-chat-head p{margin:4px 0 0;color:rgba(255,255,255,.76);font-size:12px;line-height:1.4;font-weight:750}
+    .tfc-chat-close{
+      width:34px;
+      height:34px;
+      border:1px solid rgba(255,255,255,.22);
+      border-radius:50%;
+      display:grid;
+      place-items:center;
+      color:#fff;
+      background:rgba(255,255,255,.08);
+      cursor:pointer;
+      transition:.25s ease;
+      padding:0;
+      justify-self:end;
+    }
+    .tfc-chat-close:hover{
+      color:#fff;
+      transform:rotate(90deg) scale(1.04);
+      background:rgba(137,18,25,.85);
+      border-color:rgba(255,255,255,.28);
+    }
+    .tfc-chat-close svg{width:21px;height:21px;stroke:currentColor;fill:none;stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round}
+
+    .tfc-chat-body{
+      flex:1;overflow-y:auto;padding:18px;background:radial-gradient(circle at 12% 18%,rgba(0,155,85,.06),transparent 26%),#f7faf8;
+    }
+    .tfc-quick-actions{
+      display:grid;
+      grid-template-columns:repeat(2,minmax(0,1fr));
+      gap:10px;
+      margin-bottom:16px;
+    }
+    .tfc-quick-actions button{
+      min-height:54px;
+      width:100%;
+      border-radius:999px;
+      border:1px solid rgba(0,155,85,.16);
+      background:#fff;
+      color:var(--green);
+      font-size:12px;
+      font-weight:900;
+      cursor:pointer;
+      transition:.28s ease;
+      box-shadow:0 12px 28px rgba(0,0,0,.05);
+      padding:10px 14px;
+      white-space:normal;
+      line-height:1.25;
+    }
+    .tfc-quick-actions button:hover,.tfc-quick-actions button.tfc-active{color:#fff;background:var(--green);transform:translateY(-2px)}
+    .tfc-message{display:flex;margin:12px 0}
+    .tfc-message.tfc-bot{justify-content:flex-start}
+    .tfc-message.tfc-user{justify-content:flex-end}
+    .tfc-bubble{
+      max-width:86%;padding:13px 15px;border-radius:18px;font-size:13.5px;line-height:1.55;font-weight:650;box-shadow:0 12px 26px rgba(0,0,0,.06);white-space:pre-wrap;
+    }
+    .tfc-bot .tfc-bubble{color:var(--dark);background:#fff;border-top-left-radius:6px;border:1px solid rgba(16,38,23,.07)}
+    .tfc-user .tfc-bubble{color:#fff;background:linear-gradient(135deg,var(--green),var(--green-dark));border-top-right-radius:6px}
+
+    .tfc-lead-card{
+      display:none;padding:14px;margin:12px 0;border-radius:20px;background:#fff;border:1px solid rgba(0,155,85,.14);box-shadow:0 12px 28px rgba(0,0,0,.06);
+    }
+    .tfc-lead-card.tfc-show{display:block}
+    .tfc-lead-card h5{margin:0 0 10px;color:var(--dark);font-size:14px;font-weight:900}
+    .tfc-lead-grid{display:grid;gap:8px}
+    .tfc-lead-grid input,.tfc-lead-grid textarea{
+      width:100%;border:1px solid rgba(16,38,23,.10);border-radius:13px;padding:11px 12px;outline:none;background:#f9fbfa;color:var(--dark);font-size:13px;font-weight:700;font-family:"Mulish",sans-serif;
+    }
+    .tfc-lead-grid textarea{min-height:82px;resize:vertical}
+    .tfc-submit-lead{
+      min-height:42px;border:none;border-radius:999px;color:#fff;background:linear-gradient(135deg,var(--green),var(--green-dark));font-size:13px;font-weight:900;cursor:pointer;transition:.3s ease;
+    }
+    .tfc-submit-lead:hover{background:linear-gradient(135deg,var(--green),var(--wine));transform:translateY(-2px)}
+
+    .tfc-chat-foot{padding:14px;background:#fff;border-top:1px solid rgba(16,38,23,.08)}
+    .tfc-input-wrap{
+      display:grid;
+      grid-template-columns:minmax(0,1fr) 48px;
+      gap:9px;
+      align-items:end;
+      padding:8px;
+      border-radius:24px;
+      background:#f4f8f6;
+      border:1px solid rgba(16,38,23,.08);
+      overflow:hidden;
+    }
+    .tfc-chat-input{
+      width:100%;
+      max-width:100%;
+      max-height:110px;
+      min-height:42px;
+      border:none;
+      outline:none;
+      resize:none;
+      padding:12px;
+      color:var(--dark);
+      background:#fff;
+      border-radius:18px;
+      font-size:13.5px;
+      line-height:1.4;
+      font-weight:700;
+      font-family:"Mulish",sans-serif;
+      overflow:hidden;
+    }
+    .tfc-send{
+      width:48px;
+      height:48px;
+      border:none;
+      border-radius:50%;
+      display:grid;
+      place-items:center;
+      color:#fff !important;
+      background:var(--green);
+      cursor:pointer;
+      transition:.28s ease;
+      flex:0 0 48px;
+    }
+    .tfc-send:hover{background:var(--wine);transform:translateY(-2px)}
+    .tfc-send svg{
+      width:20px;
+      height:20px;
+      stroke:#fff !important;
+      color:#fff !important;
+      fill:none;
+      stroke-width:2.4;
+      stroke-linecap:round;
+      stroke-linejoin:round;
+    }
+    .tfc-note{margin:8px 4px 0;color:#7a837e;font-size:10.5px;line-height:1.45;font-weight:700;text-align:center}
+
+    @keyframes tfcPulse{0%{transform:scale(.85);opacity:.9}100%{transform:scale(1.35);opacity:0}}
+    @keyframes tfcChatIn{from{opacity:0;transform:translateY(18px) scale(.98)}to{opacity:1;transform:translateY(0) scale(1)}}
+
+    @media(max-width:1020px){
+      .tfc-footer-main{grid-template-columns:1fr 1fr;gap:38px}
+      .tfc-brand-row{grid-template-columns:140px 1fr}
+    }
+
+    @media(max-width:640px){
+      .tfc-container{width:min(100% - 30px,1180px)}
+      .tfc-footer-card{margin:42px 0 30px;padding:28px 20px;border-radius:26px}
+      .tfc-footer-main{grid-template-columns:1fr;gap:32px}
+      .tfc-footer h3{font-size:21px;margin-bottom:17px}
+      .tfc-links a,.tfc-contact-row{font-size:14px}
+      .tfc-brand-row{grid-template-columns:1fr;gap:18px;margin-top:30px;padding-top:28px;text-align:left}
+      .tfc-logo{width:118px}
+      .tfc-brand-row p{font-size:13.5px;line-height:1.75}
+      .tfc-bottom-inner{min-height:56px;font-size:11px;padding:0 8px}
+
+      .tfc-chat-launcher{right:16px;bottom:16px;width:56px;height:56px}
+      .tfc-chat-launcher svg{width:25px;height:25px}
+      .tfc-chat-window{right:10px;left:10px;bottom:84px;width:auto;height:min(78vh,650px);min-height:500px;border-radius:24px}
+      .tfc-chat-head{padding:18px}
+      .tfc-chat-head-inner{grid-template-columns:44px minmax(0,1fr) 34px}
+      .tfc-avatar{width:44px;height:44px}
+      .tfc-chat-head h4{font-size:16px}
+      .tfc-quick-actions{grid-template-columns:1fr 1fr;gap:8px}
+      .tfc-quick-actions button{min-height:48px;font-size:11px;padding:9px 10px}
+    }
+
+    @media(max-width:420px){
+      .tfc-chat-window{
+        right:8px;
+        left:8px;
+        bottom:82px;
+        width:auto;
+        max-width:calc(100vw - 16px);
+      }
+      .tfc-chat-head{
+        padding:16px;
+      }
+      .tfc-chat-head-inner{
+        grid-template-columns:42px minmax(0,1fr) 32px;
+        gap:10px;
+      }
+      .tfc-chat-head h4{
+        font-size:15px;
+        white-space:normal;
+      }
+      .tfc-chat-head p{
+        font-size:11px;
+      }
+      .tfc-quick-actions{
+        grid-template-columns:1fr 1fr;
+        gap:8px;
+      }
+      .tfc-quick-actions button{
+        min-height:46px;
+        font-size:10.5px;
+        padding:8px 9px;
+        border-radius:999px;
+      }
+      .tfc-input-wrap{
+        grid-template-columns:minmax(0,1fr) 44px;
+      }
+      .tfc-send{
+        width:44px;
+        height:44px;
+      }
+    }
+
+
+    
+    /* Strong WordPress theme button override */
+    #tranter-footer-chat-widget button,
+    #tranter-footer-chat-widget .tfc-chat-launcher,
+    #tranter-footer-chat-widget .tfc-chat-close,
+    #tranter-footer-chat-widget .tfc-send,
+    #tranter-footer-chat-widget .tfc-quick-actions button,
+    #tranter-footer-chat-widget .tfc-submit-lead {
+      -webkit-appearance: none !important;
+      appearance: none !important;
+      font-family: "Mulish", sans-serif !important;
+      text-transform: none !important;
+      letter-spacing: 0 !important;
+      text-decoration: none !important;
+      outline: none !important;
+      box-sizing: border-box !important;
+    }
+
+    #tranter-footer-chat-widget .tfc-chat-launcher,
+    #tranter-footer-chat-widget .tfc-chat-launcher:hover,
+    #tranter-footer-chat-widget .tfc-chat-launcher:focus {
+      all: unset;
+      position: fixed !important;
+      right: 22px !important;
+      bottom: 22px !important;
+      z-index: 999999 !important;
+      width: 58px !important;
+      height: 58px !important;
+      min-width: 58px !important;
+      min-height: 58px !important;
+      max-width: 58px !important;
+      max-height: 58px !important;
+      padding: 0 !important;
+      margin: 0 !important;
+      border: none !important;
+      border-radius: 50% !important;
+      display: grid !important;
+      place-items: center !important;
+      background: linear-gradient(135deg, #009b55, #078d4e) !important;
+      color: #fff !important;
+      cursor: pointer !important;
+      box-shadow: 0 18px 45px rgba(0,155,85,.34) !important;
+      text-align: center !important;
+      line-height: 1 !important;
+      overflow: hidden !important;
+      box-sizing: border-box !important;
+      -webkit-appearance: none !important;
+      appearance: none !important;
+    }
+
+    #tranter-footer-chat-widget .tfc-chat-launcher:hover {
+      transform: translateY(-4px) scale(1.04) !important;
+      background: linear-gradient(135deg, #009b55, #891219) !important;
+      box-shadow: 0 24px 60px rgba(0,0,0,.24) !important;
+    }
+
+    #tranter-footer-chat-widget .tfc-chat-launcher svg {
+      width: 26px !important;
+      height: 26px !important;
+      stroke: #fff !important;
+      color: #fff !important;
+      fill: none !important;
+      display: block !important;
+      position: relative !important;
+      z-index: 2 !important;
+      margin: 0 !important;
+      padding: 0 !important;
+      box-sizing: border-box !important;
+    }
+
+    #tranter-footer-chat-widget .tfc-pulse {
+      position: absolute !important;
+      inset: -7px !important;
+      border-radius: 50% !important;
+      border: 1px solid rgba(0,155,85,.34) !important;
+      animation: tfcPulse 2s ease-out infinite !important;
+      pointer-events: none !important;
+    }
+
+    #tranter-footer-chat-widget .tfc-chat-close,
+    #tranter-footer-chat-widget .tfc-chat-close:focus {
+      all: unset;
+      width: 36px !important;
+      height: 36px !important;
+      min-width: 36px !important;
+      min-height: 36px !important;
+      max-width: 36px !important;
+      max-height: 36px !important;
+      padding: 0 !important;
+      margin: 0 !important;
+      border-radius: 50% !important;
+      display: grid !important;
+      place-items: center !important;
+      justify-self: end !important;
+      background: rgba(255,255,255,.12) !important;
+      border: 1px solid rgba(255,255,255,.20) !important;
+      color: #fff !important;
+      cursor: pointer !important;
+      transition: .3s ease !important;
+      box-sizing: border-box !important;
+      -webkit-appearance: none !important;
+      appearance: none !important;
+    }
+
+    #tranter-footer-chat-widget .tfc-chat-close:hover {
+      all: unset;
+      width: 36px !important;
+      height: 36px !important;
+      min-width: 36px !important;
+      min-height: 36px !important;
+      max-width: 36px !important;
+      max-height: 36px !important;
+      padding: 0 !important;
+      margin: 0 !important;
+      border-radius: 50% !important;
+      display: grid !important;
+      place-items: center !important;
+      justify-self: end !important;
+      background: #891219 !important;
+      border: 1px solid rgba(255,255,255,.28) !important;
+      color: #fff !important;
+      cursor: pointer !important;
+      transform: rotate(90deg) scale(1.05) !important;
+      transition: .3s ease !important;
+      box-sizing: border-box !important;
+    }
+
+    #tranter-footer-chat-widget .tfc-chat-close svg {
+      width: 21px !important;
+      height: 21px !important;
+      stroke: #fff !important;
+      color: #fff !important;
+      fill: none !important;
+      display: block !important;
+      margin: 0 !important;
+      padding: 0 !important;
+    }
+
+    #tranter-footer-chat-widget .tfc-send,
+    #tranter-footer-chat-widget .tfc-send:focus {
+      all: unset;
+      width: 48px !important;
+      height: 48px !important;
+      min-width: 48px !important;
+      min-height: 48px !important;
+      max-width: 48px !important;
+      max-height: 48px !important;
+      padding: 0 !important;
+      margin: 0 !important;
+      border: none !important;
+      border-radius: 50% !important;
+      display: grid !important;
+      place-items: center !important;
+      background: #009b55 !important;
+      color: #fff !important;
+      cursor: pointer !important;
+      transition: .3s ease !important;
+      box-sizing: border-box !important;
+      -webkit-appearance: none !important;
+      appearance: none !important;
+    }
+
+    #tranter-footer-chat-widget .tfc-send:hover {
+      all: unset;
+      width: 48px !important;
+      height: 48px !important;
+      min-width: 48px !important;
+      min-height: 48px !important;
+      max-width: 48px !important;
+      max-height: 48px !important;
+      padding: 0 !important;
+      margin: 0 !important;
+      border: none !important;
+      border-radius: 50% !important;
+      display: grid !important;
+      place-items: center !important;
+      background: #891219 !important;
+      color: #fff !important;
+      cursor: pointer !important;
+      transform: translateY(-3px) !important;
+      box-shadow: 0 15px 35px rgba(137,18,25,.30) !important;
+      box-sizing: border-box !important;
+    }
+
+    #tranter-footer-chat-widget .tfc-send svg {
+      width: 20px !important;
+      height: 20px !important;
+      stroke: #fff !important;
+      color: #fff !important;
+      fill: none !important;
+      display: block !important;
+      margin: 0 !important;
+      padding: 0 !important;
+    }
+
+    #tranter-footer-chat-widget .tfc-quick-actions button,
+    #tranter-footer-chat-widget .tfc-quick-actions button:focus {
+      all: unset;
+      width: 100% !important;
+      min-height: 54px !important;
+      padding: 12px 18px !important;
+      border-radius: 999px !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      text-align: center !important;
+      background: #fff !important;
+      color: #009b55 !important;
+      border: 1px solid rgba(0,155,85,.15) !important;
+      font-family: "Mulish", sans-serif !important;
+      font-size: 12px !important;
+      line-height: 1.25 !important;
+      font-weight: 900 !important;
+      cursor: pointer !important;
+      transition: .3s ease !important;
+      box-shadow: 0 12px 28px rgba(0,0,0,.05) !important;
+      box-sizing: border-box !important;
+      white-space: normal !important;
+    }
+
+    #tranter-footer-chat-widget .tfc-quick-actions button:hover,
+    #tranter-footer-chat-widget .tfc-quick-actions button.tfc-active {
+      background: #009b55 !important;
+      color: #fff !important;
+      border-color: #009b55 !important;
+      transform: translateY(-3px) !important;
+      box-shadow: 0 18px 35px rgba(0,155,85,.22) !important;
+    }
+
+    #tranter-footer-chat-widget .tfc-submit-lead,
+    #tranter-footer-chat-widget .tfc-submit-lead:focus {
+      all: unset;
+      width: 100% !important;
+      min-height: 42px !important;
+      padding: 12px 18px !important;
+      border-radius: 999px !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      text-align: center !important;
+      background: linear-gradient(135deg, #009b55, #078d4e) !important;
+      color: #fff !important;
+      border: none !important;
+      font-family: "Mulish", sans-serif !important;
+      font-size: 13px !important;
+      line-height: 1.2 !important;
+      font-weight: 900 !important;
+      cursor: pointer !important;
+      transition: .3s ease !important;
+      box-sizing: border-box !important;
+    }
+
+    #tranter-footer-chat-widget .tfc-submit-lead:hover {
+      background: linear-gradient(135deg, #009b55, #891219) !important;
+      color: #fff !important;
+      transform: translateY(-2px) !important;
+    }
+
+    @media(max-width:640px){
+      #tranter-footer-chat-widget .tfc-chat-launcher,
+      #tranter-footer-chat-widget .tfc-chat-launcher:hover,
+      #tranter-footer-chat-widget .tfc-chat-launcher:focus {
+        right: 16px !important;
+        bottom: 16px !important;
+        width: 56px !important;
+        height: 56px !important;
+        min-width: 56px !important;
+        min-height: 56px !important;
+        max-width: 56px !important;
+        max-height: 56px !important;
+        border-radius: 50% !important;
+      }
+
+      #tranter-footer-chat-widget .tfc-chat-launcher svg {
+        width: 25px !important;
+        height: 25px !important;
+      }
+
+      #tranter-footer-chat-widget .tfc-chat-close,
+      #tranter-footer-chat-widget .tfc-chat-close:hover,
+      #tranter-footer-chat-widget .tfc-chat-close:focus {
+        width: 34px !important;
+        height: 34px !important;
+        min-width: 34px !important;
+        min-height: 34px !important;
+        max-width: 34px !important;
+        max-height: 34px !important;
+      }
+
+      #tranter-footer-chat-widget .tfc-send,
+      #tranter-footer-chat-widget .tfc-send:hover,
+      #tranter-footer-chat-widget .tfc-send:focus {
+        width: 46px !important;
+        height: 46px !important;
+        min-width: 46px !important;
+        min-height: 46px !important;
+        max-width: 46px !important;
+        max-height: 46px !important;
+      }
+
+      #tranter-footer-chat-widget .tfc-quick-actions button,
+      #tranter-footer-chat-widget .tfc-quick-actions button:focus {
+        min-height: 48px !important;
+        font-size: 11px !important;
+        padding: 10px 12px !important;
+      }
+    }
+
+  </style>
+
+  <footer class="tfc-footer">
+    <div class="tfc-container">
+      <div class="tfc-footer-card">
+        <div class="tfc-footer-main">
+          <div class="tfc-col">
+            <h3>Services</h3>
+            <nav class="tfc-links">
+              <a href="/who-we-are/">Who We Are</a>
+              <a href="/what-we-do/">What We Do</a>
+              <a href="/manageengine/">ManageEngine</a>
+              <a href="/insights/">Insights</a>
+              <a href="/contact/">Contact</a>
+            </nav>
+          </div>
+
+          <div class="tfc-col">
+            <h3>Resources</h3>
+            <nav class="tfc-links">
+              <a href="/financial-health-calculator/">Financial Health Calculator</a>
+              <a href="/revenue-leak-calculator/">Revenue Leak Calculator</a>
+              <a href="/customer-churn-cost-calculator/">Customer Churn Cost Calculator</a>
+              <a href="/privacy-policy/">Privacy Policy</a>
+            </nav>
+          </div>
+
+          <div class="tfc-col">
+            <h3>Policies</h3>
+            <nav class="tfc-links tfc-policy-links">
+              <a href="/quality-statement-policy/">Quality Statement Policy</a>
+              <a href="/information-security-policy/">Information Security Policy</a>
+              <a href="/service-management-policy/">Service Management Policy</a>
+              <a href="/privacy-policy/">Privacy Policy</a>
+            </nav>
+          </div>
+
+          <div class="tfc-col tfc-contact-col">
+            <h3>Contact</h3>
+            <div class="tfc-contact-list">
+              <a class="tfc-contact-row" href="mailto:enquiries@tranter-it.com">
+                <span class="tfc-icon-line"><svg viewBox="0 0 24 24"><path d="M4 4h16v16H4z"/><path d="M22 6l-10 7L2 6"/></svg></span>
+                enquiries@tranter-it.com
+              </a>
+              <div class="tfc-contact-row">
+                <span class="tfc-icon-line"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 12-9 12S3 17 3 10a9 9 0 1 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></span>
+                3-6 Alhaji Adejumo Avenue, Ilupeju, Lagos, Nigeria.
+              </div>
+              <a class="tfc-contact-row" href="tel:+2348183405221">
+                <span class="tfc-icon-line"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.8 19.8 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.12.9.32 1.77.6 2.61a2 2 0 0 1-.45 2.11L8 9.7a16 16 0 0 0 6.3 6.3l1.26-1.26a2 2 0 0 1 2.11-.45c.84.28 1.71.48 2.61.6A2 2 0 0 1 22 16.92z"/></svg></span>
+                +234 818 340 5221
+              </a>
+              <a class="tfc-contact-row" href="tel:+2349023416588">
+                <span class="tfc-icon-line"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.8 19.8 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.12.9.32 1.77.6 2.61a2 2 0 0 1-.45 2.11L8 9.7a16 16 0 0 0 6.3 6.3l1.26-1.26a2 2 0 0 1 2.11-.45c.84.28 1.71.48 2.61.6A2 2 0 0 1 22 16.92z"/></svg></span>
+                +234 902 341 6588
+              </a>
+            </div>
+
+            <div class="tfc-socials" aria-label="Social media links">
+              <a href="#" aria-label="LinkedIn"><svg viewBox="0 0 24 24"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.34V9h3.41v1.56h.05c.47-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.32 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.1 20.45H3.54V9H7.1v11.45z"/></svg></a>
+              <a href="#" aria-label="YouTube"><svg viewBox="0 0 24 24"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5A3 3 0 0 0 .5 6.2 31 31 0 0 0 0 12a31 31 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 0 0 2.1-2.1A31 31 0 0 0 24 12a31 31 0 0 0-.5-5.8zM9.6 15.5v-7l6.3 3.5-6.3 3.5z"/></svg></a>
+              <a href="#" aria-label="Facebook"><svg viewBox="0 0 24 24"><path d="M14 8h3V4h-3c-3.3 0-5 2-5 5v3H6v4h3v8h4v-8h3.4l.6-4h-4V9c0-.7.3-1 1-1z"/></svg></a>
+              <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24"><path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5zm5 5.5A4.5 4.5 0 1 0 12 16.5 4.5 4.5 0 0 0 12 7.5zm6-.7a1.1 1.1 0 1 0-1.1-1.1A1.1 1.1 0 0 0 18 6.8zM12 9.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5z"/></svg></a>
+              <a href="#" aria-label="X"><svg viewBox="0 0 24 24"><path d="M18.9 2H22l-6.8 7.8 8 12.2h-6.3l-4.9-7.1L6.3 22H3.2l7.3-8.4L2.8 2h6.4l4.4 6.5L18.9 2zm-1.1 17.8h1.7L8.3 4.1H6.5l11.3 15.7z"/></svg></a>
+            </div>
+          </div>
+        </div>
+
+        <div class="tfc-brand-row">
+          <img class="tfc-logo" src="https://hipterraafrica.com/wp-content/uploads/2026/02/TRANTER-LOGO1-1.png" alt="Tranter IT Logo">
+          <p>
+            Tranter IT is a global technology services firm delivering enterprise grade solutions through remote global teams and on site engagement where required. We partner with organisations across industries to design, build and operate digital systems that power modern business.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="tfc-bottom">
+      <div class="tfc-bottom-inner">
+        COPYRIGHT © 2026. ALL RIGHTS RESERVED
+      </div>
+    </div>
+  </footer>
+
+  <button class="tfc-chat-launcher" id="tfc-chat-launcher" type="button" aria-label="Open Tranter AI Assistant">
+    <span class="tfc-pulse"></span>
+    <svg viewBox="0 0 24 24"><path d="M21 15a4 4 0 0 1-4 4H8l-5 3V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4z"/><path d="M8 9h8M8 13h5"/></svg>
+  </button>
+
+  <aside class="tfc-chat-window" id="tfc-chat-window" aria-label="Tranter AI Assistant">
+    <div class="tfc-chat-head">
+      <div class="tfc-chat-head-inner">
+        <div class="tfc-avatar">
+          <svg viewBox="0 0 24 24"><path d="M12 2v4"/><path d="M12 18v4"/><path d="M4.93 4.93l2.83 2.83"/><path d="M16.24 16.24l2.83 2.83"/><path d="M2 12h4"/><path d="M18 12h4"/><path d="M4.93 19.07l2.83-2.83"/><path d="M16.24 7.76l2.83-2.83"/><circle cx="12" cy="12" r="5"/></svg>
+        </div>
+        <div>
+          <h4>Tranter AI Assistant</h4>
+          <p>Ask about services, partnerships, bookings and enquiries.</p>
+        </div>
+        <button class="tfc-chat-close" id="tfc-chat-close" type="button" aria-label="Close chat">
+          <svg viewBox="0 0 24 24"><path d="M18 6L6 18M6 6l12 12"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <div class="tfc-chat-body" id="tfc-chat-body">
+      <div class="tfc-quick-actions">
+        <button type="button" data-intent="enquiry">General Enquiry</button>
+        <button type="button" data-intent="booking">Book a Demo</button>
+        <button type="button" data-intent="services">Explore Services</button>
+        <button type="button" data-intent="support">Speak to Team</button>
+      </div>
+
+      <div class="tfc-message tfc-bot">
+        <div class="tfc-bubble">👋 Hi! How can we help?</div>
+      </div>
+
+      <div class="tfc-lead-card" id="tfc-lead-card">
+        <h5 id="tfc-lead-title">Send your request to Tranter IT</h5>
+        <div class="tfc-lead-grid">
+          <input id="tfc-lead-name" type="text" placeholder="Full name">
+          <input id="tfc-lead-email" type="email" placeholder="Email address">
+          <input id="tfc-lead-phone" type="tel" placeholder="Phone number">
+          <input id="tfc-lead-company" type="text" placeholder="Company / Organisation">
+          <textarea id="tfc-lead-message" placeholder="Tell us what you need"></textarea>
+          <button class="tfc-submit-lead" id="tfc-submit-lead" type="button">Send Request</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="tfc-chat-foot">
+      <form class="tfc-input-wrap" id="tfc-chat-form">
+        <textarea class="tfc-chat-input" id="tfc-chat-input" rows="1" placeholder="Type your message..."></textarea>
+        <button class="tfc-send" type="submit" aria-label="Send message">
+          <svg viewBox="0 0 24 24"><path d="M22 2L11 13"/><path d="M22 2l-7 20-4-9-9-4 20-7z"/></svg>
+        </button>
+      </form>
+      <div class="tfc-note">Requests can be routed to enquiries@tranter-it.com. Connect your API endpoint below for live AI responses.</div>
+    </div>
+  </aside>
+
+  <script>
+    (function(){
+      var launcher=document.getElementById('tfc-chat-launcher');
+      var chat=document.getElementById('tfc-chat-window');
+      var closeBtn=document.getElementById('tfc-chat-close');
+      var body=document.getElementById('tfc-chat-body');
+      var form=document.getElementById('tfc-chat-form');
+      var input=document.getElementById('tfc-chat-input');
+      var leadCard=document.getElementById('tfc-lead-card');
+      var leadTitle=document.getElementById('tfc-lead-title');
+      var submitLead=document.getElementById('tfc-submit-lead');
+
+      var CHAT_API_ENDPOINT="";
+      var LEAD_EMAIL="enquiries@tranter-it.com";
+      var activeIntent="enquiry";
+
+      var localKnowledge={
+        tranter:"Tranter IT is a technology services firm delivering enterprise-grade IT infrastructure, smart solutions, cybersecurity, HR support, business process outsourcing, website development, digital marketing and partner technology solutions across Nigeria and beyond.",
+        services:"Tranter IT services include IT Support Services, Smart Solutions, Cybersecurity, HR Support Services, Digital Marketing & Brand Development, Business Process Outsourcing, Website Development & Optimization, Zoho Solutions and ManageEngine solutions.",
+        manageengine:"Tranter IT partners with ManageEngine to help enterprises improve IT operations, endpoint management, monitoring, service desk workflows, identity access, security operations and infrastructure visibility.",
+        zoho:"Tranter IT helps organisations adopt Zoho products for CRM, finance, collaboration, HR, workplace productivity, campaigns, support and business automation.",
+        contact:"You can contact Tranter IT at enquiries@tranter-it.com or call +234 818 340 5221 and +234 902 341 6588.",
+        book:"I can help you start a demo request. Please use the Book a Demo option above and share your name, email, phone, company and what you would like to discuss."
+      };
+
+      function openChat(){chat.classList.add('tfc-open');setTimeout(function(){input.focus()},120)}
+      function closeChat(){chat.classList.remove('tfc-open')}
+      function scrollBottom(){body.scrollTop=body.scrollHeight}
+      function addMessage(type,text){
+        var row=document.createElement('div');
+        row.className='tfc-message tfc-'+type;
+        row.innerHTML='<div class="tfc-bubble"></div>';
+        row.querySelector('.tfc-bubble').textContent=text;
+        body.appendChild(row);
+        scrollBottom();
+      }
+      function typing(){
+        var row=document.createElement('div');
+        row.className='tfc-message tfc-bot';
+        row.id='tfc-typing';
+        row.innerHTML='<div class="tfc-bubble">Typing...</div>';
+        body.appendChild(row);
+        scrollBottom();
+      }
+      function removeTyping(){var el=document.getElementById('tfc-typing');if(el)el.remove()}
+      function localReply(message){
+        var msg=String(message||'').toLowerCase();
+        if(msg.includes('manageengine'))return localKnowledge.manageengine;
+        if(msg.includes('zoho'))return localKnowledge.zoho;
+        if(msg.includes('service')||msg.includes('what do you do'))return localKnowledge.services;
+        if(msg.includes('contact')||msg.includes('email')||msg.includes('phone'))return localKnowledge.contact;
+        if(msg.includes('book')||msg.includes('demo')||msg.includes('meeting'))return localKnowledge.book;
+        if(msg.includes('tranter')||msg.includes('about'))return localKnowledge.tranter;
+        return "Thanks for reaching out. I can help with Tranter IT services, Zoho, ManageEngine, cybersecurity, IT support, smart solutions, demo requests and general enquiries. What would you like to know?";
+      }
+      function sendToApi(message){
+        if(!CHAT_API_ENDPOINT){return Promise.resolve({reply:localReply(message)})}
+        return fetch(CHAT_API_ENDPOINT,{
+          method:"POST",
+          headers:{"Content-Type":"application/json"},
+          body:JSON.stringify({message:message,intent:activeIntent,source:"website_chat",page:window.location.href})
+        }).then(function(res){if(!res.ok)throw new Error("API request failed");return res.json()})
+      }
+      function showLead(intent){
+        activeIntent=intent||'enquiry';
+        var labels={enquiry:"Send a general enquiry",booking:"Request a demo or consultation",services:"Tell us the service you need",support:"Request to speak with our team"};
+        leadTitle.textContent=labels[activeIntent]||labels.enquiry;
+        leadCard.classList.add('tfc-show');
+        scrollBottom();
+      }
+
+      launcher.addEventListener('click',function(){chat.classList.contains('tfc-open')?closeChat():openChat()});
+      closeBtn.addEventListener('click',closeChat);
+
+      document.querySelectorAll('.tfc-quick-actions button').forEach(function(btn){
+        btn.addEventListener('click',function(){
+          document.querySelectorAll('.tfc-quick-actions button').forEach(function(item){item.classList.remove('tfc-active')});
+          btn.classList.add('tfc-active');
+          var intent=btn.dataset.intent||'enquiry';
+          showLead(intent);
+          var prompt={enquiry:"I want to make an enquiry.",booking:"I want to book a demo.",services:"I want to explore Tranter IT services.",support:"I want to speak to the Tranter IT team."}[intent];
+          addMessage('user',prompt);
+          addMessage('bot',intent==='booking'
+            ?"Great. Please share your details and what you would like to discuss. Your request will be routed to enquiries@tranter-it.com."
+            :"Sure. Please share your details and message below, or type your question directly in the chat.");
+        });
+      });
+
+      form.addEventListener('submit',function(e){
+        e.preventDefault();
+        var message=input.value.trim();
+        if(!message)return;
+        addMessage('user',message);
+        input.value='';
+        typing();
+        sendToApi(message).then(function(data){
+          removeTyping();
+          addMessage('bot',data.reply||"Thanks. A Tranter IT representative can help with this. Would you like to send an enquiry?");
+        }).catch(function(){
+          removeTyping();
+          addMessage('bot',"I could not reach the AI service at the moment. Please share your request and we will route it to enquiries@tranter-it.com.");
+          showLead('enquiry');
+        });
+      });
+
+      input.addEventListener('input',function(){
+        input.style.height='auto';
+        input.style.height=Math.min(input.scrollHeight,110)+'px';
+      });
+
+      submitLead.addEventListener('click',function(){
+        var name=document.getElementById('tfc-lead-name').value.trim();
+        var email=document.getElementById('tfc-lead-email').value.trim();
+        var phone=document.getElementById('tfc-lead-phone').value.trim();
+        var company=document.getElementById('tfc-lead-company').value.trim();
+        var message=document.getElementById('tfc-lead-message').value.trim();
+        if(!name||!email||!message){
+          addMessage('bot',"Please provide your name, email and message so we can route your request properly.");
+          return;
+        }
+        var subject=encodeURIComponent("Website Chat Request - "+activeIntent);
+        var bodyText=encodeURIComponent("Request Type: "+activeIntent+"\nName: "+name+"\nEmail: "+email+"\nPhone: "+phone+"\nCompany: "+company+"\n\nMessage:\n"+message+"\n\nSource Page: "+window.location.href);
+        window.location.href="mailto:"+LEAD_EMAIL+"?subject="+subject+"&body="+bodyText;
+        addMessage('bot',"Thank you. Your email app should open with the request prepared for enquiries@tranter-it.com.");
+      });
+    })();
+  </script>
+</section>

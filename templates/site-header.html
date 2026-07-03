@@ -1,0 +1,1518 @@
+<!-- ============================================================
+     Tranter IT — Sales-Focused Mega Navigation + Demo Popup
+     Single-file HTML/CSS/JS widget for WordPress / Elementor HTML block
+     Vanilla JS only · fully scoped + hardened against theme bleed-through
+     ============================================================ -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Mulish:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+<header id="tranter-mega-header" class="tmh">
+  <style>
+    #tranter-mega-header,
+    #tranter-mega-header *{ box-sizing:border-box; }
+
+    #tranter-mega-header{
+      --green:#009b55;
+      --green-dark:#00763f;
+      --green-light:#00a651;
+      --deep:#001b14;
+      --text:#21372c;
+      --muted:#677a70;
+      --wine:#891219;
+      --wine-dark:#690d12;
+      --line:rgba(0,27,20,.1);
+      --shadow:0 22px 60px rgba(0,12,7,.14);
+      width:100%;
+      position:sticky;
+      top:0;
+      z-index:99999;
+      font-family:"Mulish",sans-serif;
+      -webkit-font-smoothing:antialiased;
+    }
+
+    #tranter-mega-header ul,
+    #tranter-mega-header li{ margin:0; padding:0; list-style:none; }
+    #tranter-mega-header h1,#tranter-mega-header h2,
+    #tranter-mega-header h3,#tranter-mega-header h4,
+    #tranter-mega-header p{ margin:0; padding:0; font-family:"Mulish",sans-serif; }
+    #tranter-mega-header svg{ display:block; flex-shrink:0; }
+    #tranter-mega-header img{ display:block; max-width:100%; }
+
+    #tranter-mega-header a,
+    #tranter-mega-header button{
+      all:unset !important;
+      box-sizing:border-box !important;
+      cursor:pointer !important;
+      font-family:"Mulish",sans-serif !important;
+      color:inherit !important;
+      text-decoration:none !important;
+    }
+
+    /* ============================================================
+       1. SHELL / LAYOUT
+       ============================================================ */
+    #tranter-mega-header .tmh-shell{
+      width:100vw;
+      margin-left:calc(50% - 50vw);
+      margin-right:calc(50% - 50vw);
+      background:rgba(255,255,255,.94);
+      backdrop-filter:blur(18px);
+      border-bottom:1px solid var(--line);
+      box-shadow:0 10px 30px rgba(0,12,7,.05);
+    }
+
+    #tranter-mega-header .tmh-container{
+      width:100%;
+      min-height:80px;
+      margin:0 auto;
+      padding:0 clamp(24px,4vw,72px);
+      display:grid;
+      grid-template-columns:auto minmax(0,1fr) auto;
+      align-items:center;
+      gap:clamp(20px,4vw,56px);
+      position:relative;
+    }
+
+    #tranter-mega-header .tmh-logo{
+      display:inline-flex !important;
+      align-items:center;
+      justify-content:center;
+      padding:6px 0;
+    }
+    #tranter-mega-header .tmh-logo img{ width:54px; height:auto; }
+
+    /* ============================================================
+       2. PRIMARY NAV LINKS
+       ============================================================ */
+    #tranter-mega-header .tmh-nav{
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      gap:clamp(10px,2.2vw,34px);
+      height:100%;
+      width:100%;
+    }
+
+    #tranter-mega-header .tmh-link,
+    #tranter-mega-header .tmh-nav-btn{
+      display:inline-flex !important;
+      align-items:center !important;
+      justify-content:center !important;
+      gap:6px !important;
+      position:relative !important;
+      min-height:40px !important;
+      padding:10px 3px !important;
+      margin:0 !important;
+      border:0 !important;
+      border-radius:0 !important;
+      background:transparent !important;
+      box-shadow:none !important;
+      outline:none !important;
+      color:var(--deep) !important;
+      font-size:15px !important;
+      line-height:1 !important;
+      font-weight:800 !important;
+      letter-spacing:0 !important;
+      text-transform:none !important;
+      white-space:nowrap !important;
+      transition:color .22s ease !important;
+    }
+
+    #tranter-mega-header .tmh-link::after,
+    #tranter-mega-header .tmh-nav-btn::after{
+      content:"";
+      position:absolute;
+      left:0; bottom:0;
+      width:0; height:2px;
+      border-radius:99px;
+      background:var(--green);
+      transition:width .26s ease;
+    }
+
+    #tranter-mega-header .tmh-link:hover,
+    #tranter-mega-header .tmh-nav-btn:hover,
+    #tranter-mega-header .tmh-nav-item.tmh-open > .tmh-nav-btn{ color:var(--green) !important; }
+    #tranter-mega-header .tmh-link:hover::after,
+    #tranter-mega-header .tmh-nav-btn:hover::after,
+    #tranter-mega-header .tmh-nav-item.tmh-open > .tmh-nav-btn::after{ width:100%; }
+
+    #tranter-mega-header .tmh-chevron{
+      width:13px; height:13px;
+      stroke:currentColor; fill:none;
+      stroke-width:2.3; stroke-linecap:round; stroke-linejoin:round;
+      transition:transform .22s ease;
+    }
+    #tranter-mega-header .tmh-nav-item.tmh-open .tmh-chevron{ transform:rotate(180deg); }
+
+    /* ============================================================
+       3. RIGHT-SIDE ACTIONS
+       ============================================================ */
+    #tranter-mega-header .tmh-actions{
+      display:flex;
+      align-items:center;
+      justify-self:end;
+      gap:10px;
+    }
+
+    #tranter-mega-header .tmh-demo{
+      display:inline-flex !important;
+      align-items:center !important;
+      justify-content:center !important;
+      position:relative !important;
+      min-height:46px !important;
+      padding:13px 22px !important;
+      margin:0 !important;
+      border:0 !important;
+      border-radius:999px !important;
+      background:linear-gradient(135deg,var(--green),var(--green-dark)) !important;
+      box-shadow:0 14px 30px rgba(0,155,85,.26) !important;
+      color:#fff !important;
+      font-size:14px !important;
+      font-weight:900 !important;
+      letter-spacing:.01em !important;
+      text-transform:none !important;
+      white-space:nowrap !important;
+      transition:transform .25s ease, box-shadow .25s ease, background .25s ease !important;
+    }
+    #tranter-mega-header .tmh-demo:hover{
+      transform:translateY(-2px) !important;
+      background:linear-gradient(135deg,var(--green),var(--wine)) !important;
+      box-shadow:0 18px 38px rgba(0,12,7,.2) !important;
+    }
+    #tranter-mega-header .tmh-demo-dot{
+      display:inline-block;
+      width:7px; height:7px;
+      border-radius:50%;
+      background:#fff;
+      margin-right:7px;
+      animation:tmhPulse 2.2s ease-in-out infinite;
+    }
+    @keyframes tmhPulse{
+      0%{ box-shadow:0 0 0 0 rgba(255,255,255,.55); }
+      70%{ box-shadow:0 0 0 6px rgba(255,255,255,0); }
+      100%{ box-shadow:0 0 0 0 rgba(255,255,255,0); }
+    }
+
+    #tranter-mega-header .tmh-menu-toggle{
+      display:none !important;
+      align-items:center !important;
+      justify-content:center !important;
+      width:44px !important;
+      height:44px !important;
+      padding:0 !important;
+      margin:0 !important;
+      border:0 !important;
+      border-radius:50% !important;
+      background:rgba(0,155,85,.1) !important;
+      color:var(--green) !important;
+      transition:background .22s ease, color .22s ease !important;
+    }
+    #tranter-mega-header .tmh-menu-toggle svg{ width:22px; height:22px; stroke:currentColor; fill:none; stroke-width:2.4; stroke-linecap:round; }
+    #tranter-mega-header .tmh-menu-toggle:hover{ background:var(--green) !important; color:#fff !important; }
+
+    /* ============================================================
+       4. MEGA MENU + DROPDOWN
+       ============================================================ */
+    #tranter-mega-header .tmh-mega,
+    #tranter-mega-header .tmh-dropdown{
+      position:absolute;
+      left:50%; top:100%;
+      padding-top:14px;
+      transform:translateX(-50%) translateY(8px);
+      opacity:0; visibility:hidden; pointer-events:none;
+      transition:opacity .2s ease, transform .2s ease, visibility .2s ease;
+      z-index:100;
+    }
+    #tranter-mega-header .tmh-mega{ width:min(1080px,calc(100vw - 40px)); }
+    #tranter-mega-header .tmh-dropdown{ width:min(420px,calc(100vw - 40px)); }
+
+    #tranter-mega-header .tmh-nav-item.tmh-open .tmh-mega,
+    #tranter-mega-header .tmh-nav-item.tmh-open .tmh-dropdown{
+      opacity:1; visibility:visible; pointer-events:auto;
+      transform:translateX(-50%) translateY(0);
+    }
+
+    #tranter-mega-header .tmh-mega-card,
+    #tranter-mega-header .tmh-dropdown-card{
+      border-radius:26px;
+      background:#fff;
+      border:1px solid var(--line);
+      box-shadow:var(--shadow);
+      overflow:hidden;
+    }
+
+    #tranter-mega-header .tmh-mega-card{
+      display:grid;
+      grid-template-columns:300px minmax(0,1fr);
+      max-height:min(80vh,720px);
+      overflow-y:auto;
+      scrollbar-width:thin;
+    }
+    #tranter-mega-header .tmh-mega-card::-webkit-scrollbar{ width:6px; }
+    #tranter-mega-header .tmh-mega-card::-webkit-scrollbar-thumb{ background:rgba(0,155,85,.35); border-radius:99px; }
+
+    #tranter-mega-header .tmh-mega-left{
+      padding:24px 22px;
+      background:
+        radial-gradient(circle at 18% 16%,rgba(0,155,85,.14),transparent 32%),
+        linear-gradient(160deg,#ffffff,#f4faf7 70%);
+      border-right:1px solid var(--line);
+      display:flex;
+      flex-direction:column;
+    }
+
+    #tranter-mega-header .tmh-kicker{
+      display:inline-flex;
+      align-items:center;
+      width:fit-content;
+      padding:6px 11px;
+      border-radius:999px;
+      color:var(--wine);
+      background:rgba(137,18,25,.08);
+      font-size:9.5px;
+      line-height:1;
+      font-weight:900;
+      letter-spacing:.09em;
+      text-transform:uppercase;
+      margin-bottom:13px;
+    }
+
+    #tranter-mega-header .tmh-mega-title{
+      color:var(--deep);
+      font-size:19px;
+      line-height:1.18;
+      font-weight:900;
+      letter-spacing:-.4px;
+    }
+
+    #tranter-mega-header .tmh-mega-text{
+      margin-top:9px;
+      color:var(--muted);
+      font-size:12.8px;
+      line-height:1.6;
+      font-weight:650;
+    }
+
+    #tranter-mega-header .tmh-trust-row{
+      display:flex;
+      align-items:center;
+      gap:8px;
+      margin-top:16px;
+      padding:10px 12px;
+      border-radius:14px;
+      background:#fff;
+      border:1px solid var(--line);
+    }
+    #tranter-mega-header .tmh-trust-row svg{ width:15px; height:15px; color:var(--green); }
+    #tranter-mega-header .tmh-trust-row span{ font-size:11px; font-weight:800; color:var(--text); line-height:1.3; }
+
+    #tranter-mega-header .tmh-feature-card{
+      margin-top:16px;
+      padding:16px;
+      border-radius:18px;
+      background:var(--deep);
+      color:#fff;
+      position:relative;
+      overflow:hidden;
+    }
+    #tranter-mega-header .tmh-feature-card:before{
+      content:"";
+      position:absolute; inset:0;
+      background:
+        radial-gradient(circle at 12% 20%,rgba(0,155,85,.32),transparent 32%),
+        linear-gradient(135deg,rgba(255,255,255,.07),transparent);
+    }
+    #tranter-mega-header .tmh-feature-card > *{ position:relative; z-index:2; }
+    #tranter-mega-header .tmh-feature-card strong{ display:block; color:#fff; font-size:14.5px; font-weight:900; margin-bottom:6px; }
+    #tranter-mega-header .tmh-feature-card span{ display:block; color:rgba(255,255,255,.76); font-size:12.2px; line-height:1.55; font-weight:650; }
+    #tranter-mega-header .tmh-feature-card a{
+      display:inline-flex !important;
+      align-items:center !important;
+      gap:7px !important;
+      margin-top:13px !important;
+      color:#fff !important;
+      font-size:12.5px !important;
+      font-weight:900 !important;
+      transition:gap .2s ease !important;
+    }
+    #tranter-mega-header .tmh-feature-card a:hover{ gap:11px !important; color:#fff !important; }
+
+    #tranter-mega-header .tmh-mega-right{ padding:20px; background:#fff; }
+
+    #tranter-mega-header .tmh-service-header{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      margin-bottom:10px;
+    }
+    #tranter-mega-header .tmh-menu-section-title{
+      color:var(--deep);
+      font-size:10.5px;
+      font-weight:900;
+      text-transform:uppercase;
+      letter-spacing:.08em;
+    }
+    #tranter-mega-header .tmh-view-all{
+      display:inline-flex !important;
+      align-items:center !important;
+      gap:5px !important;
+      color:var(--green) !important;
+      font-size:11px !important;
+      font-weight:900 !important;
+      white-space:nowrap !important;
+      transition:transform .2s ease, color .2s ease !important;
+    }
+    #tranter-mega-header .tmh-view-all:hover{ color:var(--wine) !important; transform:translateX(3px); }
+
+    #tranter-mega-header .tmh-menu-grid{
+      display:grid;
+      grid-template-columns:repeat(3,minmax(0,1fr));
+      gap:9px;
+    }
+
+    #tranter-mega-header .tmh-menu-card{
+      display:grid !important;
+      grid-template-columns:32px minmax(0,1fr) !important;
+      align-items:flex-start !important;
+      gap:9px !important;
+      min-height:80px !important;
+      padding:12px !important;
+      margin:0 !important;
+      border:1px solid var(--line) !important;
+      border-radius:16px !important;
+      background:linear-gradient(135deg,#fff,#fbfdfc) !important;
+      color:var(--text) !important;
+      transition:transform .22s ease, box-shadow .22s ease, border-color .22s ease, background .22s ease !important;
+    }
+    #tranter-mega-header .tmh-menu-card:hover{
+      transform:translateY(-3px);
+      box-shadow:0 16px 34px rgba(0,12,7,.09);
+      border-color:rgba(0,155,85,.2) !important;
+      background:#fbfffd !important;
+    }
+
+    #tranter-mega-header .tmh-icon{
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      width:32px; height:32px;
+      border-radius:11px;
+      color:var(--green);
+      background:rgba(0,155,85,.1);
+      flex-shrink:0;
+    }
+    #tranter-mega-header .tmh-icon svg{ width:18px; height:18px; stroke:currentColor; fill:none; stroke-width:2.1; stroke-linecap:round; stroke-linejoin:round; }
+
+    #tranter-mega-header .tmh-menu-card-body{ display:flex; flex-direction:column; min-width:0; }
+    #tranter-mega-header .tmh-menu-card-body strong{ display:block; color:var(--deep); font-size:12.5px; line-height:1.22; font-weight:900; margin-bottom:3px; }
+    #tranter-mega-header .tmh-menu-card-body span{ display:block; color:var(--muted); font-size:10.8px; line-height:1.36; font-weight:650; }
+
+    /* ============================================================
+       5. PARTNER SOLUTIONS
+       ============================================================ */
+    #tranter-mega-header .tmh-partner-strip{
+      margin-top:16px;
+      padding-top:16px;
+      border-top:1px solid var(--line);
+    }
+    #tranter-mega-header .tmh-partner-strip-title{
+      color:var(--deep);
+      font-size:10.5px;
+      font-weight:900;
+      letter-spacing:.08em;
+      text-transform:uppercase;
+      margin-bottom:11px;
+    }
+
+    #tranter-mega-header .tmh-partner-grid{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:10px;
+    }
+
+    #tranter-mega-header .tmh-partner-card{
+      position:relative;
+      display:flex !important;
+      flex-direction:column !important;
+      padding:15px !important;
+      border-radius:18px !important;
+      border:1px solid rgba(0,155,85,.16) !important;
+      background:linear-gradient(160deg,rgba(0,155,85,.05),#fff 65%) !important;
+      box-shadow:0 12px 26px rgba(0,12,7,.05) !important;
+      transition:transform .22s ease, box-shadow .22s ease !important;
+    }
+    #tranter-mega-header .tmh-partner-card:hover{ transform:translateY(-3px); box-shadow:0 18px 36px rgba(0,12,7,.1) !important; }
+    #tranter-mega-header .tmh-partner-card.is-me{ border-color:rgba(137,18,25,.15) !important; background:linear-gradient(160deg,rgba(137,18,25,.045),#fff 65%) !important; }
+
+    #tranter-mega-header .tmh-partner-top{
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap:10px;
+      margin-bottom:10px;
+    }
+
+    #tranter-mega-header .tmh-partner-mark{
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      width:38px; height:38px;
+      border-radius:12px;
+      font-size:13px;
+      font-weight:900;
+      color:#fff;
+      letter-spacing:-.02em;
+      flex-shrink:0;
+      background:linear-gradient(135deg,var(--green),var(--green-dark));
+    }
+    #tranter-mega-header .tmh-partner-card.is-me .tmh-partner-mark{ background:linear-gradient(135deg,var(--wine),var(--wine-dark)); }
+
+    #tranter-mega-header .tmh-partner-badge{
+      display:inline-flex;
+      align-items:center;
+      padding:4px 9px;
+      border-radius:999px;
+      background:rgba(0,155,85,.1);
+      color:var(--green-dark);
+      font-size:8.7px;
+      font-weight:900;
+      letter-spacing:.04em;
+      text-transform:uppercase;
+      white-space:nowrap;
+    }
+    #tranter-mega-header .tmh-partner-card.is-me .tmh-partner-badge{ background:rgba(137,18,25,.09); color:var(--wine); }
+
+    #tranter-mega-header .tmh-partner-card h4{ display:block; color:var(--deep); font-size:14.5px; line-height:1.2; font-weight:900; margin-bottom:5px; }
+    #tranter-mega-header .tmh-partner-card p{ display:block; color:var(--muted); font-size:11.2px; line-height:1.45; font-weight:700; margin-bottom:10px; }
+
+    #tranter-mega-header .tmh-partner-perks{ display:flex; flex-direction:column; gap:5px; margin-bottom:12px; }
+    #tranter-mega-header .tmh-partner-perks li{
+      display:flex;
+      align-items:center;
+      gap:6px;
+      font-size:10.6px;
+      font-weight:750;
+      color:var(--text);
+    }
+    #tranter-mega-header .tmh-partner-perks svg{ width:13px; height:13px; color:var(--green); }
+    #tranter-mega-header .tmh-partner-card.is-me .tmh-partner-perks svg{ color:var(--wine); }
+
+    #tranter-mega-header .tmh-partner-actions{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:7px;
+      margin-top:auto;
+    }
+
+    #tranter-mega-header .tmh-partner-btn{
+      display:flex !important;
+      align-items:center !important;
+      justify-content:center !important;
+      min-height:34px !important;
+      padding:8px 9px !important;
+      margin:0 !important;
+      border:1px solid transparent !important;
+      border-radius:999px !important;
+      font-size:10px !important;
+      font-weight:900 !important;
+      text-align:center !important;
+      text-transform:none !important;
+      white-space:nowrap !important;
+      transition:background .22s ease, color .22s ease, border-color .22s ease, transform .22s ease !important;
+    }
+    #tranter-mega-header .tmh-partner-btn.primary{ background:var(--green) !important; color:#fff !important; box-shadow:0 10px 20px rgba(0,155,85,.2) !important; }
+    #tranter-mega-header .tmh-partner-card.is-me .tmh-partner-btn.primary{ background:var(--wine) !important; box-shadow:0 10px 20px rgba(137,18,25,.18) !important; }
+    #tranter-mega-header .tmh-partner-btn.secondary{ background:rgba(0,155,85,.08) !important; color:var(--green-dark) !important; border-color:rgba(0,155,85,.18) !important; }
+    #tranter-mega-header .tmh-partner-card.is-me .tmh-partner-btn.secondary{ background:rgba(137,18,25,.07) !important; color:var(--wine) !important; border-color:rgba(137,18,25,.16) !important; }
+    #tranter-mega-header .tmh-partner-btn:hover{ transform:translateY(-2px) !important; box-shadow:0 14px 26px rgba(0,12,7,.16) !important; }
+
+    /* ============================================================
+       6. SIMPLE DROPDOWN
+       ============================================================ */
+    #tranter-mega-header .tmh-dropdown-card{ padding:10px; }
+    #tranter-mega-header .tmh-dropdown-card a{
+      display:flex !important;
+      align-items:center !important;
+      justify-content:space-between !important;
+      gap:12px !important;
+      min-height:46px !important;
+      padding:12px 14px !important;
+      margin:0 !important;
+      border-radius:14px !important;
+      color:var(--text) !important;
+      font-size:13.5px !important;
+      font-weight:800 !important;
+      transition:color .2s ease, background .2s ease !important;
+    }
+    #tranter-mega-header .tmh-dropdown-card a:hover{ color:var(--green) !important; background:rgba(0,155,85,.07) !important; }
+    #tranter-mega-header .tmh-dropdown-card a span{ color:var(--muted); }
+
+    /* ============================================================
+       7. MOBILE DRAWER
+       ============================================================ */
+    #tranter-mega-header .tmh-mobile-panel{ display:none; }
+
+    @media(max-width:1180px) and (min-width:981px){
+      #tranter-mega-header .tmh-container{ padding:0 24px; gap:20px; }
+      #tranter-mega-header .tmh-nav{ gap:6px; }
+      #tranter-mega-header .tmh-link,
+      #tranter-mega-header .tmh-nav-btn{ font-size:13.5px !important; padding:10px 0 !important; }
+      #tranter-mega-header .tmh-mega-card{ grid-template-columns:260px minmax(0,1fr); }
+      #tranter-mega-header .tmh-menu-grid{ grid-template-columns:repeat(2,minmax(0,1fr)); }
+    }
+
+    @media(max-width:980px){
+      #tranter-mega-header .tmh-container{ min-height:72px; padding:0 16px; grid-template-columns:auto 1fr auto; gap:14px; }
+      #tranter-mega-header .tmh-logo img{ width:58px; }
+      #tranter-mega-header .tmh-nav{ display:none; }
+      #tranter-mega-header .tmh-actions .tmh-demo{ display:none !important; }
+      #tranter-mega-header .tmh-menu-toggle{ display:flex !important; }
+
+      #tranter-mega-header .tmh-mobile-panel{
+        position:fixed; inset:0; z-index:100000; display:none;
+        background:rgba(0,10,6,.45);
+        backdrop-filter:blur(6px);
+      }
+      #tranter-mega-header .tmh-mobile-panel.tmh-open{ display:block; }
+
+      #tranter-mega-header .tmh-mobile-drawer{
+        width:min(420px,calc(100vw - 22px));
+        height:calc(100vh - 22px);
+        margin:11px; margin-left:auto;
+        border-radius:28px;
+        background:#fff;
+        box-shadow:0 30px 90px rgba(0,0,0,.28);
+        overflow:hidden;
+        display:flex;
+        flex-direction:column;
+        animation:tmhDrawer .26s ease both;
+      }
+      @keyframes tmhDrawer{ from{ opacity:0; transform:translateX(20px); } to{ opacity:1; transform:translateX(0); } }
+
+      #tranter-mega-header .tmh-mobile-head{
+        padding:18px;
+        display:grid;
+        grid-template-columns:auto 1fr auto;
+        gap:12px;
+        align-items:center;
+        color:#fff;
+        background:
+          radial-gradient(circle at 14% 18%,rgba(255,255,255,.16),transparent 30%),
+          linear-gradient(135deg,#06241a,var(--deep));
+      }
+      #tranter-mega-header .tmh-mobile-head img{ width:60px; background:#fff; border-radius:14px; padding:6px; }
+      #tranter-mega-header .tmh-mobile-head strong{ display:block; color:#fff; font-size:15px; font-weight:900; }
+      #tranter-mega-header .tmh-mobile-head span{ display:block; margin-top:2px; color:rgba(255,255,255,.72); font-size:11.5px; font-weight:700; }
+
+      #tranter-mega-header .tmh-mobile-close{
+        display:flex !important;
+        align-items:center !important;
+        justify-content:center !important;
+        width:36px !important;
+        height:36px !important;
+        margin:0 !important;
+        padding:0 !important;
+        border:1px solid rgba(255,255,255,.16) !important;
+        border-radius:50% !important;
+        background:rgba(255,255,255,.12) !important;
+        color:#fff !important;
+        transition:background .22s ease, transform .22s ease !important;
+      }
+      #tranter-mega-header .tmh-mobile-close svg{ width:19px; height:19px; stroke:currentColor; fill:none; stroke-width:2.5; stroke-linecap:round; }
+      #tranter-mega-header .tmh-mobile-close:hover{ background:var(--wine) !important; transform:rotate(90deg) !important; }
+
+      #tranter-mega-header .tmh-mobile-content{
+        padding:14px; padding-bottom:28px;
+        overflow-y:auto;
+        display:flex;
+        flex-direction:column;
+        gap:9px;
+      }
+
+      #tranter-mega-header .tmh-mobile-link,
+      #tranter-mega-header .tmh-mobile-summary{
+        display:flex !important;
+        align-items:center !important;
+        justify-content:space-between !important;
+        gap:12px !important;
+        min-height:50px !important;
+        width:100% !important;
+        padding:13px 15px !important;
+        margin:0 !important;
+        border:1px solid var(--line) !important;
+        border-radius:18px !important;
+        background:#fff !important;
+        color:var(--deep) !important;
+        font-size:14.5px !important;
+        font-weight:900 !important;
+        box-shadow:0 8px 20px rgba(0,12,7,.04) !important;
+        cursor:pointer !important;
+      }
+      #tranter-mega-header .tmh-mobile-details[open] > .tmh-mobile-summary{ color:var(--green) !important; background:rgba(0,155,85,.07) !important; }
+      #tranter-mega-header .tmh-mobile-summary span{ transition:transform .22s ease; }
+      #tranter-mega-header .tmh-mobile-details[open] > .tmh-mobile-summary span{ transform:rotate(180deg); }
+
+      #tranter-mega-header .tmh-mobile-sub{ display:flex; flex-direction:column; gap:7px; padding:9px 0 2px 12px; }
+      #tranter-mega-header .tmh-mobile-sub a{
+        display:flex !important;
+        align-items:center !important;
+        min-height:42px !important;
+        padding:11px 13px !important;
+        margin:0 !important;
+        border-radius:14px !important;
+        background:#f7faf8 !important;
+        color:var(--muted) !important;
+        font-size:12.6px !important;
+        font-weight:800 !important;
+      }
+
+      #tranter-mega-header .tmh-mobile-partner-card{
+        padding:14px;
+        border-radius:18px;
+        background:linear-gradient(160deg,rgba(0,155,85,.06),#fff 70%);
+        border:1px solid rgba(0,155,85,.15);
+      }
+      #tranter-mega-header .tmh-mobile-partner-card.is-me{
+        background:linear-gradient(160deg,rgba(137,18,25,.05),#fff 70%);
+        border-color:rgba(137,18,25,.14);
+      }
+      #tranter-mega-header .tmh-mobile-partner-top{ display:flex; align-items:center; gap:8px; margin-bottom:6px; }
+      #tranter-mega-header .tmh-mobile-partner-mark{
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        width:30px; height:30px;
+        border-radius:10px;
+        color:#fff;
+        font-size:11px;
+        font-weight:900;
+        flex-shrink:0;
+        background:linear-gradient(135deg,var(--green),var(--green-dark));
+      }
+      #tranter-mega-header .tmh-mobile-partner-card.is-me .tmh-mobile-partner-mark{ background:linear-gradient(135deg,var(--wine),var(--wine-dark)); }
+      #tranter-mega-header .tmh-mobile-partner-card strong{ display:block; color:var(--deep); font-weight:900; font-size:14px; }
+      #tranter-mega-header .tmh-mobile-partner-card p{ display:block; margin-top:6px; color:var(--muted); font-size:12px; line-height:1.5; font-weight:700; }
+
+      #tranter-mega-header .tmh-mobile-card-actions{ display:grid; grid-template-columns:1fr 1fr; gap:7px; margin-top:11px; }
+      #tranter-mega-header .tmh-mobile-card-actions a{
+        display:flex !important;
+        align-items:center !important;
+        justify-content:center !important;
+        min-height:38px !important;
+        padding:9px !important;
+        margin:0 !important;
+        border-radius:999px !important;
+        color:#fff !important;
+        font-size:10.8px !important;
+        font-weight:900 !important;
+        background:var(--green) !important;
+      }
+      #tranter-mega-header .tmh-mobile-partner-card.is-me .tmh-mobile-card-actions a:first-child{ background:var(--wine) !important; }
+      #tranter-mega-header .tmh-mobile-card-actions a:nth-child(2){
+        color:var(--green-dark) !important;
+        background:rgba(0,155,85,.08) !important;
+        border:1px solid rgba(0,155,85,.16) !important;
+      }
+      #tranter-mega-header .tmh-mobile-partner-card.is-me .tmh-mobile-card-actions a:nth-child(2){
+        color:var(--wine) !important;
+        background:rgba(137,18,25,.07) !important;
+        border-color:rgba(137,18,25,.15) !important;
+      }
+
+      #tranter-mega-header .tmh-mobile-demo{
+        display:flex !important;
+        align-items:center !important;
+        justify-content:center !important;
+        min-height:52px !important;
+        margin-top:6px !important;
+        border-radius:999px !important;
+        color:#fff !important;
+        font-size:14px !important;
+        font-weight:900 !important;
+        background:linear-gradient(135deg,var(--green),var(--green-dark)) !important;
+        box-shadow:0 16px 34px rgba(0,155,85,.24) !important;
+      }
+    }
+
+    @media(max-width:520px){
+      #tranter-mega-header .tmh-container{ padding:0 13px; min-height:66px; }
+      #tranter-mega-header .tmh-logo img{ width:54px; }
+      #tranter-mega-header .tmh-menu-toggle{ width:42px !important; height:42px !important; }
+      #tranter-mega-header .tmh-mobile-drawer{ width:calc(100vw - 16px); height:calc(100vh - 16px); margin:8px; border-radius:22px; }
+      #tranter-mega-header .tmh-mobile-content{ padding:13px; }
+      #tranter-mega-header .tmh-partner-grid,
+      #tranter-mega-header .tmh-mobile-card-actions{ grid-template-columns:1fr; }
+    }
+
+    @media(prefers-reduced-motion:reduce){
+      #tranter-mega-header *{ animation:none !important; transition:none !important; }
+    }
+  </style>
+
+  <div class="tmh-shell">
+    <div class="tmh-container">
+      <a class="tmh-logo" href="https://hipterraafrica.com/" aria-label="Tranter IT Home">
+        <img src="https://hipterraafrica.com/wp-content/uploads/2026/02/TRANTER-LOGO1-1-1-e1775125547429.png" alt="Tranter IT">
+      </a>
+
+      <nav class="tmh-nav" aria-label="Main navigation">
+        <a class="tmh-link" href="/who-we-are/">Who We Are</a>
+
+        <div class="tmh-nav-item" data-menu>
+          <button class="tmh-nav-btn" type="button" aria-expanded="false">
+            What We Do
+            <svg class="tmh-chevron" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+
+          <div class="tmh-mega">
+            <div class="tmh-mega-card">
+
+              <div class="tmh-mega-left">
+                <div class="tmh-kicker">Business Solutions</div>
+                <h3 class="tmh-mega-title">Find the right technology service for your next stage of growth.</h3>
+                <p class="tmh-mega-text">From IT support and cybersecurity to business applications, Tranter IT helps organisations cut operational friction and scale with confidence.</p>
+
+                <div class="tmh-trust-row">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l2.6 6.6 7 .5-5.4 4.5 1.8 6.9L12 17l-6 3.5 1.8-6.9-5.4-4.5 7-.5z"/></svg>
+                  <span>Trusted by 200+ businesses across Nigeria & beyond</span>
+                </div>
+
+                <div class="tmh-feature-card">
+                  <strong>Not sure where to start?</strong>
+                  <span>Tell us your business goal — we'll match you with the right service or partner solution in one call.</span>
+                  <a href="/contact/">Speak with our team →</a>
+                </div>
+              </div>
+
+              <div class="tmh-mega-right">
+                <div class="tmh-service-header">
+                  <p class="tmh-menu-section-title">Core services</p>
+                  <a class="tmh-view-all" href="/services/">View all services →</a>
+                </div>
+
+                <div class="tmh-menu-grid">
+                  <a class="tmh-menu-card" href="/it-support-services/">
+                    <span class="tmh-icon"><svg viewBox="0 0 24 24"><path d="M12 18h.01"/><path d="M7 8a5 5 0 0 1 10 0c0 4-5 4-5 8"/></svg></span>
+                    <span class="tmh-menu-card-body"><strong>IT Support</strong><span>Managed IT support for enterprise operations.</span></span>
+                  </a>
+                  <a class="tmh-menu-card" href="/smart-solutions/">
+                    <span class="tmh-icon"><svg viewBox="0 0 24 24"><path d="M4 19V5"/><path d="M4 19h16"/><path d="M8 16v-5"/><path d="M12 16V8"/><path d="M16 16v-7"/></svg></span>
+                    <span class="tmh-menu-card-body"><strong>Smart Solutions</strong><span>Automation and digital intelligence for operations.</span></span>
+                  </a>
+                  <a class="tmh-menu-card" href="/cybersecurity/">
+                    <span class="tmh-icon"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg></span>
+                    <span class="tmh-menu-card-body"><strong>Cybersecurity</strong><span>Protection for infrastructure, systems and data.</span></span>
+                  </a>
+                  <a class="tmh-menu-card" href="/hr-support-services/">
+                    <span class="tmh-icon"><svg viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-8 0v2"/><circle cx="12" cy="7" r="4"/><path d="M20 8v6"/><path d="M23 11h-6"/></svg></span>
+                    <span class="tmh-menu-card-body"><strong>HR Support</strong><span>Structured workforce operations and compliance support.</span></span>
+                  </a>
+                  <a class="tmh-menu-card" href="/business-process-outsourcing/">
+                    <span class="tmh-icon"><svg viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg></span>
+                    <span class="tmh-menu-card-body"><strong>BPO</strong><span>Operational support for non-core business functions.</span></span>
+                  </a>
+                  <a class="tmh-menu-card" href="/website-development-optimization/">
+                    <span class="tmh-icon"><svg viewBox="0 0 24 24"><path d="M4 5h16v14H4z"/><path d="M8 9h8"/><path d="M8 13h5"/></svg></span>
+                    <span class="tmh-menu-card-body"><strong>Web Development</strong><span>High-performance digital platforms that convert.</span></span>
+                  </a>
+                  <a class="tmh-menu-card" href="/digital-marketing-brand-development/">
+                    <span class="tmh-icon"><svg viewBox="0 0 24 24"><path d="M3 11l18-5-5 18-4-8-9-5z"/></svg></span>
+                    <span class="tmh-menu-card-body"><strong>Digital Marketing</strong><span>Visibility, demand generation and growth.</span></span>
+                  </a>
+                  <a class="tmh-menu-card" href="/event/">
+                    <span class="tmh-icon"><svg viewBox="0 0 24 24"><path d="M8 2v4"/><path d="M16 2v4"/><path d="M3 10h18"/><path d="M5 4h14v18H5z"/></svg></span>
+                    <span class="tmh-menu-card-body"><strong>Events</strong><span>Seminars, workshops and technology engagements.</span></span>
+                  </a>
+                </div>
+
+                <div class="tmh-partner-strip">
+                  <p class="tmh-partner-strip-title">Partner Solutions</p>
+                  <div class="tmh-partner-grid">
+                    <div class="tmh-partner-card is-zoho">
+                      <div class="tmh-partner-top">
+                        <span class="tmh-partner-mark">Z</span>
+                        <span class="tmh-partner-badge">Certified Partner</span>
+                      </div>
+                      <h4>Zoho Solutions</h4>
+                      <p>CRM, finance, HR and workplace automation, implemented and supported end-to-end.</p>
+                      <ul class="tmh-partner-perks">
+                        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M5 12l5 5L19 7"/></svg>Free setup consultation</li>
+                        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M5 12l5 5L19 7"/></svg>50+ deployments delivered</li>
+                      </ul>
+                      <div class="tmh-partner-actions">
+                        <a href="/contact/" class="tmh-partner-btn primary" data-tdp-open>Book a Demo</a>
+                        <a href="/zoho-solutions/" class="tmh-partner-btn secondary">Talk to an Expert</a>
+                      </div>
+                    </div>
+                    <div class="tmh-partner-card is-me">
+                      <div class="tmh-partner-top">
+                        <span class="tmh-partner-mark">ME</span>
+                        <span class="tmh-partner-badge">Authorised Partner</span>
+                      </div>
+                      <h4>ManageEngine</h4>
+                      <p>IT operations, monitoring, service desk and endpoint security in one stack.</p>
+                      <ul class="tmh-partner-perks">
+                        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M5 12l5 5L19 7"/></svg>24/7 monitoring coverage</li>
+                        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M5 12l5 5L19 7"/></svg>Dedicated onboarding support</li>
+                      </ul>
+                      <div class="tmh-partner-actions">
+                        <a href="/contact/" class="tmh-partner-btn primary" data-tdp-open>Book a Demo</a>
+                        <a href="/manageengine/" class="tmh-partner-btn secondary">Talk to an Expert</a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="tmh-nav-item" data-menu>
+          <button class="tmh-nav-btn" type="button" aria-expanded="false">
+            Partners
+            <svg class="tmh-chevron" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+          <div class="tmh-dropdown">
+            <div class="tmh-dropdown-card">
+              <a href="/partners/">All Partners <span>→</span></a>
+              <a href="/zoho-solutions/">Zoho Solutions <span>→</span></a>
+              <a href="/manageengine/">ManageEngine <span>→</span></a>
+              <a href="/sophos/">Sophos <span>→</span></a>
+            </div>
+          </div>
+        </div>
+
+        <a class="tmh-link" href="/insights/">Insights</a>
+        <a class="tmh-link" href="/contact/">Contact</a>
+      </nav>
+
+      <div class="tmh-actions">
+        <a class="tmh-demo" href="/contact/" data-tdp-open>
+          <span class="tmh-demo-dot"></span>Book a Demo
+        </a>
+        <button class="tmh-menu-toggle" id="tmh-menu-toggle" type="button" aria-label="Open menu">
+          <svg viewBox="0 0 24 24"><path d="M4 7h16"/><path d="M4 12h16"/><path d="M4 17h16"/></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="tmh-mobile-panel" id="tmh-mobile-panel">
+    <div class="tmh-mobile-drawer">
+      <div class="tmh-mobile-head">
+        <img src="https://hipterraafrica.com/wp-content/uploads/2026/02/TRANTER-LOGO1-1.png" alt="Tranter IT">
+        <div>
+          <strong>Tranter IT</strong>
+          <span>Enterprise technology services</span>
+        </div>
+        <button class="tmh-mobile-close" id="tmh-mobile-close" type="button" aria-label="Close menu">
+          <svg viewBox="0 0 24 24"><path d="M18 6L6 18"/><path d="M6 6l12 12"/></svg>
+        </button>
+      </div>
+
+      <div class="tmh-mobile-content">
+        <a class="tmh-mobile-link" href="/who-we-are/">Who We Are <span>→</span></a>
+
+        <details class="tmh-mobile-details" open>
+          <summary class="tmh-mobile-summary">What We Do <span>⌄</span></summary>
+          <div class="tmh-mobile-sub">
+            <a href="/it-support-services/">IT Support Services</a>
+            <a href="/smart-solutions/">Smart Solutions</a>
+            <a href="/cybersecurity/">Cybersecurity</a>
+            <a href="/hr-support-services/">HR Support Services</a>
+            <a href="/business-process-outsourcing/">Business Process Outsourcing</a>
+            <a href="/website-development-optimization/">Website Development</a>
+            <a href="/digital-marketing-brand-development/">Digital Marketing</a>
+            <a href="/event/">Events & Webinars</a>
+
+            <div class="tmh-mobile-partner-card is-zoho">
+              <div class="tmh-mobile-partner-top">
+                <span class="tmh-mobile-partner-mark">Z</span>
+                <strong>Zoho Solutions</strong>
+              </div>
+              <p>CRM, workplace, HR, finance and business automation tools.</p>
+              <div class="tmh-mobile-card-actions">
+                <a href="/contact/" data-tdp-open>Book a Demo</a>
+                <a href="/zoho-solutions/">Talk to Expert</a>
+              </div>
+            </div>
+
+            <div class="tmh-mobile-partner-card is-me">
+              <div class="tmh-mobile-partner-top">
+                <span class="tmh-mobile-partner-mark">ME</span>
+                <strong>ManageEngine</strong>
+              </div>
+              <p>IT operations, monitoring, service desk and security management.</p>
+              <div class="tmh-mobile-card-actions">
+                <a href="/contact/" data-tdp-open>Book a Demo</a>
+                <a href="/manageengine/">Talk to Expert</a>
+              </div>
+            </div>
+          </div>
+        </details>
+
+        <details class="tmh-mobile-details">
+          <summary class="tmh-mobile-summary">Partners <span>⌄</span></summary>
+          <div class="tmh-mobile-sub">
+            <a href="/partners/">All Partners</a>
+            <a href="/zoho-solutions/">Zoho Solutions</a>
+            <a href="/manageengine/">ManageEngine</a>
+            <a href="/sophos/">Sophos</a>
+          </div>
+        </details>
+
+        <a class="tmh-mobile-link" href="/insights/">Insights <span>→</span></a>
+        <a class="tmh-mobile-link" href="/contact/">Contact <span>→</span></a>
+        <a class="tmh-mobile-demo" href="/contact/" data-tdp-open>Book a Demo</a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    (function(){
+      var header = document.getElementById('tranter-mega-header');
+      if(!header) return;
+
+      var menuItems = header.querySelectorAll('[data-menu]');
+      var mobilePanel = document.getElementById('tmh-mobile-panel');
+      var toggle = document.getElementById('tmh-menu-toggle');
+      var close = document.getElementById('tmh-mobile-close');
+      var closeTimer;
+
+      function setOpen(item, open){
+        item.classList.toggle('tmh-open', open);
+        var btn = item.querySelector('.tmh-nav-btn');
+        if(btn) btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+      }
+
+      function closeAll(except){
+        menuItems.forEach(function(item){
+          if(item !== except) setOpen(item, false);
+        });
+      }
+
+      function closeMenusDelayed(){
+        clearTimeout(closeTimer);
+        closeTimer = setTimeout(function(){
+          if(window.innerWidth > 980) closeAll(null);
+        }, 420);
+      }
+      function cancelClose(){ clearTimeout(closeTimer); }
+
+      menuItems.forEach(function(item){
+        var btn = item.querySelector('.tmh-nav-btn');
+        var dropdown = item.querySelector('.tmh-mega, .tmh-dropdown');
+
+        btn.addEventListener('click', function(e){
+          e.stopPropagation();
+          cancelClose();
+          var willOpen = !item.classList.contains('tmh-open');
+          closeAll(item);
+          setOpen(item, willOpen);
+        });
+
+        item.addEventListener('mouseenter', function(){
+          if(window.innerWidth > 980){
+            cancelClose();
+            closeAll(item);
+            setOpen(item, true);
+          }
+        });
+        item.addEventListener('mouseleave', closeMenusDelayed);
+
+        if(dropdown){
+          dropdown.addEventListener('mouseenter', function(){
+            if(window.innerWidth > 980){ cancelClose(); setOpen(item, true); }
+          });
+          dropdown.addEventListener('mouseleave', closeMenusDelayed);
+        }
+      });
+
+      document.addEventListener('click', function(e){
+        if(!header.contains(e.target)) closeAll(null);
+      });
+
+      toggle.addEventListener('click', function(){
+        mobilePanel.classList.add('tmh-open');
+        document.documentElement.style.overflow = 'hidden';
+      });
+      close.addEventListener('click', function(){
+        mobilePanel.classList.remove('tmh-open');
+        document.documentElement.style.overflow = '';
+      });
+      mobilePanel.addEventListener('click', function(e){
+        if(e.target === mobilePanel){
+          mobilePanel.classList.remove('tmh-open');
+          document.documentElement.style.overflow = '';
+        }
+      });
+      mobilePanel.querySelectorAll('a').forEach(function(link){
+        link.addEventListener('click', function(){
+          mobilePanel.classList.remove('tmh-open');
+          document.documentElement.style.overflow = '';
+        });
+      });
+
+      document.addEventListener('keydown', function(e){
+        if(e.key === 'Escape'){
+          closeAll(null);
+          mobilePanel.classList.remove('tmh-open');
+          document.documentElement.style.overflow = '';
+        }
+      });
+    })();
+  </script>
+</header>
+
+<!-- ============================================================
+     Tranter IT — Book a Demo Popup
+     Scoped to #tranter-demo-popup-widget
+     ============================================================ -->
+<section id="tranter-demo-popup-widget" class="tdp-widget">
+  <style>
+    /* --- TOKEN RESET ------------------------------------------ */
+    #tranter-demo-popup-widget,
+    #tranter-demo-popup-widget *{ box-sizing:border-box; }
+
+    #tranter-demo-popup-widget{
+      --tdp-green:#009b55;
+      --tdp-green-dark:#067c45;
+      --tdp-red:#891219;
+      --tdp-dark:#062513;
+      --tdp-muted:#64756b;
+      font-family:"Mulish",sans-serif;
+    }
+
+    /* --- HARDENED BUTTON/LINK RESET (beats WP/Elementor) ------ */
+    #tranter-demo-popup-widget a,
+    #tranter-demo-popup-widget button{
+      all:unset !important;
+      box-sizing:border-box !important;
+      cursor:pointer !important;
+      font-family:"Mulish",sans-serif !important;
+      -webkit-font-smoothing:antialiased !important;
+    }
+
+    /* --- OVERLAY --------------------------------------------- */
+    #tranter-demo-popup-widget .tdp-overlay{
+      position:fixed !important;
+      inset:0 !important;
+      z-index:999999 !important;
+      display:none !important;
+      align-items:center !important;
+      justify-content:center !important;
+      padding:clamp(10px,1.8vw,22px) !important;
+      overflow:auto !important;
+      background:
+        radial-gradient(circle at 15% 15%,rgba(0,155,85,.30),transparent 32%),
+        radial-gradient(circle at 90% 10%,rgba(137,18,25,.24),transparent 30%),
+        rgba(6,37,19,.58) !important;
+      backdrop-filter:blur(16px) !important;
+      -webkit-backdrop-filter:blur(16px) !important;
+    }
+    #tranter-demo-popup-widget .tdp-overlay.tdp-active{
+      display:flex !important;
+      animation:tdpFade .25s ease both;
+    }
+
+    /* --- MODAL ----------------------------------------------- */
+    #tranter-demo-popup-widget .tdp-modal{
+      width:min(1040px,calc(100vw - 24px)) !important;
+      height:min(760px,calc(100vh - 24px)) !important;
+      max-height:calc(100vh - 24px) !important;
+      display:grid !important;
+      grid-template-columns:38% 62% !important;
+      overflow:hidden !important;
+      border-radius:28px !important;
+      background:rgba(255,255,255,.74) !important;
+      border:1px solid rgba(255,255,255,.48) !important;
+      box-shadow:0 40px 110px rgba(0,0,0,.32) !important;
+      backdrop-filter:blur(24px) !important;
+      -webkit-backdrop-filter:blur(24px) !important;
+      position:relative !important;
+      animation:tdpIn .32s cubic-bezier(.16,1,.3,1) both;
+    }
+
+    /* --- LEFT PANEL ------------------------------------------ */
+    #tranter-demo-popup-widget .tdp-side{
+      min-height:0 !important;
+      height:100% !important;
+      padding:clamp(22px,2.2vw,34px) !important;
+      color:#fff !important;
+      background:
+        linear-gradient(rgba(6,37,19,.62),rgba(6,37,19,.62)),
+        url("https://images.unsplash.com/photo-1551434678-e076c223a692?auto=format&fit=crop&w=1200&q=80") center/cover no-repeat !important;
+      position:relative !important;
+      display:flex !important;
+      flex-direction:column !important;
+      justify-content:space-between !important;
+      overflow:hidden !important;
+    }
+    #tranter-demo-popup-widget .tdp-side::before{
+      content:"" !important;
+      position:absolute !important; inset:0 !important;
+      background:
+        radial-gradient(circle at 20% 15%,rgba(0,155,85,.38),transparent 30%),
+        linear-gradient(135deg,rgba(255,255,255,.08),transparent) !important;
+      pointer-events:none !important;
+    }
+    #tranter-demo-popup-widget .tdp-side > *{ position:relative; z-index:2; }
+
+    #tranter-demo-popup-widget .tdp-pill{
+      width:max-content !important;
+      display:inline-flex !important;
+      align-items:center !important;
+      gap:8px !important;
+      padding:8px 13px !important;
+      border-radius:999px !important;
+      color:#fff !important;
+      background:rgba(255,255,255,.13) !important;
+      border:1px solid rgba(255,255,255,.18) !important;
+      font-size:10px !important;
+      font-weight:900 !important;
+      letter-spacing:.08em !important;
+      text-transform:uppercase !important;
+      backdrop-filter:blur(10px) !important;
+    }
+
+    #tranter-demo-popup-widget .tdp-side h2{
+      margin:18px 0 12px !important;
+      color:#fff !important;
+      font-size:clamp(28px,3vw,42px) !important;
+      line-height:1.05 !important;
+      letter-spacing:-1px !important;
+      font-weight:900 !important;
+    }
+    #tranter-demo-popup-widget .tdp-side p{
+      margin:0 !important;
+      color:rgba(255,255,255,.82) !important;
+      font-size:14px !important;
+      line-height:1.65 !important;
+      font-weight:700 !important;
+    }
+
+    #tranter-demo-popup-widget .tdp-benefits{
+      display:grid !important;
+      gap:10px !important;
+      margin-top:22px !important;
+    }
+    #tranter-demo-popup-widget .tdp-benefit{
+      display:flex !important;
+      gap:10px !important;
+      align-items:flex-start !important;
+      padding:11px !important;
+      border-radius:16px !important;
+      background:rgba(255,255,255,.10) !important;
+      border:1px solid rgba(255,255,255,.14) !important;
+      backdrop-filter:blur(12px) !important;
+    }
+    #tranter-demo-popup-widget .tdp-benefit-icon{
+      width:22px !important; height:22px !important;
+      display:grid !important; place-items:center !important;
+      flex:0 0 22px !important;
+      border-radius:50% !important;
+      background:var(--tdp-green) !important;
+      color:#fff !important;
+      font-size:12px !important;
+      font-weight:900 !important;
+    }
+    #tranter-demo-popup-widget .tdp-benefit strong{
+      display:block !important;
+      color:#fff !important;
+      font-size:12px !important;
+      line-height:1.3 !important;
+      font-weight:900 !important;
+      margin-bottom:2px !important;
+    }
+    #tranter-demo-popup-widget .tdp-benefit small{
+      display:block !important;
+      color:rgba(255,255,255,.72) !important;
+      font-size:10.8px !important;
+      line-height:1.4 !important;
+      font-weight:700 !important;
+    }
+
+    /* --- RIGHT PANEL ----------------------------------------- */
+    #tranter-demo-popup-widget .tdp-form-panel{
+      min-height:0 !important;
+      height:100% !important;
+      padding:24px 24px 18px !important;
+      overflow:hidden !important;
+      display:grid !important;
+      grid-template-rows:auto minmax(0,1fr) auto !important;
+      background:
+        radial-gradient(circle at 96% 0%,rgba(0,155,85,.10),transparent 28%),
+        rgba(255,255,255,.68) !important;
+      position:relative !important;
+    }
+
+    /* --- CLOSE BUTTON (fully hardened) ----------------------- */
+    #tranter-demo-popup-widget .tdp-close{
+      /* layout */
+      display:grid !important;
+      place-items:center !important;
+      position:absolute !important;
+      top:16px !important; right:16px !important;
+      z-index:10 !important;
+      width:40px !important; height:40px !important;
+      padding:0 !important; margin:0 !important;
+      /* shape */
+      border-radius:12px !important;
+      /* colour */
+      background:rgba(255,255,255,.85) !important;
+      border:1px solid rgba(0,155,85,.22) !important;
+      color:var(--tdp-green) !important;
+      /* reset anything WP injects */
+      box-shadow:0 2px 8px rgba(0,0,0,.08) !important;
+      line-height:1 !important;
+      font-size:0 !important; /* hide any text node the theme adds */
+      text-indent:-9999px !important;
+      overflow:hidden !important;
+      /* animation */
+      transition:background .22s ease, border-color .22s ease, color .22s ease, transform .22s ease !important;
+    }
+    #tranter-demo-popup-widget .tdp-close svg{
+      /* SVG must override text-indent & font-size:0 */
+      display:block !important;
+      width:18px !important; height:18px !important;
+      stroke:currentColor !important;
+      fill:none !important;
+      stroke-width:2.5 !important;
+      stroke-linecap:round !important;
+      stroke-linejoin:round !important;
+      flex-shrink:0 !important;
+      text-indent:0 !important;
+      position:relative !important;
+    }
+    #tranter-demo-popup-widget .tdp-close:hover{
+      background:var(--tdp-red) !important;
+      border-color:var(--tdp-red) !important;
+      color:#fff !important;
+      transform:rotate(90deg) !important;
+    }
+
+    /* --- FORM HEAD ------------------------------------------- */
+    #tranter-demo-popup-widget .tdp-form-head{
+      padding-right:58px !important;
+      margin-bottom:12px !important;
+    }
+    #tranter-demo-popup-widget .tdp-form-head h3{
+      margin:0 0 7px !important;
+      color:var(--tdp-dark) !important;
+      font-size:28px !important;
+      line-height:1.1 !important;
+      letter-spacing:-.5px !important;
+      font-weight:900 !important;
+    }
+    #tranter-demo-popup-widget .tdp-form-head p{
+      margin:0 !important;
+      color:var(--tdp-muted) !important;
+      font-size:13px !important;
+      line-height:1.5 !important;
+      font-weight:700 !important;
+    }
+
+    /* --- IFRAME WRAP ----------------------------------------- */
+    #tranter-demo-popup-widget .tdp-iframe-wrap{
+      height:100% !important;
+      min-height:0 !important;
+      max-height:none !important;
+      border-radius:18px !important;
+      overflow:auto !important;
+      background:#fff !important;
+      border:1px solid rgba(0,155,85,.10) !important;
+      box-shadow:0 16px 40px rgba(0,0,0,.07) !important;
+    }
+    #tranter-demo-popup-widget .tdp-iframe-wrap iframe{
+      width:100% !important;
+      height:100% !important;
+      min-height:100% !important;
+      border:0 !important;
+      display:block !important;
+      border-radius:18px !important;
+      background:transparent !important;
+    }
+
+    /* --- NOTE ------------------------------------------------ */
+    #tranter-demo-popup-widget .tdp-note{
+      margin-top:9px !important;
+      color:var(--tdp-muted) !important;
+      font-size:10px !important;
+      line-height:1.4 !important;
+      font-weight:700 !important;
+      text-align:center !important;
+    }
+
+    body.tdp-lock{ overflow:hidden !important; }
+
+    /* --- KEYFRAMES ------------------------------------------- */
+    @keyframes tdpFade{ from{opacity:0} to{opacity:1} }
+    @keyframes tdpIn{
+      from{ opacity:0; transform:translateY(20px) scale(.98); }
+      to{   opacity:1; transform:translateY(0)    scale(1);   }
+    }
+
+    /* --- RESPONSIVE ------------------------------------------ */
+    @media(max-width:1024px){
+      #tranter-demo-popup-widget .tdp-modal{
+        grid-template-columns:34% 66% !important;
+        width:calc(100vw - 20px) !important;
+      }
+      #tranter-demo-popup-widget .tdp-side{ padding:22px !important; }
+      #tranter-demo-popup-widget .tdp-side h2{ font-size:28px !important; }
+      #tranter-demo-popup-widget .tdp-benefit small{ display:none !important; }
+    }
+
+    @media(max-width:820px){
+      #tranter-demo-popup-widget .tdp-overlay{ align-items:flex-start !important; padding:8px !important; }
+      #tranter-demo-popup-widget .tdp-modal{
+        width:calc(100vw - 16px) !important;
+        height:auto !important; min-height:0 !important; max-height:none !important;
+        grid-template-columns:1fr !important;
+        border-radius:22px !important;
+        overflow:visible !important;
+      }
+      #tranter-demo-popup-widget .tdp-side{
+        height:auto !important; min-height:auto !important;
+        padding:18px 16px !important;
+        border-radius:22px 22px 0 0 !important;
+      }
+      #tranter-demo-popup-widget .tdp-side h2{ font-size:22px !important; margin:12px 0 7px !important; }
+      #tranter-demo-popup-widget .tdp-side p{ font-size:12px !important; }
+      #tranter-demo-popup-widget .tdp-benefits{ gap:7px !important; margin-top:12px !important; }
+      #tranter-demo-popup-widget .tdp-benefit{ padding:8px !important; }
+      #tranter-demo-popup-widget .tdp-benefit small{ display:block !important; font-size:9.5px !important; }
+      #tranter-demo-popup-widget .tdp-form-panel{
+        height:auto !important; min-height:auto !important;
+        padding:16px 12px 12px !important;
+        display:block !important; overflow:visible !important;
+        border-radius:0 0 22px 22px !important;
+      }
+      #tranter-demo-popup-widget .tdp-close{ top:12px !important; right:12px !important; width:36px !important; height:36px !important; border-radius:10px !important; }
+      #tranter-demo-popup-widget .tdp-form-head{ padding:0 46px 0 2px !important; margin-bottom:10px !important; }
+      #tranter-demo-popup-widget .tdp-form-head h3{ font-size:20px !important; }
+      #tranter-demo-popup-widget .tdp-iframe-wrap{ height:min(78vh,760px) !important; min-height:600px !important; border-radius:14px !important; }
+    }
+
+    @media(max-width:520px){
+      #tranter-demo-popup-widget .tdp-overlay{ padding:6px !important; }
+      #tranter-demo-popup-widget .tdp-modal{ width:calc(100vw - 12px) !important; border-radius:18px !important; }
+      #tranter-demo-popup-widget .tdp-side{ padding:14px 12px !important; }
+      #tranter-demo-popup-widget .tdp-side h2{ font-size:19px !important; }
+      #tranter-demo-popup-widget .tdp-benefit small{ display:none !important; }
+      #tranter-demo-popup-widget .tdp-form-panel{ padding:14px 8px 10px !important; }
+      #tranter-demo-popup-widget .tdp-form-head h3{ font-size:18px !important; }
+      #tranter-demo-popup-widget .tdp-iframe-wrap{ height:78vh !important; min-height:620px !important; }
+    }
+
+    @media(prefers-reduced-motion:reduce){
+      #tranter-demo-popup-widget *{ animation:none !important; transition:none !important; }
+    }
+  </style>
+
+  <div class="tdp-overlay" id="tdp-overlay" aria-hidden="true">
+    <div class="tdp-modal" role="dialog" aria-modal="true" aria-labelledby="tdp-title">
+
+      <div class="tdp-side">
+        <div>
+          <span class="tdp-pill">Tranter IT Consultation</span>
+          <h2 id="tdp-title">Start a smarter technology conversation.</h2>
+          <p>Share your organisation's needs and our team will help you identify the right Tranter IT service, Zoho solution, ManageEngine product or enterprise technology path.</p>
+          <div class="tdp-benefits">
+            <div class="tdp-benefit">
+              <span class="tdp-benefit-icon">✓</span>
+              <div>
+                <strong>Sales-focused discovery</strong>
+                <small>We route your request to the right Tranter IT team.</small>
+              </div>
+            </div>
+            <div class="tdp-benefit">
+              <span class="tdp-benefit-icon">✓</span>
+              <div>
+                <strong>Fast response</strong>
+                <small>Your form submission is collected through Zoho backend.</small>
+              </div>
+            </div>
+            <div class="tdp-benefit">
+              <span class="tdp-benefit-icon">✓</span>
+              <div>
+                <strong>Enterprise guidance</strong>
+                <small>Recommendations across IT services, cybersecurity and business apps.</small>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tdp-form-panel">
+        <button type="button" class="tdp-close" data-tdp-close aria-label="Close popup">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 6L6 18"/><path d="M6 6l12 12"/></svg>
+        </button>
+
+        <div class="tdp-form-head">
+          <h3>Book a Demo</h3>
+          <p>Complete the form below. Your request will be captured in Zoho and routed for follow-up.</p>
+        </div>
+
+        <div class="tdp-iframe-wrap">
+          <iframe
+            aria-label="TranterWebsite Lead Generation"
+            frameborder="0"
+            src="https://forms.zohopublic.com/zohopeople1029/form/TranterWebsiteLeadGeneration/formperma/_8k-vw9IXCAlYqvhSXT4XNVEqH7wHI2pNwq0szW17h0">
+          </iframe>
+        </div>
+
+        <p class="tdp-note">Powered by Tranter IT. Submissions are handled through Zoho Forms.</p>
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+    (function(){
+      var root = document.getElementById('tranter-demo-popup-widget');
+      if(!root) return;
+
+      var overlay = document.getElementById('tdp-overlay');
+      var closers = root.querySelectorAll('[data-tdp-close]');
+
+      function openPopup(e){
+        if(e) e.preventDefault();
+        overlay.classList.add('tdp-active');
+        overlay.setAttribute('aria-hidden','false');
+        document.body.classList.add('tdp-lock');
+      }
+
+      function closePopup(){
+        overlay.classList.remove('tdp-active');
+        overlay.setAttribute('aria-hidden','true');
+        document.body.classList.remove('tdp-lock');
+      }
+
+      /* Single delegated listener — catches nav buttons, partner buttons,
+         mobile demo button, and any future [data-tdp-open] elements.    */
+      document.addEventListener('click', function(e){
+        var t = e.target.closest('[data-tdp-open], .tdp-open-btn, .tmh-demo, .tmh-mobile-demo');
+        if(t){
+          var label = (t.textContent || '').trim().toLowerCase();
+          if(t.hasAttribute('data-tdp-open') || label.indexOf('book') !== -1 || label.indexOf('demo') !== -1){
+            openPopup(e);
+          }
+        }
+      });
+
+      closers.forEach(function(btn){ btn.addEventListener('click', closePopup); });
+
+      overlay.addEventListener('click', function(e){
+        if(e.target === overlay) closePopup();
+      });
+
+      document.addEventListener('keydown', function(e){
+        if(e.key === 'Escape' && overlay.classList.contains('tdp-active')) closePopup();
+      });
+    })();
+  </script>
+</section>
