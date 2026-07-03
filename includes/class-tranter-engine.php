@@ -18,6 +18,7 @@ class Tranter_Engine {
         require_once TRANTER_ENGINE_PATH . 'includes/campaigns.php';
         require_once TRANTER_ENGINE_PATH . 'includes/site-chrome.php';
         require_once TRANTER_ENGINE_PATH . 'includes/company.php';
+        require_once TRANTER_ENGINE_PATH . 'includes/services-page.php';
 
         Tranter_Post_Types::init();
         Tranter_Admin_App::init();
@@ -31,6 +32,7 @@ class Tranter_Engine {
         Tranter_Campaigns::init();
         Tranter_Site_Chrome::init();
         Tranter_Company::init();
+        Tranter_Services_Page::init();
         Tranter_Seeder::ensure_sections();
         if (method_exists('Tranter_Seeder', 'migrate_106')) Tranter_Seeder::migrate_106();
         if (method_exists('Tranter_Seeder', 'migrate_109')) Tranter_Seeder::migrate_109();
@@ -45,6 +47,7 @@ class Tranter_Engine {
         require_once TRANTER_ENGINE_PATH . 'includes/campaigns.php';
         require_once TRANTER_ENGINE_PATH . 'includes/site-chrome.php';
         require_once TRANTER_ENGINE_PATH . 'includes/company.php';
+        require_once TRANTER_ENGINE_PATH . 'includes/services-page.php';
         Tranter_Post_Types::register();
         Tranter_Seeder::seed();
         if (class_exists('Tranter_Knowledge_Hub')) Tranter_Knowledge_Hub::activation_setup();
