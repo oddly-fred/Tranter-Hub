@@ -41,6 +41,10 @@ class Tranter_Site_Chrome {
         // header/footer links remain connected, including WordPress subdirectory installs.
         $html = self::normalize_site_links($html);
 
+        if ($context === 'footer') {
+            $html = self::connect_footer_service_links($html, $market);
+        }
+
         if ($market !== 'ng') {
             // Global visitors should not see Nigeria/event-specific navigation by default.
             $html = self::remove_anchor_by_href($html, '/event/');
@@ -83,6 +87,13 @@ class Tranter_Site_Chrome {
             '/contact/' => '/wp/contact/',
             '/event/' => '/wp/event/',
             '/privacy-policy/' => '/wp/privacy-policy/',
+            '/quality-statement-policy/' => '/wp/quality-statement-policy/',
+            '/information-security-policy/' => '/wp/information-security-policy/',
+            '/service-management-policy/' => '/wp/service-management-policy/',
+            '/manageengine/' => '/wp/manageengine/',
+            '/zoho-solutions/' => '/wp/zoho-solutions/',
+            '/sophos/' => '/wp/sophos/',
+            '/partners/' => '/wp/partners/',
         ];
 
         foreach ($links as $from => $to) {
@@ -100,6 +111,19 @@ class Tranter_Site_Chrome {
         $html = str_replace('View all insights →', 'View Insights →', $html);
 
         return $html;
+    }
+
+    private static function connect_footer_service_links($html, $market = 'ng') {
+        $smart_link = $market === 'ng' ? '<a href="/wp/smart-solutions/">Smart Solutions</a>' : '';
+        $services = '<nav class="tfc-links">' .
+            '<a href="/wp/it-support-services/">IT Support Services</a>' .
+            $smart_link .
+            '<a href="/wp/hr-support-services/">HR Support Services</a>' .
+            '<a href="/wp/digital-marketing-brand-development/">Digital Marketing & Brand Development</a>' .
+            '<a href="/wp/what-we-do/">View What We Do</a>' .
+            '</nav>';
+
+        return preg_replace('~(<h3>Services</h3>\s*)<nav class="tfc-links">.*?</nav>~is', '$1' . $services, $html, 1);
     }
 
     private static function remove_anchor_by_href($html, $href) {
