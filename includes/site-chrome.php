@@ -50,6 +50,11 @@ class Tranter_Site_Chrome {
             $html = self::remove_anchor_by_href($html, '/wp/itgov-2026/');
             $html = self::remove_anchor_by_text($html, 'Events & Webinars');
 
+            // Smart Solutions is Nigeria-only.
+            $html = self::remove_anchor_by_href($html, '/smart-solutions/');
+            $html = self::remove_anchor_by_href($html, '/wp/smart-solutions/');
+            $html = self::remove_anchor_by_text($html, 'Smart Solutions');
+
             // Keep the footer globally relevant while preserving the supplied design.
             $html = str_replace('3-6 Alhaji Adejumo Avenue, Ilupeju, Lagos, Nigeria.', 'Remote global delivery with onsite engagement where required.', $html);
         }
