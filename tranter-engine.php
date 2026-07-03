@@ -2,13 +2,13 @@
 /**
  * Plugin Name: Tranter Engine
  * Description: Sales-focused, market-aware website engine for Tranter IT. Custom admin app, shortcodes, services, partner solutions and market routing.
- * Version: 1.6.2
+ * Version: 1.6.3
  * Author: Tranter IT
  */
 
 if (!defined('ABSPATH')) exit;
 
-define('TRANTER_ENGINE_VERSION', '1.6.2');
+define('TRANTER_ENGINE_VERSION', '1.6.3');
 define('TRANTER_ENGINE_FILE', __FILE__);
 define('TRANTER_ENGINE_PATH', plugin_dir_path(__FILE__));
 define('TRANTER_ENGINE_URL', plugin_dir_url(__FILE__));
