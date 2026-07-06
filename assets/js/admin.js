@@ -1,38 +1,39 @@
 (function(){
   document.addEventListener('DOMContentLoaded', function(){
-    document.querySelectorAll('.te-content-card').forEach(function(card, index){
+    document.querySelectorAll('.te-content-card,.te-template-card,.te-module,.te-mini-stat').forEach(function(card, index){
       card.style.animationDelay = (index * 35) + 'ms';
     });
 
-    var isWebsiteWorkspace = window.location.href.indexOf('page=tranter-engine-website') !== -1;
-    if (!isWebsiteWorkspace || document.querySelector('[data-te-service-shortcodes]')) return;
+    document.addEventListener('click', function(e){
+      var copyBtn = e.target.closest('[data-te-copy-template]');
+      if(copyBtn){
+        var target = document.querySelector(copyBtn.getAttribute('data-target'));
+        if(!target) return;
+        target.classList.add('is-visible');
+        target.focus();
+        target.select();
+        var value = target.value || target.textContent || '';
+        var done = function(){
+          var old = copyBtn.textContent;
+          copyBtn.textContent = 'Copied';
+          copyBtn.classList.add('is-copied');
+          setTimeout(function(){ copyBtn.textContent = old; copyBtn.classList.remove('is-copied'); }, 1600);
+        };
+        if(navigator.clipboard && navigator.clipboard.writeText){
+          navigator.clipboard.writeText(value).then(done).catch(function(){ document.execCommand('copy'); done(); });
+        }else{
+          document.execCommand('copy');
+          done();
+        }
+      }
 
-    var main = document.querySelector('.te-main');
-    if (!main) return;
-
-    var panel = document.createElement('section');
-    panel.className = 'te-panel';
-    panel.setAttribute('data-te-service-shortcodes', 'true');
-    panel.innerHTML = '' +
-      '<div class="te-panel-head"><h2>Individual Service Page Shortcodes</h2><span>Service page reference</span></div>' +
-      '<div class="te-guide-grid">' +
-        '<article class="te-guide-card"><h3>IT Support Services</h3><pre class="te-code-block">[te_site_header]\n\n[te_it_support_page]\n\n[te_site_footer]</pre><p class="te-muted">Use this on the /wp/it-support-services/ WordPress page.</p></article>' +
-        '<article class="te-guide-card"><h3>Smart Solutions</h3><pre class="te-code-block">[te_site_header]\n\n[te_smart_solutions_page]\n\n[te_site_footer]</pre><p class="te-muted">Use this on the /wp/smart-solutions/ WordPress page. Nigeria-only: hidden for non-Nigerian visitors.</p></article>' +
-        '<article class="te-guide-card"><h3>HR Support Services</h3><pre class="te-code-block">[te_site_header]\n\n[te_hr_support_page]\n\n[te_site_footer]</pre><p class="te-muted">Use this on the /wp/hr-support-services/ WordPress page.</p></article>' +
-        '<article class="te-guide-card"><h3>Digital Marketing & Brand Development</h3><pre class="te-code-block">[te_site_header]\n\n[te_digital_marketing_brand_page]\n\n[te_site_footer]</pre><p class="te-muted">Use this on the /wp/digital-marketing-brand-development/ WordPress page.</p></article>' +
-      '</div>' +
-      '<div class="te-shortcode-table">' +
-        '<div class="te-shortcode-row"><code>[te_it_support_page]</code><span>Full IT Support Services page</span><b class="te-status-available">Available</b></div>' +
-        '<div class="te-shortcode-row"><code>[te_it_support_services_page]</code><span>Alias for IT Support Services page</span><b class="te-status-available">Available</b></div>' +
-        '<div class="te-shortcode-row"><code>[te_smart_solutions_page]</code><span>Full Smart Solutions page, Nigeria-only</span><b class="te-status-available">Available</b></div>' +
-        '<div class="te-shortcode-row"><code>[te_smart_solution_page]</code><span>Alias for Smart Solutions page, Nigeria-only</span><b class="te-status-available">Available</b></div>' +
-        '<div class="te-shortcode-row"><code>[te_hr_support_page]</code><span>Full HR Support Services page</span><b class="te-status-available">Available</b></div>' +
-        '<div class="te-shortcode-row"><code>[te_hr_support_services_page]</code><span>Alias for HR Support Services page</span><b class="te-status-available">Available</b></div>' +
-        '<div class="te-shortcode-row"><code>[te_digital_marketing_brand_page]</code><span>Full Digital Marketing & Brand Development page</span><b class="te-status-available">Available</b></div>' +
-        '<div class="te-shortcode-row"><code>[te_digital_marketing_brand_development_page]</code><span>Alias for Digital Marketing & Brand Development page</span><b class="te-status-available">Available</b></div>' +
-        '<div class="te-shortcode-row"><code>[te_digital_marketing_page]</code><span>Short alias for Digital Marketing page</span><b class="te-status-available">Available</b></div>' +
-      '</div>';
-
-    main.appendChild(panel);
+      var toggleBtn = e.target.closest('[data-te-toggle-template]');
+      if(toggleBtn){
+        var code = document.querySelector(toggleBtn.getAttribute('data-target'));
+        if(!code) return;
+        code.classList.toggle('is-visible');
+        toggleBtn.textContent = code.classList.contains('is-visible') ? 'Hide HTML' : 'View HTML';
+      }
+    });
   });
 })();
