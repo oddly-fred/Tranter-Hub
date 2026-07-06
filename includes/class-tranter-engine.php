@@ -7,6 +7,8 @@ class Tranter_Engine {
         require_once TRANTER_ENGINE_PATH . 'includes/post-types.php';
         require_once TRANTER_ENGINE_PATH . 'includes/market.php';
         require_once TRANTER_ENGINE_PATH . 'includes/admin-app.php';
+        require_once TRANTER_ENGINE_PATH . 'includes/page-templates.php';
+        require_once TRANTER_ENGINE_PATH . 'includes/lean-admin.php';
         require_once TRANTER_ENGINE_PATH . 'includes/shortcodes.php';
         require_once TRANTER_ENGINE_PATH . 'includes/rest-api.php';
         require_once TRANTER_ENGINE_PATH . 'includes/seeder.php';
@@ -26,6 +28,8 @@ class Tranter_Engine {
 
         Tranter_Post_Types::init();
         Tranter_Admin_App::init();
+        Tranter_Page_Templates::init();
+        Tranter_Lean_Admin::init();
         Tranter_Shortcodes::init();
         Tranter_REST_API::init();
         Tranter_Insights::init();
@@ -60,6 +64,8 @@ class Tranter_Engine {
         require_once TRANTER_ENGINE_PATH . 'includes/smart-solutions-page.php';
         require_once TRANTER_ENGINE_PATH . 'includes/hr-support-page.php';
         require_once TRANTER_ENGINE_PATH . 'includes/digital-marketing-brand-page.php';
+        require_once TRANTER_ENGINE_PATH . 'includes/page-templates.php';
+        require_once TRANTER_ENGINE_PATH . 'includes/lean-admin.php';
         Tranter_Post_Types::register();
         Tranter_Seeder::seed();
         if (class_exists('Tranter_Knowledge_Hub')) Tranter_Knowledge_Hub::activation_setup();
