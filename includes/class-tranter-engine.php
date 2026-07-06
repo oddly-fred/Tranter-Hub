@@ -27,7 +27,7 @@ class Tranter_Engine {
         require_once TRANTER_ENGINE_PATH . 'includes/digital-marketing-brand-page.php';
 
         Tranter_Post_Types::init();
-        Tranter_Admin_App::init();
+        // Legacy admin app remains loaded for compatibility helpers, but the v1.7.0 backend UI is owned by Tranter_Lean_Admin to prevent duplicate screens.
         Tranter_Page_Templates::init();
         Tranter_Lean_Admin::init();
         Tranter_Shortcodes::init();
