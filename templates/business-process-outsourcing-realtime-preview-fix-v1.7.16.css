@@ -1,0 +1,34 @@
+/* Business Process Outsourcing realtime preview fix v1.7.16
+   Resolves blank content sections seen in preview frames when IntersectionObserver/reveal JS does not execute.
+   Load after templates/business-process-outsourcing-v1.7.15.html styles, or merge into the page stylesheet. */
+
+#tranter-bpo-page .tis-reveal {
+  opacity: 1 !important;
+  transform: none !important;
+  filter: none !important;
+}
+
+#tranter-bpo-page .tis-section {
+  min-height: auto !important;
+}
+
+@media (max-width: 767px) {
+  #tranter-bpo-page .tis-container,
+  #tranter-bpo-page .tis-hero-container {
+    padding-left: 22px !important;
+    padding-right: 22px !important;
+  }
+
+  #tranter-bpo-page .tis-section {
+    padding-top: 54px !important;
+    padding-bottom: 54px !important;
+  }
+}
+
+@media (max-width: 420px) {
+  #tranter-bpo-page .tis-container,
+  #tranter-bpo-page .tis-hero-container {
+    padding-left: 20px !important;
+    padding-right: 20px !important;
+  }
+}
