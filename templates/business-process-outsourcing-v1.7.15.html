@@ -1,0 +1,2394 @@
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Mulish:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+<div id="tranter-bpo-page">
+  <style>
+    #tranter-bpo-page,
+    #tranter-bpo-page * {
+      box-sizing: border-box;
+    }
+
+    #tranter-bpo-page {
+      --green: #009b55;
+      --green2: #13b663;
+      --wine: #891219;
+      --dark: #001b14;
+      --ink: #06150f;
+      --muted: rgba(0, 27, 20, .64);
+      --line: rgba(0, 27, 20, .075);
+      --soft: #f8faf9;
+      --white: #ffffff;
+      --shadow: 0 22px 55px rgba(0,0,0,.06);
+      width: 100%;
+      overflow: hidden;
+      font-family: "Mulish", sans-serif;
+      color: var(--dark);
+      background: #ffffff;
+    }
+
+    #tranter-bpo-page a {
+      text-decoration: none !important;
+    }
+
+    #tranter-bpo-page svg {
+      display: block;
+    }
+
+    .tis-full {
+      width: 100vw;
+      margin-left: calc(50% - 50vw);
+      margin-right: calc(50% - 50vw);
+    }
+
+    .tis-section {
+      position: relative;
+      padding: 76px 18px;
+      background: linear-gradient(180deg, #ffffff 0%, #f8f8f8 58%, #ffffff 100%);
+      overflow: hidden;
+      isolation: isolate;
+    }
+
+    .tis-section::before {
+      content: "";
+      position: absolute;
+      left: -180px;
+      top: -210px;
+      width: 430px;
+      height: 820px;
+      background: rgba(245,245,245,.92);
+      border-radius: 50%;
+      z-index: -2;
+    }
+
+    .tis-section::after {
+      content: "";
+      position: absolute;
+      right: -190px;
+      top: 110px;
+      width: 340px;
+      height: 340px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(137,18,25,.08), transparent 68%);
+      z-index: -2;
+    }
+
+    .tis-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 2;
+    }
+
+    .tis-header {
+      text-align: center;
+      max-width: 900px;
+      margin: 0 auto 48px;
+    }
+
+    .tis-pill {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+      padding: 14px 30px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, rgba(137,18,25,.075), rgba(0,155,85,.12));
+      border: 1px solid rgba(137,18,25,.16);
+      box-shadow: 0 18px 42px rgba(137,18,25,.075), 0 10px 30px rgba(0,155,85,.055);
+      color: var(--wine);
+      font-size: 12px;
+      font-weight: 900;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      line-height: 1;
+      transition: .35s ease;
+    }
+
+    .tis-pill::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(120deg, transparent, rgba(255,255,255,.58), transparent);
+      transform: translateX(-120%);
+      transition: .7s ease;
+    }
+
+    .tis-pill:hover {
+      transform: translateY(-3px);
+      border-color: rgba(137,18,25,.28);
+      box-shadow: 0 24px 52px rgba(137,18,25,.12), 0 12px 32px rgba(0,155,85,.08);
+    }
+
+    .tis-pill:hover::before {
+      transform: translateX(120%);
+    }
+
+    .tis-title {
+      margin: 30px 0 0;
+      font-size: clamp(27px, 5.4vw, 44px);
+      line-height: 1.1;
+      font-weight: 900;
+      letter-spacing: -1px;
+      color: var(--dark);
+    }
+
+    .tis-title span {
+      color: var(--green);
+    }
+
+    .tis-subtitle {
+      max-width: 760px;
+      margin: 22px auto 0;
+      font-size: 15.5px;
+      line-height: 1.75;
+      font-weight: 500;
+      color: var(--muted);
+    }
+
+    .tis-divider {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      margin: 24px 0 0;
+    }
+
+    .tis-divider span {
+      width: 48px;
+      height: 3px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, transparent, var(--green));
+      display: block;
+    }
+
+    .tis-divider span:last-child {
+      background: linear-gradient(90deg, var(--green), transparent);
+    }
+
+    .tis-divider i {
+      width: 15px;
+      height: 15px;
+      border-radius: 50%;
+      background: var(--wine);
+      box-shadow: 0 0 0 12px rgba(137,18,25,.08);
+      display: block;
+    }
+
+    .tis-reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      filter: blur(5px);
+      transition:
+        opacity .75s cubic-bezier(.22,.61,.36,1),
+        transform .75s cubic-bezier(.22,.61,.36,1),
+        filter .75s cubic-bezier(.22,.61,.36,1);
+    }
+
+    .tis-reveal.tis-in {
+      opacity: 1;
+      transform: translateY(0);
+      filter: blur(0);
+    }
+
+    .tis-btn {
+      position: relative;
+      min-height: 54px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      border-radius: 999px;
+      padding: 13px 23px;
+      font-size: 14px;
+      font-weight: 900;
+      overflow: hidden;
+      transition: .35s ease;
+      border: 0;
+      cursor: pointer;
+      font-family: "Mulish", sans-serif;
+    }
+
+    .tis-btn::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(120deg, transparent, rgba(255,255,255,.32), transparent);
+      transform: translateX(-120%);
+      transition: .65s;
+    }
+
+    .tis-btn:hover::before {
+      transform: translateX(120%);
+    }
+
+    .tis-btn span,
+    .tis-btn svg {
+      position: relative;
+      z-index: 1;
+    }
+
+    .tis-btn-primary {
+      background: var(--green);
+      border: 2px solid var(--green);
+      color: #fff !important;
+      box-shadow: 0 16px 35px rgba(0,155,85,.28);
+    }
+
+    .tis-btn-primary:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 22px 44px rgba(0,155,85,.36);
+    }
+
+    .tis-btn-outline {
+      background: rgba(255,255,255,.04);
+      border: 2px solid rgba(255,255,255,.75);
+      color: #fff !important;
+      backdrop-filter: blur(8px);
+    }
+
+    .tis-btn-outline:hover {
+      transform: translateY(-4px);
+      border-color: #fff;
+      background: rgba(137,18,25,.70);
+      box-shadow: 0 30px 70px rgba(137,18,25,.25);
+    }
+
+    /* HERO */
+    .tis-hero {
+      position: relative;
+      min-height: 100svh;
+      width: 100vw;
+      margin-left: calc(50% - 50vw);
+      margin-right: calc(50% - 50vw);
+      overflow: hidden;
+      isolation: isolate;
+      color: var(--white);
+      background:
+        linear-gradient(90deg, rgba(0, 27, 20, .93), rgba(0, 27, 20, .72) 45%, rgba(0, 27, 20, .40)),
+        linear-gradient(180deg, rgba(137, 18, 25, .14), rgba(0, 27, 20, .36)),
+        url("https://hipterraafrica.com/wp-content/uploads/2026/02/a-small-team-going-through-data.jpeg") center/cover no-repeat;
+      border-bottom-left-radius: 46px;
+      border-bottom-right-radius: 46px;
+    }
+
+    .tis-hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at 18% 22%, rgba(0, 155, 85, .26), transparent 32%),
+        radial-gradient(circle at 86% 75%, rgba(137, 18, 25, .24), transparent 34%);
+      z-index: -1;
+    }
+
+    .tis-hero::after {
+      content: "";
+      position: absolute;
+      left: 50%;
+      bottom: -140px;
+      width: 120%;
+      height: 260px;
+      transform: translateX(-50%);
+      background: #ffffff;
+      border-radius: 50% 50% 0 0;
+      z-index: 1;
+    }
+
+    .tis-hero-container {
+      position: relative;
+      z-index: 3;
+      width: 100%;
+      max-width: 1400px;
+      min-height: 100svh;
+      margin: 0 auto;
+      padding: 140px 6.3vw 130px;
+      display: grid;
+      grid-template-columns: 1.05fr .95fr;
+      align-items: center;
+      gap: 54px;
+    }
+
+    .tis-hero-copy {
+      animation: tisFadeUp .9s cubic-bezier(.22,.61,.36,1) both;
+    }
+
+    .tis-hero .tis-pill {
+      background: linear-gradient(135deg, rgba(137,18,25,.26), rgba(0,155,85,.18));
+      border-color: rgba(255,255,255,.18);
+      color: #ffffff;
+      box-shadow: 0 18px 42px rgba(0,0,0,.18);
+      backdrop-filter: blur(12px);
+    }
+
+    .tis-hero-title {
+      margin: 34px 0 0;
+      max-width: 780px;
+      font-size: clamp(42px, 6vw, 82px);
+      line-height: .98;
+      font-weight: 900;
+      letter-spacing: -2.8px;
+      color: #ffffff !important;
+    }
+
+    .tis-hero-title span {
+      display: block;
+      color: var(--green2);
+    }
+
+    .tis-hero-text {
+      max-width: 670px;
+      margin: 30px 0 0;
+      padding-left: 22px;
+      border-left: 4px solid var(--green);
+      color: rgba(255,255,255,.86);
+      font-size: clamp(16px, 1.4vw, 20px);
+      line-height: 1.75;
+      font-weight: 500;
+    }
+
+    .tis-hero-actions {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      margin-top: 42px;
+      flex-wrap: wrap;
+    }
+
+
+    /* Hero Book a Demo button updated to match approved CTA button style */
+    .tis-hero-actions .tis-btn-primary {
+      min-width: 200px !important;
+      min-height: 60px !important;
+      padding: 18px 28px !important;
+      border-radius: 999px !important;
+      font-size: 16px !important;
+      line-height: 1 !important;
+      font-weight: 900 !important;
+      letter-spacing: .1px !important;
+      text-transform: none !important;
+      background: linear-gradient(135deg, #009b55, #07934f) !important;
+      border: 2px solid #009b55 !important;
+      color: #ffffff !important;
+      box-shadow: 0 22px 54px rgba(0,155,85,.30), inset 0 1px 0 rgba(255,255,255,.18) !important;
+    }
+
+    .tis-hero-actions .tis-btn-primary:hover {
+      transform: translateY(-7px) !important;
+      box-shadow: 0 34px 76px rgba(0,155,85,.40), 0 14px 28px rgba(0,0,0,.18) !important;
+      background: linear-gradient(135deg, #0ab865, #008649) !important;
+    }
+
+    .tis-hero-actions .tis-btn-primary::before {
+      background: linear-gradient(120deg, transparent, rgba(255,255,255,.36), transparent) !important;
+    }
+
+    .tis-hero-panel {
+      position: relative;
+      animation: tisFadeUp .9s cubic-bezier(.22,.61,.36,1) .16s both;
+    }
+
+    .tis-floating-chip {
+      position: absolute;
+      right: -18px;
+      top: -20px;
+      z-index: 3;
+      padding: 14px 18px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.94);
+      color: var(--wine);
+      font-size: 12px;
+      font-weight: 900;
+      box-shadow: 0 18px 44px rgba(0,0,0,.20);
+      animation: tisFloat 4s ease-in-out infinite;
+    }
+
+    .tis-glass-card {
+      position: relative;
+      overflow: hidden;
+      padding: 34px;
+      border-radius: 34px;
+      background: linear-gradient(135deg, rgba(255,255,255,.16), rgba(255,255,255,.06));
+      border: 1px solid rgba(255,255,255,.20);
+      box-shadow: 0 38px 95px rgba(0,0,0,.34);
+      backdrop-filter: blur(20px);
+    }
+
+    .tis-glass-card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at top left, rgba(0,155,85,.20), transparent 38%),
+        radial-gradient(circle at bottom right, rgba(137,18,25,.22), transparent 42%);
+      pointer-events: none;
+    }
+
+    .tis-card-inner {
+      position: relative;
+      z-index: 1;
+    }
+
+    .tis-card-label {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      margin-bottom: 26px;
+      color: rgba(255,255,255,.78);
+      font-size: 12px;
+      font-weight: 900;
+      letter-spacing: .8px;
+      text-transform: uppercase;
+    }
+
+    .tis-live {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: #bdf5d4;
+      white-space: nowrap;
+    }
+
+    .tis-live i {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--green2);
+      box-shadow: 0 0 0 7px rgba(19,182,99,.16);
+    }
+
+    .tis-mini-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px;
+    }
+
+    .tis-mini-card {
+      padding: 20px;
+      border-radius: 20px;
+      background: rgba(255,255,255,.92);
+      color: var(--dark);
+      box-shadow: 0 16px 34px rgba(0,0,0,.12);
+      transition: transform .35s ease, box-shadow .35s ease;
+    }
+
+    .tis-mini-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 24px 52px rgba(0,0,0,.18);
+    }
+
+    .tis-mini-icon {
+      width: 46px;
+      height: 46px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 16px;
+      border-radius: 15px;
+      background: linear-gradient(135deg, rgba(0,155,85,.13), rgba(137,18,25,.06));
+      color: var(--green);
+    }
+
+    .tis-mini-icon svg {
+      width: 24px;
+      height: 24px;
+    }
+
+    .tis-mini-card strong {
+      display: block;
+      font-size: 18px;
+      line-height: 1.2;
+      font-weight: 900;
+      color: var(--dark);
+    }
+
+    .tis-mini-card span {
+      display: block;
+      margin-top: 8px;
+      font-size: 13px;
+      line-height: 1.5;
+      font-weight: 600;
+      color: rgba(0,27,20,.62);
+    }
+
+    .tis-strategy-strip {
+      position: relative;
+      z-index: 1;
+      margin-top: 16px;
+      padding: 24px;
+      border-radius: 22px;
+      background: linear-gradient(135deg, rgba(137,18,25,.96), rgba(109,13,19,.96));
+      border: 1px solid rgba(255,255,255,.13);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.12);
+      color: #ffffff;
+      text-align: center;
+    }
+
+    .tis-strategy-strip strong {
+      display: block;
+      font-size: 20px;
+      line-height: 1.35;
+      font-weight: 900;
+    }
+
+    .tis-strategy-strip span {
+      display: block;
+      margin-top: 6px;
+      color: rgba(255,255,255,.82);
+      font-size: 14px;
+      line-height: 1.6;
+      font-weight: 600;
+    }
+
+    /* CARDS */
+    .tis-grid-3 {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 22px;
+    }
+
+    .tis-card {
+      position: relative;
+      overflow: hidden;
+      border-radius: 24px;
+      background: rgba(255,255,255,.94);
+      border: 1px solid rgba(0,27,20,.06);
+      box-shadow: 0 24px 60px rgba(0,0,0,.05);
+      transition: transform .42s cubic-bezier(.22,.61,.36,1), box-shadow .42s ease, border-color .42s ease;
+    }
+
+    .tis-card::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 34px;
+      width: 4px;
+      height: 54px;
+      background: linear-gradient(180deg, var(--green), var(--wine));
+      border-radius: 999px;
+      z-index: 2;
+      transition: .35s;
+    }
+
+    .tis-card::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(0,155,85,.075), transparent 42%), radial-gradient(circle at top right, rgba(137,18,25,.10), transparent 38%);
+      opacity: 0;
+      transition: .35s;
+      pointer-events: none;
+    }
+
+    .tis-card:hover {
+      transform: translateY(-10px) scale(1.012);
+      border-color: rgba(137,18,25,.15);
+      box-shadow: 0 34px 84px rgba(0,0,0,.09), 0 18px 35px rgba(137,18,25,.06);
+    }
+
+    .tis-card:hover::before {
+      height: 92px;
+    }
+
+    .tis-card:hover::after {
+      opacity: 1;
+    }
+
+    .tis-feature-card {
+      min-height: 300px;
+      padding: 36px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .tis-feature-num {
+      position: absolute;
+      top: 24px;
+      right: 28px;
+      font-size: 72px;
+      line-height: 1;
+      font-weight: 900;
+      color: rgba(137,18,25,.055);
+      pointer-events: none;
+      transition: .35s ease;
+    }
+
+    .tis-card:hover .tis-feature-num {
+      color: rgba(0,155,85,.075);
+      transform: translateY(-4px);
+    }
+
+    .tis-feature-icon {
+      position: relative;
+      z-index: 1;
+      width: 68px;
+      height: 68px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 28px;
+      border-radius: 18px;
+      background: linear-gradient(135deg, rgba(0,155,85,.12), rgba(137,18,25,.045)), #fff;
+      color: var(--green);
+      border: 1px solid rgba(0,155,85,.13);
+      box-shadow: 0 14px 28px rgba(0,0,0,.035);
+      transition: all .4s cubic-bezier(.22,.61,.36,1);
+    }
+
+    .tis-feature-icon svg {
+      width: 30px;
+      height: 30px;
+    }
+
+    .tis-card:hover .tis-feature-icon {
+      background: linear-gradient(135deg, var(--green), #087d45);
+      color: #fff;
+      transform: rotate(-8deg) scale(1.08);
+      box-shadow: 0 22px 38px rgba(0,155,85,.20);
+    }
+
+    .tis-feature-card h3 {
+      position: relative;
+      z-index: 1;
+      margin: 0 0 14px;
+      font-size: 21px;
+      line-height: 1.3;
+      font-weight: 900;
+      color: var(--dark);
+      letter-spacing: -.2px;
+    }
+
+    .tis-feature-card p {
+      position: relative;
+      z-index: 1;
+      flex: 1;
+      margin: 0;
+      font-size: 15px;
+      line-height: 1.85;
+      font-weight: 500;
+      color: rgba(0,27,20,.62);
+    }
+
+    .tis-two {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 44px;
+      align-items: center;
+    }
+
+    .tis-copy-card {
+      padding: 32px 26px 32px 30px;
+    }
+
+    .tis-copy-card h3 {
+      position: relative;
+      z-index: 1;
+      margin: 0 0 14px;
+      font-size: 24px;
+      line-height: 1.25;
+      font-weight: 900;
+    }
+
+    .tis-copy-card h3 span {
+      color: var(--green);
+    }
+
+    .tis-copy-card p {
+      position: relative;
+      z-index: 1;
+      margin: 0 0 16px;
+      color: var(--muted);
+      font-size: 15.5px;
+      line-height: 1.8;
+      font-weight: 500;
+    }
+
+    .tis-list {
+      position: relative;
+      z-index: 1;
+      list-style: none;
+      margin: 24px 0 0;
+      padding: 0;
+      display: grid;
+      gap: 14px;
+    }
+
+    .tis-list li {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 16px;
+      line-height: 1.4;
+      font-weight: 900;
+      color: rgba(0,27,20,.74);
+    }
+
+    .tis-check {
+      width: 22px;
+      height: 22px;
+      min-width: 22px;
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--wine);
+      background: rgba(137,18,25,.075);
+      border: 1px solid rgba(137,18,25,.18);
+      font-weight: 900;
+      transition: .3s;
+    }
+
+    .tis-list li:hover .tis-check {
+      background: var(--wine);
+      color: #fff;
+      transform: scale(1.04);
+    }
+
+    /* AI dashboard */
+    .tis-ai-dashboard {
+      position: relative;
+      padding: 10px;
+      border-radius: 24px;
+      background: linear-gradient(135deg, rgba(255,255,255,.86), rgba(248,250,249,.74));
+      border: 1px solid rgba(0,27,20,.08);
+      box-shadow: 0 34px 80px rgba(0,0,0,.13), 0 16px 36px rgba(137,18,25,.07);
+      overflow: hidden;
+      backdrop-filter: blur(12px);
+    }
+
+    .tis-ai-dashboard::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 15% 10%, rgba(0,155,85,.12), transparent 35%), radial-gradient(circle at 92% 92%, rgba(137,18,25,.12), transparent 34%);
+      pointer-events: none;
+    }
+
+    .tis-ai-shell {
+      position: relative;
+      z-index: 1;
+      border-radius: 18px;
+      background: #f8faf9;
+      overflow: hidden;
+      border: 1px solid rgba(0,27,20,.05);
+    }
+
+    .tis-ai-top {
+      display: flex;
+      flex-direction: column;
+      gap: 11px;
+      padding: 14px;
+      background: #101820;
+      color: rgba(255,255,255,.84);
+    }
+
+    .tis-ai-window {
+      display: flex;
+      gap: 7px;
+    }
+
+    .tis-ai-window i {
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.3);
+    }
+
+    .tis-ai-window i:nth-child(1) { background: var(--wine); }
+    .tis-ai-window i:nth-child(2) { background: var(--green); }
+
+    .tis-ai-title-small {
+      font-size: 12px;
+      font-weight: 900;
+      letter-spacing: .7px;
+      text-transform: uppercase;
+    }
+
+    .tis-ai-live {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      width: max-content;
+      font-size: 12px;
+      font-weight: 900;
+      color: #bdf5d4;
+    }
+
+    .tis-ai-live::before {
+      content: "";
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: var(--green);
+      box-shadow: 0 0 0 6px rgba(0,155,85,.16);
+    }
+
+    .tis-ai-body {
+      display: grid;
+      gap: 14px;
+      padding: 14px;
+    }
+
+    .tis-ai-kpis {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    .tis-ai-kpi {
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 13px;
+      box-shadow: 0 10px 24px rgba(0,0,0,.035);
+      transition: .3s;
+    }
+
+    .tis-ai-kpi:hover {
+      transform: translateY(-4px);
+      border-color: rgba(137,18,25,.14);
+    }
+
+    .tis-ai-kpi strong {
+      display: block;
+      color: var(--dark);
+      font-size: 18px;
+      line-height: 1;
+      font-weight: 900;
+    }
+
+    .tis-ai-kpi span {
+      display: block;
+      margin-top: 7px;
+      color: rgba(0,27,20,.58);
+      font-size: 11px;
+      line-height: 1.25;
+      font-weight: 800;
+    }
+
+    .tis-ai-kpi em {
+      font-style: normal;
+      color: var(--wine);
+    }
+
+    .tis-ai-main {
+      display: grid;
+      gap: 14px;
+    }
+
+    .tis-ai-panel {
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 15px;
+      box-shadow: 0 12px 28px rgba(0,0,0,.035);
+    }
+
+    .tis-ai-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+
+    .tis-ai-head strong {
+      font-size: 13px;
+      font-weight: 900;
+      color: var(--dark);
+    }
+
+    .tis-ai-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 9px;
+      border-radius: 999px;
+      background: rgba(137,18,25,.07);
+      color: var(--wine);
+      font-size: 10px;
+      font-weight: 900;
+      text-transform: uppercase;
+    }
+
+    .tis-ai-chip.green {
+      background: rgba(0,155,85,.08);
+      color: var(--green);
+    }
+
+    .tis-ai-bars {
+      height: 126px;
+      display: flex;
+      gap: 9px;
+      align-items: end;
+      padding-top: 4px;
+      border-bottom: 1px solid rgba(0,27,20,.08);
+    }
+
+    .tis-ai-bars i {
+      flex: 1;
+      min-width: 7px;
+      border-radius: 8px 8px 0 0;
+      background: linear-gradient(180deg, var(--green2), var(--green));
+      animation: tisGrow 1.15s ease both;
+    }
+
+    .tis-ai-bars i:nth-child(2),
+    .tis-ai-bars i:nth-child(5) {
+      background: linear-gradient(180deg, #b53a43, var(--wine));
+    }
+
+    .tis-ai-bars i:nth-child(1) { height: 38%; }
+    .tis-ai-bars i:nth-child(2) { height: 62%; }
+    .tis-ai-bars i:nth-child(3) { height: 48%; }
+    .tis-ai-bars i:nth-child(4) { height: 82%; }
+    .tis-ai-bars i:nth-child(5) { height: 70%; }
+    .tis-ai-bars i:nth-child(6) { height: 92%; }
+    .tis-ai-bars i:nth-child(7) { height: 58%; }
+
+    .tis-ai-flow {
+      display: grid;
+      gap: 12px;
+    }
+
+    .tis-ai-flow-row {
+      display: grid;
+      grid-template-columns: 88px 1fr 32px;
+      gap: 9px;
+      align-items: center;
+    }
+
+    .tis-ai-flow-row span {
+      font-size: 11px;
+      font-weight: 850;
+      color: rgba(0,27,20,.62);
+    }
+
+    .tis-ai-progress {
+      height: 9px;
+      border-radius: 999px;
+      background: rgba(0,155,85,.09);
+      overflow: hidden;
+    }
+
+    .tis-ai-progress i {
+      display: block;
+      height: 100%;
+      border-radius: inherit;
+      background: linear-gradient(90deg, var(--green), var(--wine));
+    }
+
+    /* Metrics */
+    .tis-metrics {
+      position: relative;
+      overflow: hidden;
+      background: #95111b;
+      color: #fff;
+      padding: 56px 18px;
+      isolation: isolate;
+    }
+
+    .tis-metrics::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at 15% 20%, rgba(255,255,255,.12), transparent 34%),
+        radial-gradient(circle at 90% 80%, rgba(0,0,0,.16), transparent 34%);
+      z-index: -1;
+    }
+
+    .tis-metrics-grid {
+      position: relative;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 28px;
+      text-align: center;
+    }
+
+    .tis-metric {
+      position: relative;
+      padding: 18px 12px;
+      border-radius: 18px;
+      transition: transform .35s ease, background .35s ease;
+    }
+
+    .tis-metric:hover {
+      transform: translateY(-6px);
+      background: rgba(255,255,255,.06);
+    }
+
+    .tis-metric strong {
+      display: block;
+      font-size: clamp(34px, 10vw, 54px);
+      line-height: 1;
+      font-weight: 900;
+      color: #fff;
+      letter-spacing: -1px;
+    }
+
+    .tis-metric span {
+      display: block;
+      max-width: 250px;
+      margin: 10px auto 0;
+      font-size: 14px;
+      line-height: 1.45;
+      font-weight: 700;
+      color: rgba(255,255,255,.88);
+    }
+
+
+    /* Business Process Outsourcing Resellers */
+    .tis-resellers {
+      background:
+        radial-gradient(circle at 50% 0%, rgba(0,155,85,.08), transparent 38%),
+        linear-gradient(180deg, #ffffff 0%, #f8faf9 58%, #ffffff 100%);
+    }
+
+    .tis-reseller-visual {
+      width: min(70%, 980px);
+      margin: 0 auto;
+      position: relative;
+      padding: 18px;
+      border-radius: 28px;
+      background:
+        linear-gradient(135deg, rgba(255,255,255,.96), rgba(248,250,249,.90));
+      border: 1px solid rgba(0,27,20,.075);
+      box-shadow:
+        0 30px 80px rgba(0,0,0,.09),
+        0 14px 34px rgba(137,18,25,.055);
+      overflow: hidden;
+      transition: transform .42s cubic-bezier(.22,.61,.36,1), box-shadow .42s ease, border-color .42s ease;
+    }
+
+    .tis-reseller-visual::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 34px;
+      width: 4px;
+      height: 62px;
+      background: linear-gradient(180deg, var(--green), var(--wine));
+      border-radius: 999px;
+      z-index: 2;
+      transition: height .35s ease;
+    }
+
+    .tis-reseller-visual::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at top left, rgba(0,155,85,.10), transparent 36%),
+        radial-gradient(circle at bottom right, rgba(137,18,25,.10), transparent 42%);
+      pointer-events: none;
+      opacity: .9;
+    }
+
+    .tis-reseller-visual:hover {
+      transform: translateY(-8px);
+      border-color: rgba(137,18,25,.15);
+      box-shadow:
+        0 40px 94px rgba(0,0,0,.12),
+        0 18px 42px rgba(137,18,25,.08);
+    }
+
+    .tis-reseller-visual:hover::before {
+      height: 96px;
+    }
+
+    .tis-reseller-visual img {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 20px;
+      object-fit: contain;
+      background: #ffffff;
+    }
+
+    /* FAQ */
+    .tis-faq {
+      background:
+        radial-gradient(circle at 50% 0%, rgba(0,155,85,.10), transparent 35%),
+        linear-gradient(180deg, #fff 0%, #e7f3ed 55%, #cce6d8 100%);
+    }
+
+    .tis-faq-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 16px;
+      max-width: 1120px;
+      margin: 0 auto;
+    }
+
+    .tis-faq details {
+      border-radius: 24px;
+      background: rgba(255,255,255,.95);
+      border: 1px solid var(--line);
+      box-shadow: 0 18px 42px rgba(0,0,0,.07);
+      overflow: hidden;
+      transition: .3s ease;
+    }
+
+    .tis-faq details[open],
+    .tis-faq details:hover {
+      border-color: rgba(137,18,25,.16);
+      box-shadow: 0 26px 58px rgba(0,0,0,.10);
+      transform: translateY(-2px);
+    }
+
+    .tis-faq summary {
+      list-style: none;
+      cursor: pointer;
+      padding: 20px 22px;
+      font-size: 16px;
+      line-height: 1.35;
+      font-weight: 900;
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      color: var(--dark);
+    }
+
+    .tis-faq summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .tis-faq summary::after {
+      content: "⌄";
+      font-size: 22px;
+      color: var(--wine);
+      line-height: 1;
+      transition: .3s ease;
+    }
+
+    .tis-faq details[open] summary::after {
+      transform: rotate(180deg);
+    }
+
+    .tis-faq .answer {
+      padding: 0 22px 22px;
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.75;
+      font-weight: 500;
+    }
+
+    /* CTA */
+    .tis-cta {
+      position: relative;
+      padding: 90px 18px;
+      background:
+        radial-gradient(circle at 18% 20%, rgba(0,155,85,.18), transparent 30%),
+        radial-gradient(circle at 84% 82%, rgba(137,18,25,.13), transparent 34%),
+        linear-gradient(135deg, #203b2b 0%, #1f3a29 45%, #163020 100%);
+      color: #fff;
+      text-align: center;
+      overflow: hidden;
+    }
+
+    .tis-cta::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,.045) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.045) 1px, transparent 1px);
+      background-size: 48px 48px;
+      opacity: .25;
+    }
+
+    .tis-cta .tis-container {
+      position: relative;
+    }
+
+    .tis-cta h2 {
+      margin: 0;
+      font-size: clamp(34px, 8vw, 58px);
+      line-height: 1.08;
+      font-weight: 900;
+      letter-spacing: -1.2px;
+      color: #fff;
+    }
+
+    .tis-cta h2 span {
+      color: #65e49d;
+    }
+
+    .tis-cta p {
+      max-width: 860px;
+      margin: 26px auto 0;
+      font-size: 16px;
+      line-height: 1.75;
+      color: rgba(255,255,255,.86);
+    }
+
+    .tis-cta-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      align-items: stretch;
+      max-width: 370px;
+      margin: 40px auto 0;
+    }
+
+    .tis-cta .tis-btn {
+      min-width: 270px;
+      min-height: 76px;
+      padding: 22px 42px;
+      border-radius: 999px;
+      font-size: 19px;
+      line-height: 1;
+      font-weight: 900;
+      letter-spacing: .1px;
+      text-transform: none;
+    }
+
+    .tis-cta .tis-btn-primary {
+      background: linear-gradient(135deg, #009b55, #07934f);
+      border: 2px solid #009b55;
+      color: #ffffff !important;
+      box-shadow: 0 22px 54px rgba(0,155,85,.30), inset 0 1px 0 rgba(255,255,255,.18);
+    }
+
+    .tis-cta .tis-btn-primary:hover {
+      transform: translateY(-7px);
+      box-shadow: 0 34px 76px rgba(0,155,85,.40), 0 14px 28px rgba(0,0,0,.18);
+      background: linear-gradient(135deg, #0ab865, #008649);
+    }
+
+    .tis-cta .tis-btn-outline {
+      background: rgba(255,255,255,.035);
+      border: 2px solid rgba(255,255,255,.72);
+      color: #ffffff !important;
+      box-shadow: 0 18px 45px rgba(0,0,0,.18), inset 0 1px 0 rgba(255,255,255,.08);
+      backdrop-filter: blur(10px);
+    }
+
+    .tis-cta .tis-btn-outline:hover {
+      transform: translateY(-7px);
+      background: rgba(137,18,25,.72);
+      border-color: rgba(255,255,255,.92);
+      box-shadow: 0 34px 76px rgba(137,18,25,.26), 0 14px 28px rgba(0,0,0,.18);
+    }
+
+    .tis-trust {
+      display: grid;
+      gap: 12px;
+      justify-content: center;
+      margin-top: 34px;
+      color: rgba(255,255,255,.72);
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    .tis-trust span {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .tis-trust i {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #65e49d;
+      box-shadow: 0 0 0 6px rgba(101,228,157,.10);
+    }
+
+    /* Zoho modal */
+    .tis-zoho-modal {
+      position: fixed;
+      inset: 0;
+      z-index: 999999;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 18px;
+      background: rgba(0,12,8,.78);
+      backdrop-filter: blur(12px);
+    }
+
+    .tis-zoho-modal.is-open {
+      display: flex;
+    }
+
+    .tis-zoho-panel {
+      width: min(980px, 100%);
+      max-height: 92vh;
+      position: relative;
+      border-radius: 24px;
+      padding: 10px;
+      background: linear-gradient(135deg, rgba(255,255,255,.16), rgba(255,255,255,.04));
+      border: 1px solid rgba(255,255,255,.20);
+      box-shadow: 0 40px 100px rgba(0,0,0,.42);
+      animation: tisModalPop .38s cubic-bezier(.22,.61,.36,1) both;
+    }
+
+    .tis-zoho-frame-wrap {
+      width: 100%;
+      height: min(76vh, 900px);
+      overflow: hidden;
+      border-radius: 18px;
+      background: #fff;
+    }
+
+    .tis-zoho-frame {
+      width: 100%;
+      height: 100%;
+      border: 0;
+      display: block;
+      border-radius: 18px;
+      background: #fff;
+    }
+
+    .tis-modal-close {
+      position: absolute;
+      right: 8px;
+      top: -54px;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      border: 1px solid rgba(255,255,255,.22);
+      background: rgba(255,255,255,.12);
+      color: #fff;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 28px;
+      line-height: 1;
+      transition: .3s ease;
+    }
+
+    .tis-modal-close:hover {
+      background: var(--wine);
+      transform: rotate(90deg);
+    }
+
+    @keyframes tisFadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(34px);
+        filter: blur(6px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+        filter: blur(0);
+      }
+    }
+
+    @keyframes tisFloat {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    @keyframes tisGrow {
+      from {
+        transform: scaleY(.2);
+        transform-origin: bottom;
+        opacity: .4;
+      }
+      to {
+        transform: scaleY(1);
+        transform-origin: bottom;
+        opacity: 1;
+      }
+    }
+
+    @keyframes tisModalPop {
+      from {
+        opacity: 0;
+        transform: translateY(24px) scale(.96);
+        filter: blur(6px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+        filter: blur(0);
+      }
+    }
+
+    @media (min-width: 768px) {
+      .tis-section {
+        padding: 100px 6.3vw;
+      }
+
+      .tis-header {
+        margin-bottom: 60px;
+      }
+
+      .tis-pill {
+        padding: 17px 56px;
+        font-size: 13px;
+        letter-spacing: 5px;
+      }
+
+      .tis-title {
+        font-size: clamp(32px, 3vw, 48px);
+      }
+
+      .tis-subtitle {
+        font-size: 17px;
+      }
+
+      .tis-btn {
+        font-size: 15px;
+        min-height: 58px;
+        padding: 14px 30px;
+      }
+
+      .tis-grid-3 {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 28px;
+      }
+
+      .tis-two {
+        grid-template-columns: .9fr 1.1fr;
+        gap: 70px;
+      }
+
+      .tis-ai-top {
+        height: 50px;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 18px;
+      }
+
+      .tis-ai-kpis {
+        grid-template-columns: repeat(4, 1fr);
+      }
+
+      .tis-ai-main {
+        grid-template-columns: 1.1fr .9fr;
+      }
+
+      .tis-ai-body {
+        padding: 18px;
+      }
+
+      .tis-ai-bars {
+        height: 145px;
+      }
+
+      .tis-ai-flow-row {
+        grid-template-columns: 96px 1fr 36px;
+      }
+
+      .tis-metrics {
+        padding: 70px 6.3vw;
+      }
+
+      .tis-metrics-grid {
+        grid-template-columns: repeat(4, 1fr);
+      }
+
+      .tis-faq-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 18px 34px;
+      }
+
+      .tis-faq summary {
+        font-size: 17px;
+        padding: 22px 30px;
+      }
+
+      .tis-cta {
+        padding: 110px 6.3vw;
+      }
+
+      .tis-cta-actions {
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        max-width: none;
+        gap: 26px;
+      }
+
+      .tis-trust {
+        display: flex;
+        gap: 22px;
+      }
+    }
+
+    @media (max-width: 980px) {
+      .tis-hero-container {
+        grid-template-columns: 1fr;
+        gap: 42px;
+        padding-top: 120px;
+      }
+
+      .tis-hero-title,
+      .tis-hero-text {
+        max-width: 100%;
+      }
+
+      .tis-hero-panel {
+        max-width: 720px;
+        width: 100%;
+        margin: 0 auto;
+      }
+    }
+
+    @media (max-width: 680px) {
+      .tis-reseller-visual {
+        width: 100%;
+        padding: 12px;
+      }
+
+      .tis-hero {
+        min-height: auto;
+        border-bottom-left-radius: 30px;
+        border-bottom-right-radius: 30px;
+      }
+
+      .tis-hero::after {
+        bottom: -170px;
+      }
+
+      .tis-hero-container {
+        min-height: auto;
+        padding: 105px 18px 90px;
+      }
+
+      .tis-pill {
+        padding: 13px 24px;
+        font-size: 11px;
+        letter-spacing: 3px;
+      }
+
+      .tis-hero-title {
+        font-size: 42px;
+        letter-spacing: -1.4px;
+      }
+
+      .tis-hero-text {
+        padding-left: 16px;
+        font-size: 15px;
+      }
+
+      .tis-hero-actions {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .tis-hero-actions .tis-btn {
+        width: 100%;
+        min-width: 0;
+      }
+
+      .tis-glass-card {
+        padding: 22px;
+        border-radius: 26px;
+      }
+
+      .tis-mini-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .tis-floating-chip {
+        display: none;
+      }
+    }
+
+    @media (max-width: 520px) {
+      .tis-reseller-visual {
+        width: 100%;
+        padding: 10px;
+        border-radius: 20px;
+      }
+
+      .tis-reseller-visual img {
+        border-radius: 15px;
+      }
+
+      .tis-section {
+        padding: 72px 18px;
+      }
+
+      .tis-header {
+        margin-bottom: 44px;
+      }
+
+      .tis-title {
+        font-size: 30px;
+      }
+
+      .tis-divider span {
+        width: 42px;
+      }
+
+      .tis-feature-card {
+        padding: 28px 24px;
+        border-radius: 18px;
+        min-height: auto;
+      }
+
+      .tis-feature-icon {
+        width: 60px;
+        height: 60px;
+        border-radius: 16px;
+      }
+
+      .tis-feature-num {
+        font-size: 58px;
+      }
+
+      .tis-feature-card h3 {
+        font-size: 18px;
+      }
+
+      .tis-feature-card p {
+        font-size: 14px;
+        line-height: 1.75;
+      }
+
+      .tis-ai-dashboard {
+        border-radius: 18px;
+        padding: 7px;
+      }
+
+      .tis-ai-shell {
+        border-radius: 14px;
+      }
+
+      .tis-ai-kpis {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .tis-ai-kpi strong {
+        font-size: 16px;
+      }
+
+      .tis-ai-flow-row {
+        grid-template-columns: 74px 1fr 30px;
+      }
+
+      .tis-cta-actions {
+        max-width: 390px;
+      }
+
+      .tis-cta .tis-btn {
+        width: 100%;
+        min-width: 0;
+        min-height: 64px;
+        padding: 18px 28px;
+        font-size: 16px;
+      }
+
+      .tis-zoho-modal {
+        padding: 14px;
+      }
+
+      .tis-zoho-panel {
+        border-radius: 18px;
+        padding: 7px;
+      }
+
+      .tis-zoho-frame-wrap {
+        height: 82vh;
+        border-radius: 14px;
+      }
+
+      .tis-modal-close {
+        top: -50px;
+        right: 0;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .tis-reveal,
+      .tis-card,
+      .tis-btn,
+      .tis-ai-bars i,
+      .tis-zoho-panel,
+      .tis-floating-chip {
+        animation: none !important;
+        transition: none !important;
+        opacity: 1 !important;
+        transform: none !important;
+        filter: none !important;
+      }
+    }
+  
+    /* v1.7.15 unified Tranter service-page polish: blended backgrounds, shared CTA logic and mobile padding */
+    #tranter-bpo-page {
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+
+    #tranter-bpo-page .tis-hero {
+      min-height: 88svh !important;
+      border-bottom-left-radius: 0 !important;
+      border-bottom-right-radius: 0 !important;
+      background:
+        radial-gradient(circle at 0% 18%, rgba(0,155,85,.22), transparent 34%),
+        radial-gradient(circle at 100% 72%, rgba(137,18,25,.20), transparent 38%),
+        linear-gradient(90deg, rgba(6,13,26,.96), rgba(6,13,26,.78) 54%, rgba(6,13,26,.48)),
+        url("https://hipterraafrica.com/wp-content/uploads/2026/02/a-small-team-going-through-data.jpeg") center/cover no-repeat !important;
+    }
+
+    #tranter-bpo-page .tis-hero::after,
+    #tranter-bpo-page .tis-section::before,
+    #tranter-bpo-page .tis-section::after {
+      display: none !important;
+    }
+
+    #tranter-bpo-page .tis-section {
+      background:
+        radial-gradient(circle at 0% 18%, rgba(0,155,85,.075), transparent 34%),
+        radial-gradient(circle at 100% 72%, rgba(137,18,25,.065), transparent 38%),
+        linear-gradient(180deg, #fff 0%, #fbfdfc 42%, #f7faf8 100%) !important;
+    }
+
+    #tranter-bpo-page .tis-section:nth-of-type(even) {
+      background:
+        radial-gradient(circle at 100% 16%, rgba(0,155,85,.07), transparent 35%),
+        radial-gradient(circle at 0% 78%, rgba(137,18,25,.06), transparent 38%),
+        linear-gradient(180deg, #f7faf8 0%, #fff 48%, #fbfdfc 100%) !important;
+    }
+
+    #tranter-bpo-page .tis-faq {
+      background:
+        radial-gradient(circle at 10% 0%, rgba(0,155,85,.10), transparent 35%),
+        radial-gradient(circle at 92% 78%, rgba(137,18,25,.08), transparent 38%),
+        linear-gradient(180deg, #fff 0%, #f7faf8 48%, #e9f5ef 100%) !important;
+    }
+
+    #tranter-bpo-page .tis-card,
+    #tranter-bpo-page .tis-ai-dashboard,
+    #tranter-bpo-page .tis-faq details,
+    #tranter-bpo-page .tis-mini-card,
+    #tranter-bpo-page .tis-glass-card {
+      border-radius: 18px !important;
+      box-shadow: 0 14px 36px rgba(0,0,0,.055) !important;
+    }
+
+    #tranter-bpo-page .tis-hero .tis-btn-primary,
+    #tranter-bpo-page .tis-cta .tis-btn-primary {
+      background: linear-gradient(135deg, #009b55, #07934f) !important;
+      border: 2px solid #009b55 !important;
+      color: #fff !important;
+      box-shadow: 0 22px 54px rgba(0,155,85,.30), inset 0 1px 0 rgba(255,255,255,.18) !important;
+    }
+
+    #tranter-bpo-page .tis-btn[data-tdp-open] {
+      cursor: pointer;
+    }
+
+    #tranter-bpo-page .tis-zoho-modal {
+      display: none !important;
+    }
+
+    @media (max-width: 767px) {
+      #tranter-bpo-page .tis-hero-container,
+      #tranter-bpo-page .tis-container {
+        width: 100% !important;
+        max-width: 100% !important;
+        padding-left: 22px !important;
+        padding-right: 22px !important;
+      }
+
+      #tranter-bpo-page .tis-section {
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+      }
+
+      #tranter-bpo-page .tis-hero {
+        min-height: auto !important;
+      }
+
+      #tranter-bpo-page .tis-hero-container {
+        min-height: auto !important;
+        grid-template-columns: 1fr !important;
+        gap: 24px !important;
+        padding-top: 86px !important;
+        padding-bottom: 52px !important;
+      }
+
+      #tranter-bpo-page .tis-pill {
+        padding: 9px 15px !important;
+        font-size: 9.8px !important;
+        letter-spacing: 1.7px !important;
+      }
+
+      #tranter-bpo-page .tis-hero-title {
+        margin-top: 16px !important;
+        font-size: clamp(31px, 9vw, 40px) !important;
+        line-height: 1.04 !important;
+        letter-spacing: -1px !important;
+      }
+
+      #tranter-bpo-page .tis-title {
+        margin-top: 15px !important;
+        font-size: clamp(22px, 6vw, 30px) !important;
+        line-height: 1.12 !important;
+      }
+
+      #tranter-bpo-page .tis-subtitle,
+      #tranter-bpo-page .tis-hero-text {
+        font-size: 13px !important;
+        line-height: 1.55 !important;
+      }
+
+      #tranter-bpo-page .tis-hero-text {
+        margin-top: 16px !important;
+        padding-left: 14px !important;
+        border-left: 3px solid var(--green) !important;
+      }
+
+      #tranter-bpo-page .tis-grid-3,
+      #tranter-bpo-page .tis-two,
+      #tranter-bpo-page .tis-faq-grid {
+        gap: 14px !important;
+      }
+
+      #tranter-bpo-page .tis-feature-card,
+      #tranter-bpo-page .tis-copy-card {
+        padding: 18px !important;
+        border-radius: 16px !important;
+      }
+
+      #tranter-bpo-page .tis-feature-card h3,
+      #tranter-bpo-page .tis-copy-card h3 {
+        font-size: 16px !important;
+        line-height: 1.22 !important;
+      }
+
+      #tranter-bpo-page .tis-feature-card p,
+      #tranter-bpo-page .tis-copy-card p,
+      #tranter-bpo-page .tis-list li,
+      #tranter-bpo-page .tis-faq .answer {
+        font-size: 12.8px !important;
+        line-height: 1.52 !important;
+      }
+
+      #tranter-bpo-page .tis-cta {
+        padding: 58px 0 !important;
+      }
+
+      #tranter-bpo-page .tis-cta h2 {
+        font-size: clamp(25px, 6.5vw, 34px) !important;
+        line-height: 1.08 !important;
+      }
+    }
+
+    @media (max-width: 420px) {
+      #tranter-bpo-page .tis-hero-container,
+      #tranter-bpo-page .tis-container {
+        padding-left: 20px !important;
+        padding-right: 20px !important;
+      }
+    }
+
+  </style>
+
+  <section class="tis-hero" aria-label="Technology-enabled Business Process Outsourcing by Tranter IT">
+    <div class="tis-hero-container">
+      <div class="tis-hero-copy">
+        <div class="tis-pill">Business Process Outsourcing</div>
+
+        <h1 class="tis-hero-title">
+          Scalable Operations.
+          <span>Built for Efficiency.</span>
+        </h1>
+
+        <p class="tis-hero-text">
+          Transform manual processes into intelligent digital workflows with smart automation, process visibility and connected systems that help teams operate faster, smarter and more efficiently.
+        </p>
+
+        <div class="tis-hero-actions">
+          <button class="tis-btn tis-btn-primary" type="button" data-tdp-open data-te-event="book_demo" data-te-service="business_process_outsourcing" data-te-source="bpo_page">
+            <span>Book a Demo</span>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </button>
+
+          <a class="tis-btn tis-btn-outline" href="https://api.whatsapp.com/send/?phone=2348183405221&text=Hello+Tranter+IT%2C+I%20would%20like%20to%20speak%20to%20your%20team%20about%20Business%20Process%20Outsourcing%20Services.&type=phone_number&app_absent=0" target="_blank" rel="noopener" data-te-event="whatsapp_click" data-te-service="business_process_outsourcing" data-te-source="bpo_page">
+            <span>Speak to Our Team</span>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15a4 4 0 0 1-4 4H8l-5 3V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4z"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <div class="tis-hero-panel">
+        <div class="tis-floating-chip">BPO operations layer</div>
+
+        <div class="tis-glass-card">
+          <div class="tis-card-inner">
+            <div class="tis-card-label">
+              <span>Process Intelligence</span>
+              <span class="tis-live"><i></i>Live Operations</span>
+            </div>
+
+            <div class="tis-mini-grid">
+              <div class="tis-mini-card">
+                <div class="tis-mini-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.8-3.8a6 6 0 0 1-8 8l-6.9 6.9a2.1 2.1 0 0 1-3-3l6.9-6.9a6 6 0 0 1 8-8z"/></svg>
+                </div>
+                <strong>Managed Operations</strong>
+                <span>Run outsourced operational functions with structure, accountability and service discipline.</span>
+              </div>
+
+              <div class="tis-mini-card">
+                <div class="tis-mini-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                </div>
+                <strong>Customer Support</strong>
+                <span>Deliver responsive customer service and support operations through managed teams and workflows.</span>
+              </div>
+
+              <div class="tis-mini-card">
+                <div class="tis-mini-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v4M12 18v4M4.9 4.9l2.8 2.8M16.3 16.3l2.8 2.8M2 12h4M18 12h4"/></svg>
+                </div>
+                <strong>Process Analytics</strong>
+                <span>Track performance, recurring issues and operational opportunities with clearer reporting.</span>
+              </div>
+
+              <div class="tis-mini-card">
+                <div class="tis-mini-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+                </div>
+                <strong>Workforce Capacity</strong>
+                <span>Scale business functions without overloading internal teams or leadership resources.</span>
+              </div>
+            </div>
+
+            <div class="tis-strategy-strip">
+              <strong>Outsourcing systems that improve service quality.</strong>
+              <span>Not just extra hands — structured operational systems that improve quality, speed and business focus.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  
+  <section class="tis-section" id="bpo-what-we-do">
+    <div class="tis-container">
+      <header class="tis-header tis-reveal">
+        <div class="tis-pill">What We Do</div>
+        <h2 class="tis-title">Operational Systems for <span>Modern Businesses</span></h2>
+        <div class="tis-divider"><span></span><i></i><span></span></div>
+      </header>
+
+      <div class="tis-two">
+        <div class="tis-ai-dashboard tis-reveal">
+          <img src="https://hipterraafrica.com/wp-content/uploads/2026/02/smiling-coworkers-interacting-using-computer-scaled.jpg" alt="Business process outsourcing and operational support team" style="width:100%;height:320px;object-fit:cover;border-radius:18px;display:block;">
+        </div>
+
+        <article class="tis-card tis-copy-card tis-reveal">
+          <h3>Streamline operations and <span>improve service quality</span></h3>
+          <p>
+            We design and manage outsourced operational functions supported by advanced technology, performance frameworks and process optimisation methodologies.
+          </p>
+          <p>
+            Our approach helps organisations reduce overhead, improve consistency, strengthen service delivery and focus internal resources on strategic priorities.
+          </p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="tis-section" id="bpo-capabilities">
+    <div class="tis-container">
+      <header class="tis-header tis-reveal">
+        <div class="tis-pill">BPO Capabilities</div>
+        <h2 class="tis-title">Everything Your Operations Need to <span>Scale Efficiently</span></h2>
+        <div class="tis-divider"><span></span><i></i><span></span></div>
+        <p class="tis-subtitle">
+          We support organisations with outsourced business functions, managed workflows, service reporting and technology-enabled operations that improve execution quality.
+        </p>
+      </header>
+
+      <div class="tis-grid-3">
+        <article class="tis-card tis-feature-card tis-reveal">
+          <div class="tis-feature-num">01</div>
+          <div class="tis-feature-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8a6 6 0 0 0-12 0v5a2 2 0 0 0 2 2h1v-5H7V8a5 5 0 0 1 10 0v2h-2v5h1a2 2 0 0 0 2-2z"/><path d="M13 19h2a4 4 0 0 0 4-4"/></svg>
+          </div>
+          <h3>Finance & Accounting Support</h3>
+          <p>Outsource bookkeeping, payroll coordination, invoice processing, reconciliation workflows and financial administration.</p>
+        </article>
+
+        <article class="tis-card tis-feature-card tis-reveal">
+          <div class="tis-feature-num">02</div>
+          <div class="tis-feature-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+          </div>
+          <h3>Human Resources</h3>
+          <p>Handle recruitment coordination, onboarding support, employee documentation and workforce process management.</p>
+        </article>
+
+        <article class="tis-card tis-feature-card tis-reveal">
+          <div class="tis-feature-num">03</div>
+          <div class="tis-feature-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          </div>
+          <h3>IT & Software Support</h3>
+          <p>Provide technical assistance, software support, issue coordination and technology-enabled operational support.</p>
+        </article>
+
+        <article class="tis-card tis-feature-card tis-reveal">
+          <div class="tis-feature-num">04</div>
+          <div class="tis-feature-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 17l6-6 4 4 6-8"/><path d="M20 7h-5M20 7v5"/></svg>
+          </div>
+          <h3>Customer Service Operations</h3>
+          <p>Manage customer enquiries, service requests, response workflows and support channels with consistent service quality.</p>
+        </article>
+
+        <article class="tis-card tis-feature-card tis-reveal">
+          <div class="tis-feature-num">05</div>
+          <div class="tis-feature-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v4M12 18v4M4.9 4.9l2.8 2.8M16.3 16.3l2.8 2.8M2 12h4M18 12h4"/></svg>
+          </div>
+          <h3>Process Reengineering</h3>
+          <p>Redesign workflows, remove bottlenecks and improve how operational functions are delivered and measured.</p>
+        </article>
+
+        <article class="tis-card tis-feature-card tis-reveal">
+          <div class="tis-feature-num">06</div>
+          <div class="tis-feature-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.7l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.7l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+          </div>
+          <h3>AI-Assisted Process Intelligence</h3>
+          <p>Use service metrics, reporting and AI-assisted visibility to monitor performance and drive continuous improvement.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="tis-section" id="bpo-operations">
+    <div class="tis-container">
+      <header class="tis-header tis-reveal">
+        <div class="tis-pill">AI Process Intelligence</div>
+        <h2 class="tis-title">From Process Control to <span>Measurable Growth</span></h2>
+        <div class="tis-divider"><span></span><i></i><span></span></div>
+        <p class="tis-subtitle">
+          Our BPO model combines people, process, technology and service governance so operational functions become easier to manage, measure and scale.
+        </p>
+      </header>
+
+      <div class="tis-two">
+        <article class="tis-card tis-copy-card tis-reveal">
+          <h3>Outsourcing that becomes a <span>business advantage</span></h3>
+          <p>
+            Organisations become more efficient when non-core functions are professionally managed with clear workflows, measurable outputs and continuous improvement.
+          </p>
+          <p>
+            Tranter helps organisations streamline operations, reduce administrative load, improve service quality and free leadership teams to focus on growth.
+          </p>
+
+          <ul class="tis-list">
+            <li><span class="tis-check">✓</span>Create leaner operational structures</li>
+            <li><span class="tis-check">✓</span>Improve service quality and operational efficiency</li>
+            <li><span class="tis-check">✓</span>Reduce overhead and administrative complexity</li>
+            <li><span class="tis-check">✓</span>Use AI-assisted visibility to monitor and improve operations</li>
+          </ul>
+        </article>
+
+        <div class="tis-ai-dashboard tis-reveal" aria-label="AI-enabled business process outsourcing operations dashboard">
+          <div class="tis-ai-shell">
+            <div class="tis-ai-top">
+              <div class="tis-ai-window"><i></i><i></i><i></i></div>
+              <div class="tis-ai-title-small">AI Process Intelligence Command Centre</div>
+              <div class="tis-ai-live">Monitoring Active</div>
+            </div>
+
+            <div class="tis-ai-body">
+              <div class="tis-ai-kpis">
+                <div class="tis-ai-kpi"><strong>24/7</strong><span>Service coverage</span></div>
+                <div class="tis-ai-kpi"><strong>99.8%</strong><span><em>Process</em> visibility</span></div>
+                <div class="tis-ai-kpi"><strong>AI</strong><span>Service insights</span></div>
+                <div class="tis-ai-kpi"><strong>Secure</strong><span>Quality control</span></div>
+              </div>
+
+              <div class="tis-ai-main">
+                <div class="tis-ai-panel">
+                  <div class="tis-ai-head">
+                    <strong>Operational Performance Forecast</strong>
+                    <span class="tis-ai-chip green">Managed</span>
+                  </div>
+                  <div class="tis-ai-bars"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+                </div>
+
+                <div class="tis-ai-panel">
+                  <div class="tis-ai-head">
+                    <strong>Operational Readiness</strong>
+                    <span class="tis-ai-chip">AI Prioritised</span>
+                  </div>
+                  <div class="tis-ai-flow">
+                    <div class="tis-ai-flow-row"><span>Output</span><div class="tis-ai-progress"><i style="width:94%"></i></div><span>94%</span></div>
+                    <div class="tis-ai-flow-row"><span>Quality</span><div class="tis-ai-progress"><i style="width:88%"></i></div><span>88%</span></div>
+                    <div class="tis-ai-flow-row"><span>Control</span><div class="tis-ai-progress"><i style="width:91%"></i></div><span>91%</span></div>
+                    <div class="tis-ai-flow-row"><span>Quality</span><div class="tis-ai-progress"><i style="width:93%"></i></div><span>93%</span></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <section class="tis-section" id="bpo-model">
+    <div class="tis-container">
+      <header class="tis-header tis-reveal">
+        <div class="tis-pill">Business Process Outsourcing Model</div>
+        <h2 class="tis-title">A Managed Business Process Outsourcing Model for <span>Growing Teams</span></h2>
+        <div class="tis-divider"><span></span><i></i><span></span></div>
+        <p class="tis-subtitle">
+          Whether you are outsourcing a single function or multiple operational units, we help you build managed systems that deliver quality, consistency and control.
+        </p>
+      </header>
+
+      <div class="tis-grid-3">
+        <article class="tis-card tis-feature-card tis-reveal">
+          <div class="tis-feature-num">01</div>
+          <div class="tis-feature-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.9l.1.1a2 2 0 0 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.9-.3 1.7 1.7 0 0 0-1 1.6V22h-4v-.1a1.7 1.7 0 0 0-1-1.6 1.7 1.7 0 0 0-1.9.3l-.1.1A2 2 0 0 1 4.2 18l.1-.1a1.7 1.7 0 0 0 .3-1.9 1.7 1.7 0 0 0-1.6-1H3v-4h.1a1.7 1.7 0 0 0 1.6-1 1.7 1.7 0 0 0-.3-1.9l-.1-.1A2 2 0 0 1 7.1 5.2l.1.1a1.7 1.7 0 0 0 1.9.3 1.7 1.7 0 0 0 1-1.6V4h4v.1a1.7 1.7 0 0 0 1 1.6 1.7 1.7 0 0 0 1.9-.3l.1-.1A2 2 0 0 1 19.8 8l-.1.1a1.7 1.7 0 0 0-.3 1.9 1.7 1.7 0 0 0 1.6 1h.1v4H21a1.7 1.7 0 0 0-1.6 1z"/></svg>
+          </div>
+          <h3>Map</h3>
+          <p>We assess current operations, pain points, workloads, service gaps and process dependencies.</p>
+        </article>
+
+        <article class="tis-card tis-feature-card tis-reveal">
+          <div class="tis-feature-num">02</div>
+          <div class="tis-feature-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 17l6-6 4 4 6-8M20 7h-5M20 7v5"/></svg>
+          </div>
+          <h3>Manage</h3>
+          <p>We design and manage outsourced workflows with clear responsibilities, service standards and reporting.</p>
+        </article>
+
+        <article class="tis-card tis-feature-card tis-reveal">
+          <div class="tis-feature-num">03</div>
+          <div class="tis-feature-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M2 12h20"/><circle cx="12" cy="12" r="8"/></svg>
+          </div>
+          <h3>Improve</h3>
+          <p>We monitor performance, improve processes and continuously optimise service delivery.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  
+  
+  <section class="tis-section" id="hr-solution-areas">
+    <div class="tis-container">
+      <header class="tis-header tis-reveal">
+        <div class="tis-pill">Our Solutions</div>
+        <h2 class="tis-title">BPO Solutions Built for <span>Operational Growth</span></h2>
+        <div class="tis-divider"><span></span><i></i><span></span></div>
+        <p class="tis-subtitle">
+          We help organisations outsource and optimise key support functions with structured workflows, reliable teams and performance oversight.
+        </p>
+      </header>
+
+      <div class="tis-grid-3">
+        <article class="tis-card tis-feature-card tis-reveal">
+          <div class="tis-feature-num">01</div>
+          <div class="tis-feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19V5a2 2 0 0 1 2-2h10l4 4v12a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2z"/><path d="M14 3v5h5"/><path d="M8 13h8M8 17h5"/></svg></div>
+          <h3>Finance & Accounting Support</h3>
+          <p>Outsource bookkeeping, payroll coordination, auditing support and financial administrative tasks.</p>
+        </article>
+
+        <article class="tis-card tis-feature-card tis-reveal">
+          <div class="tis-feature-num">02</div>
+          <div class="tis-feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.9"/></svg></div>
+          <h3>Human Resources</h3>
+          <p>Handle recruitment coordination, onboarding support and employee management.</p>
+        </article>
+
+        <article class="tis-card tis-feature-card tis-reveal">
+          <div class="tis-feature-num">03</div>
+          <div class="tis-feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20l9-5-9-5-9 5 9 5z"/><path d="M12 12l9-5-9-5-9 5 9 5z"/></svg></div>
+          <h3>IT & Software Support</h3>
+          <p>Provide technical support, software assistance, issue coordination and technology-enabled operational support.</p>
+        </article>
+
+        <article class="tis-card tis-feature-card tis-reveal">
+          <div class="tis-feature-num">04</div>
+          <div class="tis-feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3 7h7l-5.5 4.5L18 21l-6-4-6 4 1.5-7.5L2 9h7z"/></svg></div>
+          <h3>Back Office Administration</h3>
+          <p>Manage administrative support, documentation workflows, records handling and routine back-office tasks.</p>
+        </article>
+
+        <article class="tis-card tis-feature-card tis-reveal">
+          <div class="tis-feature-num">05</div>
+          <div class="tis-feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div>
+          <h3>Quality & HR Governance</h3>
+          <p>Support process governance, quality checks, service standards and documented operational controls.</p>
+        </article>
+
+        <article class="tis-card tis-feature-card tis-reveal">
+          <div class="tis-feature-num">06</div>
+          <div class="tis-feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18"/><path d="M7 15l4-4 3 3 5-7"/></svg></div>
+          <h3>Operational Process Support</h3>
+          <p>Improve process consistency, turnaround time and service delivery governance.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+
+
+  <section class="tis-metrics tis-full" aria-label="business process outsourcing performance metrics">
+    <div class="tis-container">
+      <div class="tis-metrics-grid">
+        <div class="tis-metric tis-reveal"><strong>99%</strong><span>Operational visibility across outsourced functions</span></div>
+        <div class="tis-metric tis-reveal"><strong>24/7</strong><span>Managed service delivery and support</span></div>
+        <div class="tis-metric tis-reveal"><strong>350+</strong><span>Operational and technology support teams</span></div>
+        <div class="tis-metric tis-reveal"><strong>AI</strong><span>AI-assisted process intelligence</span></div>
+      </div>
+    </div>
+  </section>
+<section class="tis-section tis-faq" id="faq">
+    <div class="tis-container">
+      <header class="tis-header tis-reveal">
+        <div class="tis-pill">Frequently Asked Questions</div>
+        <h2 class="tis-title">Business Process Outsourcing Questions <span>Answered</span></h2>
+        <p class="tis-subtitle">Clear answers for organisations evaluating business process outsourcing, managed operations and technology-enabled service delivery.</p>
+        <div class="tis-divider"><span></span><i></i><span></span></div>
+      </header>
+
+      <div class="tis-faq-grid tis-reveal">
+        <details>
+          <summary>What is included in Tranter Business Process Outsourcing?</summary>
+          <div class="answer">Our BPO services can include finance and accounting support, HR operations, IT and software support, customer service operations, back-office administration, reporting and process optimisation.</div>
+        </details>
+
+        <details>
+          <summary>Do you support distributed or remote teams?</summary>
+          <div class="answer">Yes. Our BPO delivery model supports distributed teams, multiple locations and organisations that need consistent processes across operating environments.</div>
+        </details>
+
+        <details>
+          <summary>Can Tranter manage only one business function?</summary>
+          <div class="answer">Yes. We can support a single function or multiple operational areas depending on your internal capacity, service gaps and growth priorities.</div>
+        </details>
+
+        <details>
+          <summary>How does technology improve BPO delivery?</summary>
+          <div class="answer">Technology improves visibility, task tracking, service reporting, workflow automation, quality monitoring and decision-making across outsourced operations.</div>
+        </details>
+
+        <details>
+          <summary>How do you maintain quality?</summary>
+          <div class="answer">We use documented workflows, service standards, performance monitoring, reporting and continuous improvement methods to maintain quality and consistency.</div>
+        </details>
+
+        <details>
+          <summary>How do we start?</summary>
+          <div class="answer">We begin with a discovery conversation to understand operational gaps, current workloads, business priorities and outsourcing goals, then recommend the right delivery model.</div>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <section class="tis-cta tis-full" id="book-a-demo">
+    <div class="tis-container tis-reveal">
+      <h2>Ready to Manage <span>Your Operations?</span></h2>
+      <p>Partner with Tranter to transform operational functions into high-performance business assets supported by technology and process excellence.</p>
+
+      <div class="tis-cta-actions">
+        <button class="tis-btn tis-btn-primary" type="button" data-tdp-open data-te-event="book_demo" data-te-service="business_process_outsourcing" data-te-source="bpo_page"><span>Book a Demo</span></button>
+        <a class="tis-btn tis-btn-outline" href="https://api.whatsapp.com/send/?phone=2348183405221&text=Hello+Tranter+IT%2C+I%20would%20like%20to%20speak%20to%20your%20team%20about%20Business%20Process%20Outsourcing%20Services.&type=phone_number&app_absent=0" target="_blank" rel="noopener" data-te-event="whatsapp_click" data-te-service="business_process_outsourcing" data-te-source="bpo_page"><span>Speak to Our Team</span></a>
+      </div>
+
+      <div class="tis-trust">
+        <span><i></i>Lean operations</span>
+        <span><i></i>Quality support</span>
+        <span><i></i>Process visibility</span>
+      </div>
+    </div>
+  </section>
+
+  
+
+  <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "Business Process Outsourcing",
+    "serviceType": "Business Process Outsourcing Services",
+    "provider": {
+        "@type": "Organization",
+        "name": "Tranter IT Infrastructure Services Limited",
+        "url": "https://hipterraafrica.com/"
+    },
+    "areaServed": "Global",
+    "description": "Business process outsourcing services including finance and accounting support, HR operations, IT and software support, customer service operations, back office administration, process optimisation and AI-assisted operational visibility."
+}
+  </script>
+
+  <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+        {
+            "@type": "Question",
+            "name": "What is included in Business Process Outsourcing?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "BPO services can include finance and accounting support, HR operations, IT and software support, customer service operations, back office administration, reporting and process optimisation."
+            }
+        },
+        {
+            "@type": "Question",
+            "name": "Can you manage only one business function?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Yes. Tranter can support a single function or multiple operational areas depending on current needs, internal capacity and growth priorities."
+            }
+        },
+        {
+            "@type": "Question",
+            "name": "How does technology improve BPO delivery?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Technology improves visibility, task tracking, service reporting, workflow automation, quality monitoring and decision-making across outsourced operations."
+            }
+        },
+        {
+            "@type": "Question",
+            "name": "Can Tranter support customer service operations?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Yes. Tranter can help manage customer enquiries, support requests, communication workflows and service quality reporting."
+            }
+        },
+        {
+            "@type": "Question",
+            "name": "How do you maintain quality?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Tranter uses documented workflows, service standards, performance monitoring, reporting and continuous improvement methods to maintain quality and consistency."
+            }
+        },
+        {
+            "@type": "Question",
+            "name": "How do we start?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Tranter begins with discovery to understand operational gaps, current workloads, business priorities and outsourcing goals, then recommends the right delivery model."
+            }
+        }
+    ]
+}
+  </script>
+
+</div>
