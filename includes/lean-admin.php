@@ -52,9 +52,9 @@ class Tranter_Lean_Admin {
 
     public static function route() {
         $screen = self::screen();
-        echo '<div class=\'te-app te-workspace te-lean-app\'>';
+        echo '<div class="te-app te-workspace te-lean-app">';
         self::header($screen);
-        echo '<main class=\'te-main\'>';
+        echo '<main class="te-main">';
         switch ($screen) {
             case 'website': self::website(); break;
             case 'page-templates': Tranter_Page_Templates::render(); break;
@@ -70,12 +70,12 @@ class Tranter_Lean_Admin {
 
     private static function header($active) {
         $market = class_exists('Tranter_Market') ? tranter_engine_market_label(Tranter_Market::current()) : 'Nigeria';
-        echo '<header class=\'te-app-header\'><div class=\'te-brand-inline\'><span class=\'te-brand-mark\'>TH</span><div><strong>Tranter Hub</strong><em>v'.esc_html(TRANTER_ENGINE_VERSION).' Sales Hub</em></div></div><nav class=\'te-workspace-nav\'>';
+        echo '<header class="te-app-header"><div class="te-brand-inline"><span class="te-brand-mark">TH</span><div><strong>Tranter Hub</strong><em>v'.esc_html(TRANTER_ENGINE_VERSION).' Sales Hub</em></div></div><nav class="te-workspace-nav">';
         foreach (self::items() as $key => $item) {
             $href = $key === 'dashboard' ? 'tranter-engine' : 'tranter-engine-' . $key;
-            echo '<a class=\''.esc_attr($active === $key ? 'is-active' : '').'\' href=\''.esc_url(admin_url('admin.php?page=' . $href)).'\'><span class=\'dashicons '.esc_attr($item[1]).'\'></span>'.esc_html($item[0]).'</a>';
+            echo '<a class="'.esc_attr($active === $key ? 'is-active' : '').'" href="'.esc_url(admin_url('admin.php?page=' . $href)).'"><span class="dashicons '.esc_attr($item[1]).'"></span>'.esc_html($item[0]).'</a>';
         }
-        echo '</nav><div class=\'te-header-actions\'><button class=\'te-search\' type=\'button\'>HTML + Editorial</button><span class=\'te-market-switch\'>'.esc_html($market).'</span></div></header>';
+        echo '</nav><div class="te-header-actions"><button class="te-search" type="button">HTML + Editorial</button><span class="te-market-switch">'.esc_html($market).'</span></div></header>';
     }
 
     private static function dashboard_content() {
@@ -83,43 +83,43 @@ class Tranter_Lean_Admin {
         $insights = intval(wp_count_posts('tranter_insight')->publish ?? 0);
         $campaigns = intval(wp_count_posts('tranter_campaign')->publish ?? 0);
         $templates = class_exists('Tranter_Page_Templates') ? count(Tranter_Page_Templates::templates()) : 0;
-        echo '<section class=\'te-title-row te-modern-dashboard-hero\'><div><span class=\'te-kicker\'>Mission Control</span><h1>Tranter Hub</h1><p>A lean command centre for the Tranter sales website, HTML page templates, campaigns, events, insights and lead intelligence.</p></div><a class=\'te-btn te-btn-primary\' href=\''.esc_url(admin_url('admin.php?page=tranter-engine-page-templates')).'\'>Open Page Templates</a></section>';
-        echo '<section class=\'te-dashboard-grid te-dashboard-modern\'>';
+        echo '<section class="te-title-row te-modern-dashboard-hero"><div><span class="te-kicker">Mission Control</span><h1>Tranter Hub</h1><p>A lean command centre for the Tranter sales website, HTML page templates, campaigns, events, insights and lead intelligence.</p></div><a class="te-btn te-btn-primary" href="'.esc_url(admin_url('admin.php?page=tranter-engine-page-templates')).'">Open Page Templates</a></section>';
+        echo '<section class="te-dashboard-grid te-dashboard-modern">';
         self::stat('Page Templates', $templates, 'Editable HTML codebases', 'dashicons-media-code');
         self::stat('Campaigns', $campaigns, 'Full HTML campaign pages', 'dashicons-megaphone');
-        self::stat('Events', $events, 'HTML event pages and registration CTAs', 'dashicons-calendar-alt');
+        self::stat('Events', $events, 'Flexible inputs + optional HTML', 'dashicons-calendar-alt');
         self::stat('Insights', $insights, 'Advanced editorial content', 'dashicons-welcome-write-blog');
-        echo '</section><section class=\'te-grid te-grid-3\'>';
+        echo '</section><section class="te-grid te-grid-3">';
         self::module('Website Engine', 'Global header, footer, Book a Demo popup, WhatsApp, scripts and market logic.', 'Open Engine', 'website', 'dashicons-admin-site');
         self::module('Page Templates', 'View and copy HTML widget codebases for pages.', 'View Templates', 'page-templates', 'dashicons-media-code');
         self::module('Leads & Analytics', 'Track page, campaign, event and insight performance.', 'View Analytics', 'leads-analytics', 'dashicons-chart-bar');
-        echo '</section><section class=\'te-panel\'><div class=\'te-panel-head\'><h2>v1.7.0 Direction</h2><span>HTML + Editorial</span></div><ul class=\'te-clean-list\'><li>Pages, campaigns and events use editable HTML/widget code.</li><li>Insights use an advanced editorial text editor, not pasted HTML.</li><li>Global Book a Demo buttons use <code>data-tdp-open</code>.</li><li>Tracking uses <code>data-te-event</code>, <code>data-te-service</code> and <code>data-te-source</code>.</li><li>Legacy shortcodes remain available during migration, but should not be expanded for new page bodies.</li></ul></section>';
+        echo '</section><section class="te-panel"><div class="te-panel-head"><h2>v1.7.2 Direction</h2><span>HTML + Editorial</span></div><ul class="te-clean-list"><li>Pages and campaigns use editable HTML/widget code.</li><li>Events support simple fields for non-technical staff plus optional HTML for developers.</li><li>Insights use an advanced editorial text editor, not pasted HTML.</li><li>Global Book a Demo buttons use <code>data-tdp-open</code>.</li><li>Tracking uses <code>data-te-event</code>, <code>data-te-service</code> and <code>data-te-source</code>.</li></ul></section>';
     }
 
     private static function website() {
-        echo '<section class=\'te-title-row\'><div><span class=\'te-kicker\'>Website Engine</span><h1>Website Engine</h1><p>Global infrastructure for the Tranter website: header, footer, Book a Demo, tracking standards, market logic and shared scripts.</p></div><a class=\'te-btn te-btn-primary\' href=\''.esc_url(admin_url('admin.php?page=tranter-engine-page-templates')).'\'>Open Page Templates</a></section>';
-        echo '<section class=\'te-grid te-grid-4\'>';
+        echo '<section class="te-title-row"><div><span class="te-kicker">Website Engine</span><h1>Website Engine</h1><p>Global infrastructure for the Tranter website: header, footer, Book a Demo, tracking standards, market logic and shared scripts.</p></div><a class="te-btn te-btn-primary" href="'.esc_url(admin_url('admin.php?page=tranter-engine-page-templates')).'">Open Page Templates</a></section>';
+        echo '<section class="te-grid te-grid-4">';
         self::tile('Global Book a Demo', 'Use one shared popup form across all HTML templates.', 'data-tdp-open');
         self::tile('Tracking Attributes', 'Add sales and marketing intelligence to links and buttons.', 'data-te-event');
         self::tile('HTML Page Bodies', 'Build page bodies inside Elementor HTML widgets.', 'View + Copy HTML');
         self::tile('Legacy Safety', 'Old shortcodes remain available while we migrate.', '[te_site_header]');
-        echo '</section><section class=\'te-panel\'><div class=\'te-panel-head\'><h2>CTA Standard</h2><span>Use in every HTML codebase</span></div><pre class=\'te-code-block\'>&lt;a href=&quot;#&quot; data-tdp-open data-te-event=&quot;book_demo&quot; data-te-service=&quot;it_support&quot;&gt;Book a Demo&lt;/a&gt;\n\n&lt;a href=&quot;https://wa.me/2348183405221&quot; data-te-event=&quot;whatsapp_click&quot; data-te-service=&quot;homepage&quot;&gt;Speak to Our Team&lt;/a&gt;</pre></section>';
+        echo '</section><section class="te-panel"><div class="te-panel-head"><h2>CTA Standard</h2><span>Use in every HTML codebase</span></div><pre class="te-code-block">&lt;a href=&quot;#&quot; data-tdp-open data-te-event=&quot;book_demo&quot; data-te-service=&quot;it_support&quot;&gt;Book a Demo&lt;/a&gt;\n\n&lt;a href=&quot;https://wa.me/2348183405221&quot; data-te-event=&quot;whatsapp_click&quot; data-te-service=&quot;homepage&quot;&gt;Speak to Our Team&lt;/a&gt;</pre></section>';
     }
 
     private static function campaigns() {
-        echo '<section class=\'te-title-row\'><div><span class=\'te-kicker\'>Campaign Engine</span><h1>Campaigns</h1><p>Campaigns remain the reference workflow: paste full HTML/widget code, publish, then track views, clicks and conversions.</p></div><a class=\'te-btn te-btn-primary\' href=\''.esc_url(admin_url('post-new.php?post_type=tranter_campaign')).'\'>Add Campaign</a></section>';
+        echo '<section class="te-title-row"><div><span class="te-kicker">Campaign Engine</span><h1>Campaigns</h1><p>Campaigns remain the reference workflow: paste full HTML/widget code, publish, then track views, clicks and conversions.</p></div><a class="te-btn te-btn-primary" href="'.esc_url(admin_url('post-new.php?post_type=tranter_campaign')).'">Add Campaign</a></section>';
         self::list_posts('tranter_campaign', 'dashicons-megaphone');
     }
 
     private static function events() {
-        echo '<section class=\'te-title-row\'><div><span class=\'te-kicker\'>Event Engine</span><h1>Events</h1><p>Events will follow the campaign-style HTML workflow for event pages, registrations, agendas, speakers and recaps.</p></div><a class=\'te-btn te-btn-primary\' href=\''.esc_url(admin_url('post-new.php?post_type=tranter_event')).'\'>Add Event</a></section>';
-        echo '<section class=\'te-panel\'><div class=\'te-panel-head\'><h2>Event Input Direction</h2><span>HTML-first</span></div><p class=\'te-muted\'>Event pages should accept full HTML/widget code, with registration tracking through <code>data-te-event=&quot;event_register&quot;</code>.</p></section>';
+        echo '<section class="te-title-row"><div><span class="te-kicker">Event Engine</span><h1>Events</h1><p>Events support both non-technical event inputs and optional developer HTML codebases for full landing-page control.</p></div><a class="te-btn te-btn-primary" href="'.esc_url(admin_url('post-new.php?post_type=tranter_event')).'">Add Event</a></section>';
+        echo '<section class="te-panel"><div class="te-panel-head"><h2>Event Input Direction</h2><span>Flexible input</span></div><p class="te-muted">Non-technical staff can add event title, short description, date, time, location, registration URL and featured image. Developers can optionally paste a full HTML/widget codebase for custom event pages. Registration tracking should use <code>data-te-event=&quot;event_register&quot;</code>.</p></section>';
         self::list_posts('tranter_event', 'dashicons-calendar-alt');
     }
 
     private static function insights() {
-        echo '<section class=\'te-title-row\'><div><span class=\'te-kicker\'>Editorial Engine</span><h1>Insights</h1><p>Insights are advanced editorial content, not HTML-first pages. Use the WordPress editor for rich text, featured image, categories, SEO, CTA controls and analytics.</p></div><a class=\'te-btn te-btn-primary\' href=\''.esc_url(admin_url('post-new.php?post_type=tranter_insight')).'\'>Add Insight</a></section>';
-        echo '<section class=\'te-grid te-grid-3\'>';
+        echo '<section class="te-title-row"><div><span class="te-kicker">Editorial Engine</span><h1>Insights</h1><p>Insights are advanced editorial content, not HTML-first pages. Use the WordPress editor for rich text, featured image, categories, SEO, CTA controls and analytics.</p></div><a class="te-btn te-btn-primary" href="'.esc_url(admin_url('post-new.php?post_type=tranter_insight')).'">Add Insight</a></section>';
+        echo '<section class="te-grid te-grid-3">';
         self::tile('Advanced Text Editor', 'Use rich text for thought leadership and articles.', 'Editorial');
         self::tile('CTA Controls', 'Book a Demo, WhatsApp and newsletter CTAs should be inserted by the module.', 'Tracked');
         self::tile('Content Metadata', 'Categories, tags, featured images, SEO and related service mapping.', 'Structured');
@@ -128,8 +128,8 @@ class Tranter_Lean_Admin {
     }
 
     private static function analytics() {
-        echo '<section class=\'te-title-row\'><div><span class=\'te-kicker\'>Sales Intelligence</span><h1>Leads & Analytics</h1><p>Central reporting for page views, CTA clicks, Book a Demo opens, WhatsApp clicks, campaign conversions, event registrations and insight performance.</p></div></section>';
-        echo '<section class=\'te-grid te-grid-3\'>';
+        echo '<section class="te-title-row"><div><span class="te-kicker">Sales Intelligence</span><h1>Leads & Analytics</h1><p>Central reporting for page views, CTA clicks, Book a Demo opens, WhatsApp clicks, campaign conversions, event registrations and insight performance.</p></div></section>';
+        echo '<section class="te-grid te-grid-3">';
         self::tile('Demo Intent', 'Track all global Book a Demo opens.', 'data-tdp-open');
         self::tile('Service Interest', 'Map CTA clicks to pages and services.', 'data-te-service');
         self::tile('Campaign/Event ROI', 'Compare conversions by campaign, event and source.', 'data-te-source');
@@ -137,35 +137,35 @@ class Tranter_Lean_Admin {
     }
 
     private static function settings() {
-        echo '<section class=\'te-title-row\'><div><span class=\'te-kicker\'>Settings</span><h1>Settings</h1><p>Core website settings for global scripts, WhatsApp, Book a Demo and tracking.</p></div></section>';
-        echo '<section class=\'te-panel\'><div class=\'te-panel-head\'><h2>Current phase</h2><span>v1.7.0</span></div><p class=\'te-muted\'>Settings controls will be tightened after the lean backend and template workflow are stable.</p></section>';
+        echo '<section class="te-title-row"><div><span class="te-kicker">Settings</span><h1>Settings</h1><p>Core website settings for global scripts, WhatsApp, Book a Demo and tracking.</p></div></section>';
+        echo '<section class="te-panel"><div class="te-panel-head"><h2>Current phase</h2><span>v1.7.2</span></div><p class="te-muted">Settings controls will be tightened after the lean backend and template workflow are stable.</p></section>';
     }
 
     private static function list_posts($post_type, $icon) {
         $posts = get_posts(['post_type'=>$post_type, 'numberposts'=>12, 'post_status'=>['publish','draft','pending'], 'orderby'=>'date', 'order'=>'DESC']);
-        if (!$posts) { echo '<section class=\'te-empty\'><h3>No records yet.</h3><p>Add your first item to begin.</p></section>'; return; }
-        echo '<section class=\'te-card-grid\'>';
+        if (!$posts) { echo '<section class="te-empty"><h3>No records yet.</h3><p>Add your first item to begin.</p></section>'; return; }
+        echo '<section class="te-card-grid">';
         foreach ($posts as $post) {
-            echo '<article class=\'te-content-card\'><div class=\'te-content-top\'><div class=\'te-content-icon\'><span class=\'dashicons '.esc_attr($icon).'\'></span></div><span>'.esc_html(ucfirst($post->post_status)).'</span></div><div class=\'te-card-body\'><h3>'.esc_html($post->post_title).'</h3><p>'.esc_html(wp_trim_words($post->post_excerpt ?: wp_strip_all_tags($post->post_content), 18)).'</p></div><div class=\'te-card-actions\'><a href=\''.esc_url(get_edit_post_link($post->ID)).'\'>Edit</a><a href=\''.esc_url(get_permalink($post->ID)).'\' target=\'_blank\'>View</a></div></article>';
+            echo '<article class="te-content-card"><div class="te-content-top"><div class="te-content-icon"><span class="dashicons '.esc_attr($icon).'"></span></div><span>'.esc_html(ucfirst($post->post_status)).'</span></div><div class="te-card-body"><h3>'.esc_html($post->post_title).'</h3><p>'.esc_html(wp_trim_words($post->post_excerpt ?: wp_strip_all_tags($post->post_content), 18)).'</p></div><div class="te-card-actions"><a href="'.esc_url(get_edit_post_link($post->ID)).'">Edit</a><a href="'.esc_url(get_permalink($post->ID)).'" target="_blank">View</a></div></article>';
         }
         echo '</section>';
     }
 
     private static function stat($label, $value, $note, $icon) {
-        echo '<article class=\'te-mini-stat\'><div class=\'te-icon\'><span class=\'dashicons '.esc_attr($icon).'\'></span></div><strong>'.intval($value).'</strong><span>'.esc_html($label).'</span><p>'.esc_html($note).'</p></article>';
+        echo '<article class="te-mini-stat"><div class="te-icon"><span class="dashicons '.esc_attr($icon).'"></span></div><strong>'.intval($value).'</strong><span>'.esc_html($label).'</span><p>'.esc_html($note).'</p></article>';
     }
 
     private static function module($title, $text, $button, $page, $icon) {
-        echo '<article class=\'te-module\'><span class=\'dashicons '.esc_attr($icon).'\'></span><h3>'.esc_html($title).'</h3><p>'.esc_html($text).'</p><a href=\''.esc_url(admin_url('admin.php?page=tranter-engine-'.$page)).'\'>'.esc_html($button).'</a></article>';
+        echo '<article class="te-module"><span class="dashicons '.esc_attr($icon).'"></span><h3>'.esc_html($title).'</h3><p>'.esc_html($text).'</p><a href="'.esc_url(admin_url('admin.php?page=tranter-engine-'.$page)).'">'.esc_html($button).'</a></article>';
     }
 
     private static function tile($title, $text, $meta) {
-        echo '<article class=\'te-website-tile\'><h3>'.esc_html($title).'</h3><p>'.esc_html($text).'</p><code>'.esc_html($meta).'</code></article>';
+        echo '<article class="te-website-tile"><h3>'.esc_html($title).'</h3><p>'.esc_html($text).'</p><code>'.esc_html($meta).'</code></article>';
     }
 
     public static function inline_styles() {
         $page = isset($_GET['page']) ? sanitize_key($_GET['page']) : '';
         if (strpos($page, 'tranter-engine') !== 0) return;
-        echo '<style>.te-modern-dashboard-hero{background:radial-gradient(circle at 12% 20%,rgba(0,155,85,.16),transparent 32%),radial-gradient(circle at 92% 18%,rgba(137,18,25,.11),transparent 30%),linear-gradient(135deg,#fff,#f7faf9);border:1px solid rgba(0,27,20,.06);border-radius:28px;padding:32px;box-shadow:0 24px 70px rgba(0,0,0,.055)}.te-template-grid{display:grid;grid-template-columns:1fr;gap:22px;margin-top:22px}.te-template-card{background:#fff;border:1px solid rgba(0,27,20,.08);border-radius:26px;padding:24px;box-shadow:0 24px 70px rgba(0,0,0,.055)}.te-template-card-head{display:flex;align-items:flex-start;justify-content:space-between;gap:18px;margin-bottom:18px}.te-template-card-head span{display:inline-flex;padding:8px 12px;border-radius:999px;background:rgba(0,155,85,.09);color:#009b55;font-size:11px;font-weight:900;text-transform:uppercase;letter-spacing:.08em}.te-template-card-head h2{margin:12px 0 8px;font-size:24px;line-height:1.15;font-weight:900;color:#001b14}.te-template-card-head p{margin:0;max-width:760px;color:rgba(0,27,20,.64);font-weight:700;line-height:1.65}.te-template-card-head b{white-space:nowrap;padding:9px 12px;border-radius:999px;background:rgba(137,18,25,.08);color:#891219;font-size:12px}.te-template-actions{display:flex;gap:12px;flex-wrap:wrap;margin:14px 0}.te-template-code{display:none;width:100%;min-height:460px;margin-top:16px;padding:18px;border-radius:18px;border:1px solid rgba(0,27,20,.12);background:#07140f;color:#d9ffee;font-family:Consolas,Monaco,monospace;font-size:12px;line-height:1.55;white-space:pre;overflow:auto}.te-template-code.is-visible{display:block}.te-template-rule-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}.te-template-rule-grid article{padding:16px;border:1px solid rgba(0,27,20,.08);border-radius:18px;background:#fff}.te-template-rule-grid strong{display:block;margin-bottom:10px;color:#001b14}.te-template-rule-grid code{display:block;white-space:normal;line-height:1.45;background:#f7faf8;border-radius:12px;padding:10px;color:#891219}.te-btn.is-copied{background:#891219!important;border-color:#891219!important;color:#fff!important}.te-clean-list code{padding:2px 7px;border-radius:8px;background:rgba(0,155,85,.09);color:#009b55;font-weight:900}@media(max-width:960px){.te-template-rule-grid{grid-template-columns:1fr}.te-template-card-head{display:block}.te-template-card-head b{display:inline-flex;margin-top:12px}.te-template-code{min-height:360px}}</style>';
+        echo '<style>.te-modern-dashboard-hero{background:radial-gradient(circle at 12% 20%,rgba(0,155,85,.16),transparent 32%),radial-gradient(circle at 92% 18%,rgba(137,18,25,.11),transparent 30%),linear-gradient(135deg,#fff,#f7faf9);border:1px solid rgba(0,27,20,.06);border-radius:28px;padding:32px;box-shadow:0 24px 70px rgba(0,0,0,.055)}.te-template-grid{display:grid;grid-template-columns:1fr;gap:22px;margin-top:22px}.te-template-card{background:#fff;border:1px solid rgba(0,27,20,.08);border-radius:26px;padding:24px;box-shadow:0 24px 70px rgba(0,0,0,.055)}.te-template-card-head{display:flex;align-items:flex-start;justify-content:space-between;gap:18px;margin-bottom:18px}.te-template-card-head span{display:inline-flex;padding:8px 12px;border-radius:999px;background:rgba(0,155,85,.09);color:#009b55;font-size:11px;font-weight:900;text-transform:uppercase;letter-spacing:.08em}.te-template-card-head h2{margin:12px 0 8px;font-size:24px;line-height:1.15;font-weight:900;color:#001b14}.te-template-card-head p{margin:0;max-width:760px;color:rgba(0,27,20,.64);font-weight:700;line-height:1.65}.te-template-card-head b{white-space:nowrap;padding:9px 12px;border-radius:999px;background:rgba(137,18,25,.08);color:#891219;font-size:12px}.te-template-actions{display:flex;gap:12px;flex-wrap:wrap;margin:14px 0}.te-template-code,textarea.te-template-code{display:none!important;width:100%!important;min-height:460px!important;margin-top:16px!important;padding:18px!important;border-radius:18px!important;border:1px solid rgba(0,27,20,.16)!important;background:#fff!important;color:#0a2419!important;font-family:Consolas,Monaco,monospace!important;font-size:12px!important;line-height:1.55!important;white-space:pre!important;overflow:auto!important;box-shadow:inset 0 0 0 1px rgba(0,155,85,.06)!important}.te-template-code.is-visible,textarea.te-template-code.is-visible{display:block!important}.te-template-code::selection{background:rgba(0,155,85,.22)!important;color:#001b14!important}#wpbody-content .te-template-code{color:#0a2419!important;background:#fff!important}.te-template-rule-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}.te-template-rule-grid article{padding:16px;border:1px solid rgba(0,27,20,.08);border-radius:18px;background:#fff}.te-template-rule-grid strong{display:block;margin-bottom:10px;color:#001b14}.te-template-rule-grid code{display:block;white-space:normal;line-height:1.45;background:#f7faf8;border-radius:12px;padding:10px;color:#891219}.te-btn.is-copied{background:#891219!important;border-color:#891219!important;color:#fff!important}.te-clean-list code{padding:2px 7px;border-radius:8px;background:rgba(0,155,85,.09);color:#009b55;font-weight:900}@media(max-width:960px){.te-template-rule-grid{grid-template-columns:1fr}.te-template-card-head{display:block}.te-template-card-head b{display:inline-flex;margin-top:12px}.te-template-code{min-height:360px}}</style>';
     }
 }
