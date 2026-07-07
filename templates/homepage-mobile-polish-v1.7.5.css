@@ -1,0 +1,97 @@
+/* Homepage v1.7.5 mobile polish
+   Purpose: Fix How We Work mobile layout and remove grey half-circle section background.
+   Usage: paste this CSS at the end of the homepage template <style> block, or load it after the homepage HTML CSS. */
+
+#tranter-homepage-v2 .trh-section{
+  background:
+    radial-gradient(circle at 0% 18%,rgba(0,155,85,.075),transparent 34%),
+    radial-gradient(circle at 100% 72%,rgba(137,18,25,.065),transparent 38%),
+    linear-gradient(180deg,#fff 0%,#fbfdfc 42%,#f7faf8 100%) !important;
+}
+
+#tranter-homepage-v2 .trh-section:nth-of-type(even){
+  background:
+    radial-gradient(circle at 100% 16%,rgba(0,155,85,.07),transparent 35%),
+    radial-gradient(circle at 0% 78%,rgba(137,18,25,.06),transparent 38%),
+    linear-gradient(180deg,#f7faf8 0%,#fff 48%,#fbfdfc 100%) !important;
+}
+
+#tranter-homepage-v2 .trh-section:before,
+#tranter-homepage-v2 .trh-section:after{
+  display:none !important;
+}
+
+@media(max-width:767px){
+  #tranter-homepage-v2 #how-we-work .trh-work-grid{
+    display:grid !important;
+    grid-template-columns:1fr !important;
+    gap:14px !important;
+  }
+
+  #tranter-homepage-v2 #how-we-work .trh-work-side{
+    display:grid !important;
+    grid-template-columns:1fr !important;
+    gap:14px !important;
+  }
+
+  #tranter-homepage-v2 #how-we-work .trh-work-side:first-child{
+    order:1 !important;
+  }
+
+  #tranter-homepage-v2 #how-we-work .trh-work-center{
+    order:2 !important;
+    padding:18px !important;
+    gap:10px !important;
+  }
+
+  #tranter-homepage-v2 #how-we-work .trh-work-side:last-child{
+    order:3 !important;
+  }
+
+  #tranter-homepage-v2 #how-we-work .trh-work-card{
+    padding:18px !important;
+    min-height:auto !important;
+  }
+
+  #tranter-homepage-v2 #how-we-work .trh-work-card h3,
+  #tranter-homepage-v2 #how-we-work .trh-work-center h3{
+    font-size:16px !important;
+    line-height:1.22 !important;
+    margin-bottom:6px !important;
+  }
+
+  #tranter-homepage-v2 #how-we-work .trh-work-card p,
+  #tranter-homepage-v2 #how-we-work .trh-work-center p{
+    font-size:12.8px !important;
+    line-height:1.52 !important;
+  }
+
+  #tranter-homepage-v2 #how-we-work .trh-work-center img{
+    height:170px !important;
+    border-radius:12px !important;
+  }
+
+  #tranter-homepage-v2 #how-we-work .trh-badge{
+    left:14px !important;
+    bottom:14px !important;
+    font-size:9.5px !important;
+    padding:7px 10px !important;
+  }
+}
+
+@media(max-width:520px){
+  #tranter-homepage-v2 #how-we-work .trh-work-grid,
+  #tranter-homepage-v2 #how-we-work .trh-work-side{
+    gap:12px !important;
+  }
+
+  #tranter-homepage-v2 #how-we-work .trh-work-card,
+  #tranter-homepage-v2 #how-we-work .trh-work-center{
+    padding:16px !important;
+    border-radius:16px !important;
+  }
+
+  #tranter-homepage-v2 #how-we-work .trh-work-center img{
+    height:155px !important;
+  }
+}
