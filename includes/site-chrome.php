@@ -43,6 +43,7 @@ class Tranter_Site_Chrome {
 
         if ($context === 'header') {
             $html = self::extend_demo_popup_listener($html);
+            $html = self::add_market_marker($html, $market);
         }
 
         if ($context === 'footer') {
@@ -68,6 +69,12 @@ class Tranter_Site_Chrome {
         }
 
         return $html;
+    }
+
+    private static function add_market_marker($html, $market) {
+        $market = $market === 'ng' ? 'ng' : 'global';
+        $script = '<script id="tranter-market-state">(function(){var m="' . esc_js($market) . '";document.documentElement.setAttribute("data-tranter-market",m);document.documentElement.classList.add("tranter-market-"+m);if(document.body){document.body.setAttribute("data-tranter-market",m);document.body.classList.add("tranter-market-"+m);}document.dispatchEvent(new CustomEvent("tranter:market-ready",{detail:{market:m}}));})();</script>';
+        return $html . $script;
     }
 
     private static function normalize_site_links($html) {
