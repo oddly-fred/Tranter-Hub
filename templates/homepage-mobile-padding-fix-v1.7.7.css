@@ -1,0 +1,51 @@
+/* Homepage mobile padding fix v1.7.7
+   Fixes mobile text/content sitting too close to the left edge.
+   Apply after the homepage HTML/CSS so these overrides win. */
+
+@media (max-width: 767px) {
+  #tranter-homepage-v2 .trh-container,
+  #tranter-homepage-v2 .trh-hero-inner {
+    width: 100% !important;
+    max-width: 100% !important;
+    padding-left: 22px !important;
+    padding-right: 22px !important;
+  }
+
+  #tranter-homepage-v2 .trh-section {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+
+  #tranter-homepage-v2 .trh-hero-content,
+  #tranter-homepage-v2 .trh-header,
+  #tranter-homepage-v2 .trh-copy-card,
+  #tranter-homepage-v2 .trh-service-card,
+  #tranter-homepage-v2 .trh-work-card,
+  #tranter-homepage-v2 .trh-work-center,
+  #tranter-homepage-v2 .trh-why-card,
+  #tranter-homepage-v2 .trh-post-body,
+  #tranter-homepage-v2 .trh-faq details,
+  #tranter-homepage-v2 .trh-ai-dashboard,
+  #tranter-homepage-v2 .trh-cta .trh-container {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+  }
+
+  #tranter-homepage-v2 .trh-hero p,
+  #tranter-homepage-v2 .trh-copy-card p,
+  #tranter-homepage-v2 .trh-service-card p,
+  #tranter-homepage-v2 .trh-work-card p,
+  #tranter-homepage-v2 .trh-work-center p,
+  #tranter-homepage-v2 .trh-why-card p,
+  #tranter-homepage-v2 .trh-post-body p {
+    max-width: 100% !important;
+  }
+}
+
+@media (max-width: 420px) {
+  #tranter-homepage-v2 .trh-container,
+  #tranter-homepage-v2 .trh-hero-inner {
+    padding-left: 20px !important;
+    padding-right: 20px !important;
+  }
+}
