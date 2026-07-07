@@ -1,0 +1,310 @@
+/* v1.7.7 homepage-aligned visual system: app-like cards, blended brand gradients, mobile-first typography */
+#tranter-whatwedo-hero,
+#tranter-whatwedo-sections{
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+}
+
+#tranter-whatwedo-hero{
+  min-height:88svh!important;
+  border-bottom-left-radius:0!important;
+  border-bottom-right-radius:0!important;
+  background:
+    radial-gradient(circle at 0% 18%,rgba(0,155,85,.22),transparent 34%),
+    radial-gradient(circle at 100% 72%,rgba(137,18,25,.20),transparent 38%),
+    linear-gradient(90deg,rgba(6,13,26,.96),rgba(6,13,26,.78) 54%,rgba(6,13,26,.48)),
+    url("https://hipterraafrica.com/wp-content/uploads/2026/02/a-small-group-of-professionals-discussing.jpeg") center/cover no-repeat!important;
+}
+
+#tranter-whatwedo-hero:before{
+  background:
+    radial-gradient(circle at 16% 18%,rgba(0,155,85,.18),transparent 34%),
+    radial-gradient(circle at 88% 78%,rgba(137,18,25,.18),transparent 36%)!important;
+}
+
+#tranter-whatwedo-hero:after,
+#tranter-whatwedo-sections .twd2-section:before,
+#tranter-whatwedo-sections .twd2-section:after{
+  display:none!important;
+}
+
+#tranter-whatwedo-sections .twd2-section{
+  background:
+    radial-gradient(circle at 0% 18%,rgba(0,155,85,.075),transparent 34%),
+    radial-gradient(circle at 100% 72%,rgba(137,18,25,.065),transparent 38%),
+    linear-gradient(180deg,#fff 0%,#fbfdfc 42%,#f7faf8 100%)!important;
+}
+
+#tranter-whatwedo-sections .twd2-section:nth-of-type(even){
+  background:
+    radial-gradient(circle at 100% 16%,rgba(0,155,85,.07),transparent 35%),
+    radial-gradient(circle at 0% 78%,rgba(137,18,25,.06),transparent 38%),
+    linear-gradient(180deg,#f7faf8 0%,#fff 48%,#fbfdfc 100%)!important;
+}
+
+#tranter-whatwedo-sections .twd2-faq{
+  background:
+    radial-gradient(circle at 10% 0%,rgba(0,155,85,.10),transparent 35%),
+    radial-gradient(circle at 92% 78%,rgba(137,18,25,.08),transparent 38%),
+    linear-gradient(180deg,#fff 0%,#f7faf8 48%,#e9f5ef 100%)!important;
+}
+
+#tranter-whatwedo-sections .twd2-service-card,
+#tranter-whatwedo-sections .twd2-card,
+#tranter-whatwedo-sections .twd2-faq details,
+#tranter-whatwedo-hero .twd-mini-card,
+#tranter-whatwedo-hero .twd-glass-card{
+  border-radius:18px!important;
+  box-shadow:0 14px 36px rgba(0,0,0,.055)!important;
+}
+
+#tranter-whatwedo-sections .twd2-title,
+#tranter-whatwedo-sections .twd2-service-card h3,
+#tranter-whatwedo-sections .twd2-copy-card h3,
+#tranter-whatwedo-sections .twd2-faq summary,
+#tranter-whatwedo-hero .twd-hero-title,
+#tranter-whatwedo-hero .twd-mini-card strong,
+#tranter-whatwedo-hero .twd-strategy-strip strong{
+  letter-spacing:-.55px!important;
+}
+
+#tranter-whatwedo-sections .twd2-service-card p,
+#tranter-whatwedo-sections .twd2-copy-card p,
+#tranter-whatwedo-sections .twd2-subtitle,
+#tranter-whatwedo-sections .twd2-faq .answer,
+#tranter-whatwedo-hero .twd-hero-text,
+#tranter-whatwedo-hero .twd-mini-card span,
+#tranter-whatwedo-hero .twd-strategy-strip span{
+  font-weight:600!important;
+}
+
+@media(max-width:767px){
+  #tranter-whatwedo-hero{
+    min-height:auto!important;
+  }
+
+  #tranter-whatwedo-hero .twd-hero-container{
+    min-height:auto!important;
+    grid-template-columns:1fr!important;
+    gap:24px!important;
+    padding:86px 16px 52px!important;
+  }
+
+  #tranter-whatwedo-hero .twd-pill,
+  #tranter-whatwedo-sections .twd2-pill{
+    padding:9px 15px!important;
+    font-size:9.8px!important;
+    letter-spacing:1.7px!important;
+  }
+
+  #tranter-whatwedo-hero .twd-hero-title{
+    margin-top:16px!important;
+    font-size:clamp(31px,9vw,40px)!important;
+    line-height:1.04!important;
+    letter-spacing:-1px!important;
+  }
+
+  #tranter-whatwedo-hero .twd-hero-text{
+    margin-top:16px!important;
+    padding-left:14px!important;
+    border-left:3px solid var(--green)!important;
+    font-size:13px!important;
+    line-height:1.55!important;
+  }
+
+  #tranter-whatwedo-hero .twd-hero-actions{
+    margin-top:24px!important;
+    gap:12px!important;
+  }
+
+  #tranter-whatwedo-hero .twd-btn,
+  #tranter-whatwedo-sections .twd2-btn{
+    min-height:46px!important;
+    padding:11px 18px!important;
+    border-radius:16px!important;
+    font-size:12.8px!important;
+  }
+
+  #tranter-whatwedo-hero .twd-glass-card{
+    padding:16px!important;
+    border-radius:18px!important;
+  }
+
+  #tranter-whatwedo-hero .twd-card-label{
+    margin-bottom:14px!important;
+    font-size:9.8px!important;
+  }
+
+  #tranter-whatwedo-hero .twd-mini-grid{
+    grid-template-columns:1fr 1fr!important;
+    gap:10px!important;
+  }
+
+  #tranter-whatwedo-hero .twd-mini-card{
+    padding:13px!important;
+    border-radius:14px!important;
+  }
+
+  #tranter-whatwedo-hero .twd-mini-icon{
+    width:38px!important;
+    height:38px!important;
+    border-radius:12px!important;
+    margin-bottom:10px!important;
+  }
+
+  #tranter-whatwedo-hero .twd-mini-icon svg{
+    width:19px!important;
+    height:19px!important;
+  }
+
+  #tranter-whatwedo-hero .twd-mini-card strong{
+    font-size:13.5px!important;
+    line-height:1.18!important;
+  }
+
+  #tranter-whatwedo-hero .twd-mini-card span{
+    margin-top:5px!important;
+    font-size:10.8px!important;
+    line-height:1.38!important;
+  }
+
+  #tranter-whatwedo-hero .twd-strategy-strip{
+    margin-top:10px!important;
+    padding:14px!important;
+    border-radius:15px!important;
+  }
+
+  #tranter-whatwedo-hero .twd-strategy-strip strong{
+    font-size:14px!important;
+  }
+
+  #tranter-whatwedo-hero .twd-strategy-strip span{
+    font-size:11px!important;
+    line-height:1.42!important;
+  }
+
+  #tranter-whatwedo-sections .twd2-section{
+    padding:54px 15px!important;
+  }
+
+  #tranter-whatwedo-sections .twd2-header{
+    margin-bottom:30px!important;
+  }
+
+  #tranter-whatwedo-sections .twd2-title{
+    margin-top:15px!important;
+    font-size:clamp(22px,6vw,30px)!important;
+    line-height:1.12!important;
+  }
+
+  #tranter-whatwedo-sections .twd2-subtitle{
+    margin-top:12px!important;
+    font-size:13px!important;
+    line-height:1.58!important;
+  }
+
+  #tranter-whatwedo-sections .twd2-services-grid,
+  #tranter-whatwedo-sections .twd2-two,
+  #tranter-whatwedo-sections .twd2-faq-grid{
+    gap:14px!important;
+  }
+
+  #tranter-whatwedo-sections .twd2-service-card{
+    min-height:auto!important;
+    padding:18px!important;
+    border-radius:16px!important;
+  }
+
+  #tranter-whatwedo-sections .twd2-service-num{
+    top:14px!important;
+    right:16px!important;
+    font-size:38px!important;
+  }
+
+  #tranter-whatwedo-sections .twd2-service-icon{
+    width:44px!important;
+    height:44px!important;
+    margin-bottom:13px!important;
+    border-radius:13px!important;
+  }
+
+  #tranter-whatwedo-sections .twd2-service-icon svg{
+    width:21px!important;
+    height:21px!important;
+  }
+
+  #tranter-whatwedo-sections .twd2-service-card h3{
+    font-size:16px!important;
+    line-height:1.22!important;
+    margin-bottom:7px!important;
+  }
+
+  #tranter-whatwedo-sections .twd2-service-card p{
+    font-size:12.8px!important;
+    line-height:1.52!important;
+    margin-bottom:14px!important;
+  }
+
+  #tranter-whatwedo-sections .twd2-copy-card{
+    padding:18px!important;
+    border-radius:16px!important;
+  }
+
+  #tranter-whatwedo-sections .twd2-copy-card h3{
+    font-size:17px!important;
+    line-height:1.24!important;
+  }
+
+  #tranter-whatwedo-sections .twd2-copy-card p,
+  #tranter-whatwedo-sections .twd2-list li,
+  #tranter-whatwedo-sections .twd2-faq .answer{
+    font-size:12.8px!important;
+    line-height:1.52!important;
+  }
+
+  #tranter-whatwedo-sections .twd2-ai-dashboard{
+    padding:8px!important;
+    border-radius:18px!important;
+  }
+
+  #tranter-whatwedo-sections .twd2-ai-body{
+    padding:10px!important;
+    gap:10px!important;
+  }
+
+  #tranter-whatwedo-sections .twd2-ai-kpi,
+  #tranter-whatwedo-sections .twd2-ai-panel{
+    padding:10px!important;
+    border-radius:12px!important;
+  }
+
+  #tranter-whatwedo-sections .twd2-ai-bars{
+    height:102px!important;
+  }
+
+  #tranter-whatwedo-sections .twd2-faq summary{
+    padding:15px 16px!important;
+    font-size:14px!important;
+  }
+
+  #tranter-whatwedo-sections .twd2-cta{
+    padding:58px 15px!important;
+  }
+
+  #tranter-whatwedo-sections .twd2-cta h2{
+    font-size:clamp(25px,6.5vw,34px)!important;
+    line-height:1.08!important;
+  }
+
+  #tranter-whatwedo-sections .twd2-cta p{
+    margin-top:16px!important;
+    font-size:13px!important;
+    line-height:1.55!important;
+  }
+}
+
+@media(max-width:430px){
+  #tranter-whatwedo-hero .twd-mini-grid{
+    grid-template-columns:1fr!important;
+  }
+}
