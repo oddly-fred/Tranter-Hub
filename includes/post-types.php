@@ -49,6 +49,14 @@ class Tranter_Post_Types {
     }
 
     public static function meta_boxes() {
+        foreach (['_tranter_event_date','_tranter_event_time','_tranter_event_location','_tranter_event_registration_url'] as $meta_key) {
+            register_post_meta('tranter_event', $meta_key, [
+                'show_in_rest' => true,
+                'single' => true,
+                'type' => 'string',
+                'auth_callback' => function() { return current_user_can('edit_posts'); },
+            ]);
+        }
         foreach (['tranter_service','tranter_partner','tranter_product','tranter_insight','tranter_event','tranter_campaign','tranter_resource','tranter_cta','tranter_faq','tranter_section'] as $type) {
             add_meta_box('tranter_market_meta', 'Tranter Engine Settings', [__CLASS__, 'render_meta'], $type, 'side', 'high');
         }
@@ -75,6 +83,22 @@ class Tranter_Post_Types {
                 echo '<p style="color:#667">Shows on Nigeria Smart Solutions page only.</p>';
             }
         }
+        if ($post->post_type === 'tranter_event') {
+            $event_date = get_post_meta($post->ID, '_tranter_event_date', true);
+            $event_time = get_post_meta($post->ID, '_tranter_event_time', true);
+            $event_location = get_post_meta($post->ID, '_tranter_event_location', true);
+            $registration_url = get_post_meta($post->ID, '_tranter_event_registration_url', true);
+            $html_mode = get_post_meta($post->ID, '_tranter_event_html_mode', true) === '1';
+            $custom_html = get_post_meta($post->ID, '_tranter_event_custom_html', true);
+            echo '<hr><p><strong>Event Details</strong></p>';
+            echo '<label>Date</label><input type="date" name="tranter_event_date" value="'.esc_attr($event_date).'" style="width:100%;margin:4px 0 8px">';
+            echo '<label>Time</label><input type="text" name="tranter_event_time" value="'.esc_attr($event_time).'" placeholder="10:00 AM WAT" style="width:100%;margin:4px 0 8px">';
+            echo '<label>Location</label><input type="text" name="tranter_event_location" value="'.esc_attr($event_location).'" placeholder="Abuja, Lagos, Virtual, etc." style="width:100%;margin:4px 0 8px">';
+            echo '<label>Registration URL</label><input type="url" name="tranter_event_registration_url" value="'.esc_attr($registration_url).'" placeholder="https://..." style="width:100%;margin:4px 0 8px">';
+            echo '<label style="display:block;margin:8px 0"><input type="checkbox" name="tranter_event_html_mode" value="1" '.checked($html_mode, true, false).'> Use optional custom HTML codebase for this event page</label>';
+            echo '<textarea name="tranter_event_custom_html" rows="8" style="width:100%;font-family:monospace" placeholder="Optional full HTML/widget code for developer-built event page">'.esc_textarea($custom_html).'</textarea>';
+            echo '<p style="color:#667">Non-technical users can use title, editor, excerpt, featured image, date and location. Developers can optionally paste a full HTML codebase.</p>';
+        }
         if ($post->post_type === 'tranter_section') {
             $section_key = get_post_meta($post->ID, '_tranter_section_key', true);
             echo '<hr><p><strong>Section Key</strong></p><input type="text" name="tranter_section_key" value="'.esc_attr($section_key ?: $post->post_name).'" style="width:100%" placeholder="who_we_are">';
@@ -98,6 +122,14 @@ class Tranter_Post_Types {
             if (isset($_POST['tranter_store_cta_url'])) {
                 update_post_meta($post_id, '_tranter_store_cta_url', esc_url_raw(wp_unslash($_POST['tranter_store_cta_url'])));
             }
+        }
+        if (get_post_type($post_id) === 'tranter_event') {
+            foreach (['_date' => 'tranter_event_date', '_time' => 'tranter_event_time', '_location' => 'tranter_event_location'] as $suffix => $field) {
+                if (isset($_POST[$field])) update_post_meta($post_id, '_tranter_event' . $suffix, sanitize_text_field(wp_unslash($_POST[$field])));
+            }
+            if (isset($_POST['tranter_event_registration_url'])) update_post_meta($post_id, '_tranter_event_registration_url', esc_url_raw(wp_unslash($_POST['tranter_event_registration_url'])));
+            update_post_meta($post_id, '_tranter_event_html_mode', isset($_POST['tranter_event_html_mode']) ? '1' : '0');
+            if (isset($_POST['tranter_event_custom_html'])) update_post_meta($post_id, '_tranter_event_custom_html', wp_kses_post(wp_unslash($_POST['tranter_event_custom_html'])));
         }
         if (get_post_type($post_id) === 'tranter_section' && isset($_POST['tranter_section_key'])) {
             update_post_meta($post_id, '_tranter_section_key', sanitize_title(str_replace('_','-', wp_unslash($_POST['tranter_section_key']))));
