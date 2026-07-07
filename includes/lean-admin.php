@@ -38,6 +38,7 @@ class Tranter_Lean_Admin {
             'campaigns' => ['Campaigns','dashicons-megaphone'],
             'events' => ['Events','dashicons-calendar-alt'],
             'insights' => ['Insights','dashicons-welcome-write-blog'],
+            'knowledge-base' => ['Knowledge Base','dashicons-book-alt'],
             'leads-analytics' => ['Leads & Analytics','dashicons-chart-bar'],
             'settings' => ['Settings','dashicons-admin-generic'],
         ];
@@ -61,6 +62,7 @@ class Tranter_Lean_Admin {
             case 'campaigns': self::campaigns(); break;
             case 'events': self::events(); break;
             case 'insights': self::insights(); break;
+            case 'knowledge-base': self::knowledge_base(); break;
             case 'leads-analytics': self::analytics(); break;
             case 'settings': self::settings(); break;
             default: self::dashboard_content(); break;
@@ -82,28 +84,30 @@ class Tranter_Lean_Admin {
         $events = intval(wp_count_posts('tranter_event')->publish ?? 0);
         $insights = intval(wp_count_posts('tranter_insight')->publish ?? 0);
         $campaigns = intval(wp_count_posts('tranter_campaign')->publish ?? 0);
+        $resources = intval(wp_count_posts('tranter_resource')->publish ?? 0);
         $templates = class_exists('Tranter_Page_Templates') ? count(Tranter_Page_Templates::templates()) : 0;
-        echo '<section class="te-title-row te-modern-dashboard-hero"><div><span class="te-kicker">Mission Control</span><h1>Tranter Hub</h1><p>A lean command centre for the Tranter sales website, HTML page templates, campaigns, events, insights and lead intelligence.</p></div><a class="te-btn te-btn-primary" href="'.esc_url(admin_url('admin.php?page=tranter-engine-page-templates')).'">Open Page Templates</a></section>';
+        echo '<section class="te-title-row te-modern-dashboard-hero"><div><span class="te-kicker">Mission Control</span><h1>Tranter Hub</h1><p>A lean command centre for the Tranter sales website, HTML page templates, campaigns, events, insights, knowledge base and lead intelligence.</p></div><a class="te-btn te-btn-primary" href="'.esc_url(admin_url('admin.php?page=tranter-engine-page-templates')).'">Open Page Templates</a></section>';
         echo '<section class="te-dashboard-grid te-dashboard-modern">';
         self::stat('Page Templates', $templates, 'Editable HTML codebases', 'dashicons-media-code');
         self::stat('Campaigns', $campaigns, 'Full HTML campaign pages', 'dashicons-megaphone');
         self::stat('Events', $events, 'Flexible inputs + optional HTML', 'dashicons-calendar-alt');
         self::stat('Insights', $insights, 'Advanced editorial content', 'dashicons-welcome-write-blog');
+        self::stat('Knowledge Base', $resources, 'AI assistant source content', 'dashicons-book-alt');
         echo '</section><section class="te-grid te-grid-3">';
         self::module('Website Engine', 'Global header, footer, Book a Demo popup, WhatsApp, scripts and market logic.', 'Open Engine', 'website', 'dashicons-admin-site');
-        self::module('Page Templates', 'View and copy HTML widget codebases for pages.', 'View Templates', 'page-templates', 'dashicons-media-code');
-        self::module('Leads & Analytics', 'Track page, campaign, event and insight performance.', 'View Analytics', 'leads-analytics', 'dashicons-chart-bar');
-        echo '</section><section class="te-panel"><div class="te-panel-head"><h2>v1.7.2 Direction</h2><span>HTML + Editorial</span></div><ul class="te-clean-list"><li>Pages and campaigns use editable HTML/widget code.</li><li>Events support simple fields for non-technical staff plus optional HTML for developers.</li><li>Insights use an advanced editorial text editor, not pasted HTML.</li><li>Global Book a Demo buttons use <code>data-tdp-open</code>.</li><li>Tracking uses <code>data-te-event</code>, <code>data-te-service</code> and <code>data-te-source</code>.</li></ul></section>';
+        self::module('Knowledge Base', 'Approved content for the footer AI assistant and visitor guidance.', 'Open Knowledge Base', 'knowledge-base', 'dashicons-book-alt');
+        self::module('Leads & Analytics', 'Track page, campaign, event, insight and AI assistant performance.', 'View Analytics', 'leads-analytics', 'dashicons-chart-bar');
+        echo '</section><section class="te-panel"><div class="te-panel-head"><h2>v1.7.3 Direction</h2><span>HTML + Editorial + AI Knowledge</span></div><ul class="te-clean-list"><li>Pages and campaigns use editable HTML/widget code.</li><li>Events support simple fields for non-technical staff plus optional HTML for developers.</li><li>Insights use an advanced editorial text editor, not pasted HTML.</li><li>Knowledge Base is the source of truth for the footer AI Assistant.</li><li>Tracking uses <code>data-te-event</code>, <code>data-te-service</code> and <code>data-te-source</code>.</li></ul></section>';
     }
 
     private static function website() {
-        echo '<section class="te-title-row"><div><span class="te-kicker">Website Engine</span><h1>Website Engine</h1><p>Global infrastructure for the Tranter website: header, footer, Book a Demo, tracking standards, market logic and shared scripts.</p></div><a class="te-btn te-btn-primary" href="'.esc_url(admin_url('admin.php?page=tranter-engine-page-templates')).'">Open Page Templates</a></section>';
+        echo '<section class="te-title-row"><div><span class="te-kicker">Website Engine</span><h1>Website Engine</h1><p>Global infrastructure for the Tranter website: header, footer, Book a Demo, tracking standards, footer AI assistant, market logic and shared scripts.</p></div><a class="te-btn te-btn-primary" href="'.esc_url(admin_url('admin.php?page=tranter-engine-page-templates')).'">Open Page Templates</a></section>';
         echo '<section class="te-grid te-grid-4">';
         self::tile('Global Book a Demo', 'Use one shared popup form across all HTML templates.', 'data-tdp-open');
+        self::tile('Footer AI Assistant', 'Connect visitor questions to approved Knowledge Base content.', 'Knowledge Base');
         self::tile('Tracking Attributes', 'Add sales and marketing intelligence to links and buttons.', 'data-te-event');
         self::tile('HTML Page Bodies', 'Build page bodies inside Elementor HTML widgets.', 'View + Copy HTML');
-        self::tile('Legacy Safety', 'Old shortcodes remain available while we migrate.', '[te_site_header]');
-        echo '</section><section class="te-panel"><div class="te-panel-head"><h2>CTA Standard</h2><span>Use in every HTML codebase</span></div><pre class="te-code-block">&lt;a href=&quot;#&quot; data-tdp-open data-te-event=&quot;book_demo&quot; data-te-service=&quot;it_support&quot;&gt;Book a Demo&lt;/a&gt;\n\n&lt;a href=&quot;https://wa.me/2348183405221&quot; data-te-event=&quot;whatsapp_click&quot; data-te-service=&quot;homepage&quot;&gt;Speak to Our Team&lt;/a&gt;</pre></section>';
+        echo '</section><section class="te-panel"><div class="te-panel-head"><h2>CTA Standard</h2><span>Use in every HTML codebase</span></div><pre class="te-code-block">&lt;a href=&quot;#&quot; data-tdp-open data-te-event=&quot;book_demo&quot; data-te-service=&quot;it_support&quot;&gt;Book a Demo&lt;/a&gt;\n\n&lt;a href=&quot;#&quot; data-tdp-open data-te-event=&quot;book_demo&quot; data-te-source=&quot;ai_assistant&quot;&gt;Book a Demo&lt;/a&gt;</pre></section>';
     }
 
     private static function campaigns() {
@@ -127,18 +131,28 @@ class Tranter_Lean_Admin {
         self::list_posts('tranter_insight', 'dashicons-welcome-write-blog');
     }
 
+    private static function knowledge_base() {
+        echo '<section class="te-title-row"><div><span class="te-kicker">AI Source of Truth</span><h1>Knowledge Base</h1><p>Approved content that powers the footer AI assistant, visitor guidance, service recommendations and tracked lead actions.</p></div><a class="te-btn te-btn-primary" href="'.esc_url(admin_url('post-new.php?post_type=tranter_resource')).'">Add Knowledge Item</a></section>';
+        echo '<section class="te-grid te-grid-3">';
+        self::tile('AI Assistant Source', 'Use approved documents, FAQs, service notes and resources to guide footer chat responses.', 'Approved content');
+        self::tile('Lead Guidance', 'The AI assistant should recommend Book a Demo, WhatsApp, events, insights or service pages.', 'Tracked actions');
+        self::tile('Content Governance', 'Keep sales answers consistent by managing what the AI is allowed to reference.', 'Single source');
+        echo '</section>';
+        self::list_posts('tranter_resource', 'dashicons-book-alt');
+    }
+
     private static function analytics() {
-        echo '<section class="te-title-row"><div><span class="te-kicker">Sales Intelligence</span><h1>Leads & Analytics</h1><p>Central reporting for page views, CTA clicks, Book a Demo opens, WhatsApp clicks, campaign conversions, event registrations and insight performance.</p></div></section>';
+        echo '<section class="te-title-row"><div><span class="te-kicker">Sales Intelligence</span><h1>Leads & Analytics</h1><p>Central reporting for page views, CTA clicks, Book a Demo opens, WhatsApp clicks, campaign conversions, event registrations, insight performance and AI assistant question trends.</p></div></section>';
         echo '<section class="te-grid te-grid-3">';
         self::tile('Demo Intent', 'Track all global Book a Demo opens.', 'data-tdp-open');
-        self::tile('Service Interest', 'Map CTA clicks to pages and services.', 'data-te-service');
-        self::tile('Campaign/Event ROI', 'Compare conversions by campaign, event and source.', 'data-te-source');
+        self::tile('Service Interest', 'Map CTA clicks to pages, services and AI conversations.', 'data-te-service');
+        self::tile('AI Assistant Demand', 'Track common questions and service intent from footer chat.', 'ai_assistant');
         echo '</section>';
     }
 
     private static function settings() {
-        echo '<section class="te-title-row"><div><span class="te-kicker">Settings</span><h1>Settings</h1><p>Core website settings for global scripts, WhatsApp, Book a Demo and tracking.</p></div></section>';
-        echo '<section class="te-panel"><div class="te-panel-head"><h2>Current phase</h2><span>v1.7.2</span></div><p class="te-muted">Settings controls will be tightened after the lean backend and template workflow are stable.</p></section>';
+        echo '<section class="te-title-row"><div><span class="te-kicker">Settings</span><h1>Settings</h1><p>Core website settings for global scripts, WhatsApp, Book a Demo, AI assistant and tracking.</p></div></section>';
+        echo '<section class="te-panel"><div class="te-panel-head"><h2>Current phase</h2><span>v1.7.3</span></div><p class="te-muted">Settings controls will be tightened after the lean backend, template workflow and Knowledge Base are stable.</p></section>';
     }
 
     private static function list_posts($post_type, $icon) {
