@@ -30,6 +30,10 @@ The header now stays fixed at the top throughout page scrolling, while preservin
 
 Header motion has been refined so the fixed top header transitions more smoothly during scroll and hover. The update improves easing, spacer movement, shell rounding, shadow, logo sizing and height changes without changing the approved visual design.
 
+## Latest GeoIP correction
+
+The header now uses the contact-page GeoIP pattern: `?region=ng/global` override first, optional WordPress endpoint second, then `https://ipapi.co/json/`. When the returned country code is `NG`, the Nigeria experience is shown. Every other country is treated as Global. If lookup fails, it falls back to timezone/language and then Global.
+
 ## Features
 
 - GeoIP-aware Nigeria/Global navigation.
@@ -37,6 +41,7 @@ Header motion has been refined so the fixed top header transitions more smoothly
 - Global experience: Zoho CRM, Desk, Books and Workplace only.
 - Fixed top header with the current shrink-on-scroll/hover styling preserved.
 - Smoother scroll/hover transition using improved easing and RAF-based scroll handling.
+- Contact-page GeoIP logic lifted into the header engine.
 - Interactive mega menu, search panel, AI Assistant hook and mobile drawer.
 - Analytics hooks for GA4/GTM, Microsoft Clarity, Meta Pixel, LinkedIn Insight Tag and custom webhook.
 
