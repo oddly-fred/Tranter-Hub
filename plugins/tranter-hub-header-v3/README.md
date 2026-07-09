@@ -32,7 +32,7 @@ Header motion has been refined so the fixed top header transitions more smoothly
 
 ## Latest GeoIP correction
 
-The header now uses the contact-page GeoIP pattern: `?region=ng/global` override first, optional WordPress endpoint second, then `https://ipapi.co/json/`. When the returned country code is `NG`, the Nigeria experience is shown. Every other country is treated as Global. If lookup fails, it falls back to timezone/language and then Global.
+The header now mirrors the working Contact Us page GeoIP flow exactly: `?region=ng/nigeria/global/us` override first, then a fresh `https://ipapi.co/json/` lookup using `cache: no-store`. When `country_code` is `NG`, the Nigeria experience is shown. Every other country is Global. Lookup failure falls back directly to Global. Stale localStorage region caching has been removed from the live detection path.
 
 ## Features
 
