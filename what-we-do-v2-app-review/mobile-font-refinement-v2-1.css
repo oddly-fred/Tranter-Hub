@@ -1,0 +1,73 @@
+/* What We Do v2.1 mobile/font refinement review patch.
+ * Purpose: improve mobile view, reduce oversized typography, keep homepage app-like styling, and preserve NG/Global Smart Solutions logic.
+ */
+
+#tranter-whatwedo-hero,
+#tranter-whatwedo-sections{
+  -webkit-font-smoothing:antialiased!important;
+  text-rendering:optimizeLegibility!important;
+}
+
+#tranter-whatwedo-hero .twd-pill,
+#tranter-whatwedo-sections .twd2-pill{
+  background:linear-gradient(135deg,rgba(137,18,25,.075),rgba(0,155,85,.12))!important;
+  border:1px solid rgba(137,18,25,.16)!important;
+  color:#891219!important;
+  box-shadow:0 18px 42px rgba(137,18,25,.075),0 10px 30px rgba(0,155,85,.055)!important;
+}
+
+#tranter-whatwedo-hero .twd-pill{
+  color:#fff!important;
+  border-color:rgba(255,255,255,.22)!important;
+  background:linear-gradient(135deg,rgba(137,18,25,.34),rgba(0,155,85,.24))!important;
+  box-shadow:0 14px 34px rgba(0,0,0,.18)!important;
+}
+
+#tranter-whatwedo-sections [hidden]{display:none!important;}
+
+@media(min-width:768px) and (max-width:1180px){
+  #tranter-whatwedo-hero .twd-hero-container{padding:118px 5.6vw 80px!important;gap:36px!important;}
+  #tranter-whatwedo-hero .twd-hero-title{font-size:clamp(42px,5.2vw,64px)!important;line-height:1.02!important;}
+  #tranter-whatwedo-hero .twd-hero-text{font-size:15px!important;line-height:1.62!important;}
+  #tranter-whatwedo-sections .twd2-section{padding:74px 5.6vw!important;}
+  #tranter-whatwedo-sections .twd2-service-card{padding:24px!important;min-height:285px!important;}
+  #tranter-whatwedo-sections .twd2-service-card h3{font-size:18px!important;line-height:1.24!important;}
+  #tranter-whatwedo-sections .twd2-service-card p{font-size:13.6px!important;line-height:1.58!important;}
+}
+
+@media(max-width:767px){
+  #tranter-whatwedo-hero .twd-hero-container{padding:82px 15px 48px!important;gap:20px!important;}
+  #tranter-whatwedo-hero .twd-pill,
+  #tranter-whatwedo-sections .twd2-pill{padding:9px 15px!important;font-size:9.5px!important;letter-spacing:1.55px!important;}
+  #tranter-whatwedo-hero .twd-hero-title{margin-top:14px!important;font-size:clamp(29px,8.6vw,38px)!important;line-height:1.04!important;letter-spacing:-.9px!important;}
+  #tranter-whatwedo-hero .twd-hero-text{margin-top:14px!important;padding-left:12px!important;border-left-width:3px!important;font-size:12.8px!important;line-height:1.52!important;font-weight:600!important;}
+  #tranter-whatwedo-hero .twd-btn,
+  #tranter-whatwedo-sections .twd2-btn{min-height:44px!important;padding:10px 16px!important;border-radius:15px!important;font-size:12.4px!important;}
+  #tranter-whatwedo-hero .twd-mini-card strong{font-size:13px!important;line-height:1.16!important;}
+  #tranter-whatwedo-hero .twd-mini-card span{font-size:10.5px!important;line-height:1.34!important;}
+  #tranter-whatwedo-sections .twd2-section{padding:50px 15px!important;}
+  #tranter-whatwedo-sections .twd2-title{font-size:clamp(21px,5.8vw,28px)!important;line-height:1.1!important;}
+  #tranter-whatwedo-sections .twd2-subtitle{font-size:12.6px!important;line-height:1.5!important;font-weight:600!important;}
+  #tranter-whatwedo-sections .twd2-service-card{padding:17px!important;border-radius:15px!important;min-height:auto!important;}
+  #tranter-whatwedo-sections .twd2-service-card h3{font-size:15.4px!important;line-height:1.2!important;}
+  #tranter-whatwedo-sections .twd2-service-card p{font-size:12.3px!important;line-height:1.48!important;font-weight:600!important;}
+  #tranter-whatwedo-sections .twd2-copy-card h3{font-size:16px!important;line-height:1.22!important;}
+  #tranter-whatwedo-sections .twd2-copy-card p,
+  #tranter-whatwedo-sections .twd2-list li,
+  #tranter-whatwedo-sections .twd2-faq .answer{font-size:12.3px!important;line-height:1.48!important;}
+  #tranter-whatwedo-sections .twd2-ai-kpi strong{font-size:14.5px!important;}
+  #tranter-whatwedo-sections .twd2-ai-kpi span,
+  #tranter-whatwedo-sections .twd2-ai-flow-row span{font-size:9.8px!important;}
+  #tranter-whatwedo-sections .twd2-metric strong{font-size:clamp(28px,8vw,38px)!important;}
+  #tranter-whatwedo-sections .twd2-metric span{font-size:11.8px!important;line-height:1.32!important;}
+  #tranter-whatwedo-sections .twd2-faq summary{font-size:13.4px!important;line-height:1.25!important;}
+  #tranter-whatwedo-sections .twd2-cta h2{font-size:clamp(24px,6.3vw,32px)!important;}
+  #tranter-whatwedo-sections .twd2-cta p{font-size:12.7px!important;line-height:1.5!important;}
+  #tranter-whatwedo-sections .twd2-cta .twd2-btn{min-height:58px!important;font-size:14.2px!important;border-radius:18px!important;}
+}
+
+@media(max-width:360px){
+  #tranter-whatwedo-hero .twd-hero-title{font-size:28px!important;}
+  #tranter-whatwedo-sections .twd2-title{font-size:20px!important;}
+  #tranter-whatwedo-sections .twd2-service-card h3{font-size:14.8px!important;}
+}
