@@ -26,12 +26,17 @@ Optional tracking configuration:
 
 The header now stays fixed at the top throughout page scrolling, while preserving the current UI styling. A dynamic spacer is included so page content does not hide underneath the fixed header.
 
+## Latest transition correction
+
+Header motion has been refined so the fixed top header transitions more smoothly during scroll and hover. The update improves easing, spacer movement, shell rounding, shadow, logo sizing and height changes without changing the approved visual design.
+
 ## Features
 
 - GeoIP-aware Nigeria/Global navigation.
 - Nigeria experience: all services and partners.
 - Global experience: Zoho CRM, Desk, Books and Workplace only.
 - Fixed top header with the current shrink-on-scroll/hover styling preserved.
+- Smoother scroll/hover transition using improved easing and RAF-based scroll handling.
 - Interactive mega menu, search panel, AI Assistant hook and mobile drawer.
 - Analytics hooks for GA4/GTM, Microsoft Clarity, Meta Pixel, LinkedIn Insight Tag and custom webhook.
 
