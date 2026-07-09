@@ -22,12 +22,16 @@ Optional tracking configuration:
 [tranter_hub_header region="auto" geo_endpoint="/wp-json/tranter/v1/region" webhook="https://example.com/webhook" analytics="true"]
 ```
 
+## Latest correction
+
+The header now stays fixed at the top throughout page scrolling, while preserving the current UI styling. A dynamic spacer is included so page content does not hide underneath the fixed header.
+
 ## Features
 
 - GeoIP-aware Nigeria/Global navigation.
 - Nigeria experience: all services and partners.
 - Global experience: Zoho CRM, Desk, Books and Workplace only.
-- Sticky floating header with shrink-on-scroll/hover.
+- Fixed top header with the current shrink-on-scroll/hover styling preserved.
 - Interactive mega menu, search panel, AI Assistant hook and mobile drawer.
 - Analytics hooks for GA4/GTM, Microsoft Clarity, Meta Pixel, LinkedIn Insight Tag and custom webhook.
 
