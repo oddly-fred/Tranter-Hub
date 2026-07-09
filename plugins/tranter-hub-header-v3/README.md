@@ -34,6 +34,20 @@ Header motion has been refined so the fixed top header transitions more smoothly
 
 The header now mirrors the working Contact Us page GeoIP flow exactly: `?region=ng/nigeria/global/us` override first, then a fresh `https://ipapi.co/json/` lookup using `cache: no-store`. When `country_code` is `NG`, the Nigeria experience is shown. Every other country is Global. Lookup failure falls back directly to Global. Stale localStorage region caching has been removed from the live detection path.
 
+## Latest routing correction
+
+Header links have been updated for the Tranter Hub routing map:
+
+- Who We Are -> `/who-we-are/`
+- What We Do -> `/what-we-do/`
+- View all services -> `/what-we-do/`
+- Zoho Solutions -> `/zoho-solutions/`
+- ManageEngine -> `/manage-engine/`
+- Speak with our team -> `/contact/`
+- Insights -> `/insights/`
+- Contact -> `/contact/`
+- Partners menu now uses a mega-menu style partner view with Zoho, ManageEngine and Sophos, plus a Zoho solution subgroup for CRM, Books, Desk and Workplace.
+
 ## Features
 
 - GeoIP-aware Nigeria/Global navigation.
@@ -42,6 +56,7 @@ The header now mirrors the working Contact Us page GeoIP flow exactly: `?region=
 - Fixed top header with the current shrink-on-scroll/hover styling preserved.
 - Smoother scroll/hover transition using improved easing and RAF-based scroll handling.
 - Contact-page GeoIP logic lifted into the header engine.
+- Updated Tranter Hub route mapping.
 - Interactive mega menu, search panel, AI Assistant hook and mobile drawer.
 - Analytics hooks for GA4/GTM, Microsoft Clarity, Meta Pixel, LinkedIn Insight Tag and custom webhook.
 
